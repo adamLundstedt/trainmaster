@@ -1,15 +1,29 @@
 import { mongo } from "mongoose";
 import { connectToDatabase } from "../lib/mongodb";
 
-export default function Top({ users }) {
+export default function Top({ coaches, users }) {
   return (
     <div>
+      <ul>
+        {coaches.map((coach) => (
+          <li key={coach._id}>
+            <h2>{coach.coachSerialNumber}</h2>
+            <h3>{coach.category}</h3>
             <ul>
+              {coach.seats.map((seat) => (
+                <li key={seat._id}>{seat.seatNumber}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+      <ul>
         {users.map((user) => (
-          <li>
-            <h2>{user.first_name}</h2>
-            <h3>{user.last_name}</h3>
-            <p>{user.email}</p>
+          <li key={user._id}>
+            <h2>{user.firstName}</h2>
+            <h3>{user.lastName}</h3>
+            <h3>{user.email}</h3>
+            <p>{user.phoneNumber}</p>
           </li>
         ))}
       </ul>
@@ -22,15 +36,11 @@ export async function getStaticProps() {
 
   mongo.s;
 
-  const users = await db
-    .collection("users")
-    .find({})
-    .sort({ metacritic: -1 })
-    .limit(1000)
-    .toArray();
-
+  const coaches = await db.collection("coaches").find({}).limit(1000).toArray();
+  const users = await db.collection("users").find({}).limit(1000).toArray();
   return {
     props: {
+      coaches: JSON.parse(JSON.stringify(coaches)),
       users: JSON.parse(JSON.stringify(users)),
     },
   };
