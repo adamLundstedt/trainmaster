@@ -35,5 +35,8 @@ const userSchema = new mongoose.Schema({
     required: [true, "User phone number required"],
     maxlength: [60, "phone number cannot be more than 60 characters long"],
   },
+  bookings: {
+    type: Array    
+  },
 });
 export default mongoose.models.user || mongoose.model("user", userSchema);
