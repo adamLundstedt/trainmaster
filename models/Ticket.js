@@ -29,3 +29,4 @@ const ticket = new mongoose.Schema({
     type: ObjectId,
   },
 });
+export default mongoose.models.ticket || mongoose.model("ticket", ticketSchema);
