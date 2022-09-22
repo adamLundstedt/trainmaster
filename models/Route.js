@@ -2,10 +2,17 @@ import mongoose from "mongoose";
 
 const routeSchema = new mongoose.Schema({
 
-  ksnlksdf sdfnlks
+  routeId: {
+    type: ObjectId,
+  },
+  routeName: {
+    type: String,
+  },
+  stations: {
+    type: [Object],
+  },
   
-  
-//Hur fan löser jag detta=? xD
-
-
 });
+
+export default mongoose.models.route ||
+  mongoose.model("route", routeSchema);
