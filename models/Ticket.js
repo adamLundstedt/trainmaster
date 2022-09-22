@@ -16,6 +16,9 @@ const ticket = new mongoose.Schema({
   endStation: {
     type: String,
   },
+  date: {
+    type: Date,
+  },
   bookingId: {
     type: ObjectId,
   },
