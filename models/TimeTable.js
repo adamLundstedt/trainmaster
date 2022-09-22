@@ -1,6 +1,11 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const timeTableSchema = new mongoose.Schema({
+  
+   timeTableId: {
+    type: ObjectId,
+  },
   routeName: {
     type: String,
   },
