@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const trainSchema = new mongoose.Schema({
@@ -5,7 +6,7 @@ const trainSchema = new mongoose.Schema({
     type: String,
   },
   locomotiveId: {
-    type: ObjetId,
+    type: ObjectId,
   },
   coaches: {
     type: [Object],
