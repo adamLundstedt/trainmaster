@@ -16,6 +16,9 @@ const ticket = new mongoose.Schema({
   endStation: {
     type: String,
   },
+  date: {
+    type: Date,
+  },
   bookingId: {
     type: ObjectId,
   },
@@ -29,3 +32,4 @@ const ticket = new mongoose.Schema({
     type: ObjectId,
   },
 });
+export default mongoose.models.ticket || mongoose.model("ticket", ticketSchema);
