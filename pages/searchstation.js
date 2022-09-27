@@ -44,9 +44,22 @@ export default function SearchStation({ routes }) {
   console.log("This is allStations: " + allStations);
 
   return (
-    <div>
-      <h1>This is allStations:  </h1>
-      <li>{allStations}</li>
+    <div> {stationsInRouteOne.map((station) => (
+      <ul>
+        <li>{station}</li>
+      </ul>
+    ))}
+      {stationsInRouteTwo.map((station) => (
+      <ul>
+        <li>{station}</li>
+      </ul>
+      ))}
+      {stationsInRouteThree.map((station) => (
+      <ul>
+        <li>{station}</li>
+      </ul>
+    ))}
+      
     </div>
   );
 }
