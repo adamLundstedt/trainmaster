@@ -14,7 +14,12 @@ export default function SearchStation({ routes }) {
   let stationsInRouteOne = [];
   let stationsInRouteTwo = [];
   let stationsInRouteThree = [];
-  let allStations = [[stationsInRouteOne],[stationsInRouteTwo], [stationsInRouteThree]];
+  let allStations = [[stationsInRouteOne], [stationsInRouteTwo], [stationsInRouteThree]];
+  let allStation = new Array(
+    stationsInRouteOne,
+    stationsInRouteTwo,
+    stationsInRouteThree
+  );
 
    for(let route of routes) {
     if (route.routeName == routeOne) {
@@ -35,12 +40,13 @@ export default function SearchStation({ routes }) {
   }
 
   
-  console.log(allStations);
+  console.log(allStation);
+  console.log("This is allStations: " + allStations);
 
   return (
     <div>
-      
-      
+      <h1>This is allStations:  </h1>
+      <li>{allStations}</li>
     </div>
   );
 }
