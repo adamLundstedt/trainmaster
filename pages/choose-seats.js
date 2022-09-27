@@ -154,12 +154,12 @@ export default function ChooseSeats({trains, tickets, coaches}) {
 
     
   return (
-    <div>      
+    <div className="grid grid-cols-4 ml-8 mt-10">      
       {coachToDisplay.map((seat) => (
-          <div key={seat.id}>
-            <button className= {seat.className}>{seat.seatNumber}</button>            
+          <div className= "m-2" key={seat.id}>
+            <button className= {seat.className}>{seat.seatNumber}</button>                       
           </div>
-        ))}           
+        ))}                
     </div>
   );
     
