@@ -6,21 +6,40 @@ import { connectToDatabase } from "../lib/mongodb";
 
 export default function SearchStation({ routes }) {
 
-  let stationsNames = [];
+  const routeOne = "Stockholm C - Göteborg C";
+  const routeTwo = "Göteborg C - Hyllie";
+  const routeThree = "Helsingborg C - Trelleborg";
 
-  for(let stationName of routes.stations)
-  const [stationsName, setStationsName] = useState(routes);
 
+  let stationsInRouteOne = [];
+  let stationsInRouteTwo = [];
+  let stationsInRouteThree = [];
+  let allStations = [[stationsInRouteOne],[stationsInRouteTwo], [stationsInRouteThree]];
+
+   for(let route of routes) {
+    if (route.routeName == routeOne) {
+      for(let station of route.stations) {
+        stationsInRouteOne.push(station.station)
+      }
+     }
+     if (route.routeName == routeTwo) {
+      for(let station of route.stations) {
+        stationsInRouteTwo.push(station.station)
+      }
+     }
+     if (route.routeName == routeThree) {
+      for(let station of route.stations) {
+        stationsInRouteThree.push(station.station)
+      }
+    }
+  }
+
+  
+  console.log(allStations);
 
   return (
     <div>
       
-      {routes.map((route) => (
-          <li key={route._id}>
-            <h2>{route.}</h2>
-            
-          </li>
-        ))}
       
     </div>
   );
@@ -31,13 +50,20 @@ export async function getServerSideProps(context) {
   const { db } = await connectToDatabase();
   mongo.s;
 
-  const routes = await db.collection("routes").find({}).limit(5).toArray();
-  const stations = await db.collection("stations").find({}).toArray();
+  const routeData = await db.collection("routes").find({}).toArray();
+  const stationData = await db.collection("stations").find({}).toArray();
+
+  const routes = JSON.parse(JSON.stringify(routeData));
+  const stations = JSON.parse(JSON.stringify(stationData));
+
+
   
  
   return {
     props: {
-      routes: JSON.parse(JSON.stringify(routes))
+      routes: routes,
+      stations: stations,
+
     },
   };
   
