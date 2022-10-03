@@ -1,9 +1,9 @@
 import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
-const timeTableSchema = new mongoose.Schema({
-  
-   timeTableId: {
+const TimeTableSchema = new mongoose.Schema({
+
+  timeTableId: {
     type: ObjectId,
   },
   routeName: {
@@ -22,5 +22,5 @@ const timeTableSchema = new mongoose.Schema({
     type: String,
   },
 });
-export default mongoose.models.timeTable ||
-  mongoose.model("timeTable", timeTableSchema);
+export default mongoose.models.TimeTable ||
+  mongoose.model("TimeTable", TimeTableSchema);
