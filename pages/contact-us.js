@@ -1,3 +1,8 @@
+import ExitButton from '../components/ExitButton'
+
+
 export default function ContactUs() {
-  return <h1>Hej Kontakta oss</h1>
+  return <div className="h-screen w-full pt-[100px]">
+    <ExitButton />
+    Kontakta oss</div>
 }
