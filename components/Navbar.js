@@ -5,7 +5,7 @@ export default function mobileNavbar() {
   return (
     <nav className="bg-white z-50 top-0 flex drop-shadow-md shadow-black">
       <div className="grid grid-cols-3 w-full">
-        <Link href="/">
+                <Link href="/">
         <div className="mx-3 mt-2 drop-shadow-md shadow-black text-2xl font-bold text-slate-500">
           TM
           </div></Link>
