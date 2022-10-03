@@ -2,9 +2,6 @@ import { useState } from 'react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Listbox, Transition } from '@headlessui/react'
 
-
-
-
 const typeOfTicket = [
   { id: 1, name: 'Vuxen' },
   { id: 2, name: 'Barn' },
@@ -41,26 +38,30 @@ export default function Home() {
   return (
     <div className="h-full ">
       <div className="pt-[50px] pb-[400px] bg-[url('/background.jpeg')] bg-cover bg-center  bg-no-repeat">
-        <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
-
+        <a className="text-white font-bold text-[25px] ml-36 ">
+          Sök resa
+        </a>
         <div className="mt-8 grid grid-cols-2 items-center w-full">
           <div className="w-[100px] ml-10 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-            <Stations />        </div>
-          
+            Till
+          </div>
           <div className="w-[100px] ml-10 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-            Från        </div>
+            Från
+          </div>
         </div>
         <div className="grid mt-4 grid-cols-2 items-center w-full">
           <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-            Datum utresa        </div>
-
-
+            Datum utresa
+          </div>
           <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-            Datum hemresa        </div>
+            Datum hemresa
+          </div>
         </div>
         <div className="mt-5">
           <MyListBox />
-          <button className="text-white text-[12px] ml-4 ">+ Lägg till resenär</button>
+          <button className="text-white text-[12px] ml-4 ">
+            + Lägg till resenär
+          </button>
         </div>
       </div>
     </div>
