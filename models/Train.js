@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
-const trainSchema = new mongoose.Schema({
+const TrainSchema = new mongoose.Schema({
   name: {
     type: String,
   },
@@ -12,4 +12,4 @@ const trainSchema = new mongoose.Schema({
     type: [Object],
   },
 });
-export default mongoose.models.train || mongoose.model("train", trainSchema);
+export default mongoose.models.Train || mongoose.model("Train", TrainSchema);

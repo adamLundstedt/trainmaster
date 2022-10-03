@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const memberSchema = new mongoose.Schema({
+const MemberSchema = new mongoose.Schema({
   userID: {
     type: ObjectId,
   },
@@ -10,4 +10,4 @@ const memberSchema = new mongoose.Schema({
     maxlength: [30, "Password cannot be more than 20 characters!"],
   },
 });
-export default mongoose.models.member || mongoose.model("member", memberSchema);
+export default mongoose.models.Member || mongoose.model("Member", MemberSchema);

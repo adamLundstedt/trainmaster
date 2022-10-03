@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: [true, "Please provide a firstname for this user."],
@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
     maxlength: [60, "phone number cannot be more than 60 characters long"],
   },
   bookings: {
-    type: Array    
+    type: Array
   },
 });
-export default mongoose.models.user || mongoose.model("user", userSchema);
+export default mongoose.models.User || mongoose.model("User", UserSchema);
