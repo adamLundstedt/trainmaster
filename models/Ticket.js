@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ticket = new mongoose.Schema({
+const Ticket = new mongoose.Schema({
   ticketId: {
     type: ObjectId,
   },
@@ -32,4 +32,4 @@ const ticket = new mongoose.Schema({
     type: ObjectId,
   },
 });
-export default mongoose.models.ticket || mongoose.model("ticket", ticketSchema);
+export default mongoose.models.Ticket || mongoose.model("Ticket", TicketSchema);
