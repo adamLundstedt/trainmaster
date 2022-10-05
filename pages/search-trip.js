@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Listbox, Transition } from '@headlessui/react'
+import searchstation from '../pages/searchstation'
 
 const typeOfTicket = [
   { id: 1, name: 'Vuxen' },
@@ -9,32 +10,17 @@ const typeOfTicket = [
   { id: 5, name: 'Senior' },
 ]
 
-const station = [
-  { id: 1, name: 'Till' },
-  //{ id: 1, name: 'Stockholm C' },
-  { id: 2, name: 'Sundbyberg' },
-  { id: 3, name: 'Bålsta' },
-  { id: 5, name: 'Enköping' },
-  { id: 6, name: 'Västerås C' },
-  { id: 7, name: 'Köping' },
-  { id: 8, name: 'Arboga' },
-  { id: 9, name: 'Örebro C' },
-  { id: 10, name: 'Örebro Södra' },
-  { id: 11, name: 'Kumla' },
-  { id: 12, name: 'Hallsberg' },
-  { id: 13, name: 'Laxå' },
-  { id: 14, name: 'Töreboda' },
-  { id: 15, name: 'Skövde C' },
-  { id: 16, name: 'Falköping C' },
-  { id: 17, name: 'Herrljunga' },
-  { id: 18, name: 'Vårgårda' },
-  { id: 19, name: 'Alingsås' },
-  { id: 20, name: 'Göteborg C' },
-  { id: 21, name: 'Mölndal' },
-  //{ id: , name: '' },
-]
+const station = [searchstation]
+  
+
+console.log(station)
+
 
 export default function Home() {
+  const [traveler, setTraveler] = useState("");
+  function addTrav() {
+    
+  }
   return (
     <div className="h-full ">
       <div className="pt-[50px] pb-[400px] bg-[url('/background.jpeg')] bg-cover bg-center  bg-no-repeat">
