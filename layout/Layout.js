@@ -7,10 +7,9 @@ export default function Layout({ children }) {
         <title>Train Masters</title>
       </Head>
       <div className="w-full h-screen">
-        <div className="bg-[url('/background.jpeg')] bg-cover bg-center bg-no-repeat">
-          <main className="overflow-hidden">{children}</main>
-        </div>
-      </div></div>
+        <main className="overflow-hidden">{children}</main>
+      </div>
+    </div>
 
     </>
   );
