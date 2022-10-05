@@ -9,68 +9,32 @@ export default function SearchStation({ routes }) {
   const routeTwo = "Göteborg C - Hyllie";
   const routeThree = "Helsingborg C - Trelleborg";
 
-
-  let stationsInRouteOne = [];
-  let stationsInRouteTwo = [];
-  let stationsInRouteThree = [];
-  let merged2 = [[stationsInRouteOne], [stationsInRouteTwo], [stationsInRouteThree]];
-  let allStations = [];
-  let merged = [...stationsInRouteOne, ...stationsInRouteTwo, ...stationsInRouteThree];
-  let dropdownStations = {};
-  let stationsList = [...new Set(merged2)];
-  
-
-
-   let merged3 = new Array(
-    stationsInRouteOne,
-    stationsInRouteTwo,
-    stationsInRouteThree
-  ); 
+    let allStations = [];   
 
    for(let route of routes) {
     if (route.routeName == routeOne) {
       for(let station of route.stations) {
-        stationsInRouteOne.push(station.station)
         allStations.push(station.station)
       }
      }
      if (route.routeName == routeTwo) {
       for(let station of route.stations) {
-        stationsInRouteTwo.push(station.station)
         allStations.push(station.station)
       }
      }
      if (route.routeName == routeThree) {
-      for(let station of route.stations) {
-        stationsInRouteThree.push(station.station)
+      for(let station of route.stations) {        
         allStations.push(station.station)
       }
     }
   }
-
-  
-
-  
-  
-  console.log("This is merged: " + merged);
-  console.log("How many in merged: " + merged.length);
-  console.log("This is merged2: " + merged2)
-  console.log("How many in merged2: " + merged2.length);
-  console.log("This is merged3: " + merged3);
-  console.log("How many in merged3: " + merged3.length);
-  console.log("This is routeOne: " + stationsInRouteOne)
-  console.log("This is routeTwo: " + stationsInRouteTwo)
-  console.log("This is routeThree: " + stationsInRouteThree)
-  console.log("This is stationList: " + stationsList);
-  console.log("How many in stationList: " + stationsList.length);
-  console.log(stationsList);
   console.log("This is allStations: " + allStations);
   console.log("How many in allStations: " + allStations.length); 
   
   
 
   return (
-    <div> {stationsList.map((station) => (
+    <div> {allStations.map((station) => (
       <ul>
         <li>{station}</li>
       </ul>
