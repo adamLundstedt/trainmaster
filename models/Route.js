@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const routeSchema = new mongoose.Schema({
+const RouteSchema = new mongoose.Schema({
 
   routeId: {
     type: ObjectId,
@@ -11,8 +11,8 @@ const routeSchema = new mongoose.Schema({
   stations: {
     type: [Object],
   },
-  
+
 });
 
-export default mongoose.models.route ||
-  mongoose.model("route", routeSchema);
+export default mongoose.models.Route ||
+  mongoose.model("Route", RouteSchema);

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const coachSchema = new mongoose.Schema({
+const CoachSchema = new mongoose.Schema({
   coachSerialNumber: {
     type: String,
   },
@@ -11,4 +11,4 @@ const coachSchema = new mongoose.Schema({
     type: [Object],
   },
 });
-export default mongoose.models.coach || mongoose.model("coach", coachSchema);
+export default mongoose.models.Coach || mongoose.model("Coach", CoachSchema);

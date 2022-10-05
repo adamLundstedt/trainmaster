@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { Listbox, Transition } from '@headlessui/react'
-
-
+import ExitButton from '../components/ExitButton'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import Link from 'next/link';
 
 
 const typeOfTicket = [
@@ -12,34 +14,63 @@ const typeOfTicket = [
   { id: 5, name: 'Senior' },
 ]
 
-export default function Home() {
-  return (
-    <div className="h-full ">
-      <div className="pt-[50px] pb-[400px] bg-[url('/background.jpeg')] bg-cover bg-center  bg-no-repeat">
-        <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
+export default function SearchTrip() {
+  const [startDate, setStartDate] = useState(new Date());
+  const [startDate1, setStartDate1] = useState(new Date());
 
-        <div className="mt-8 grid grid-cols-2 items-center w-full">
-          <div className="w-[100px] ml-10 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-            Till        </div>
-          <div className="w-[100px] ml-10 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-            Från        </div>
-        </div>
+  function AddTraveller() {
+    console.log("hejhej")
+  }
+
+
+  return (
+    <div className="bg-[url('/background.jpeg')] w-full h-screen bg-cover bg-center bg-no-repeat">
+      <div className="h-screen w-full pt-[50px] ">
+
+        <ExitButton />
+        <a className="text-white font-bold text-[25px] ml-36 ">
+          Sök resa
+        </a>
         <div className="grid mt-4 grid-cols-2 items-center w-full">
           <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-            Datum utresa        </div>
-
-
+            Till
+          </div>
           <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-            Datum hemresa        </div>
+            Från
+          </div>
         </div>
+        <div className="mt-8 grid grid-cols-2 items-center w-full">
+
+          <div className="ml-2 text-sm">
+            <DatePicker placeholderText="Till:" isClearable
+              selected={startDate} onChange={(date) => setStartDate(date)} />
+
+          </div>
+          <div className=" ml-2 text-sm">
+            <DatePicker placeholderText="Från:" isClearable
+              selected={startDate1} onChange={(date) => setStartDate1(date)} />
+          </div>
+        </div>
+
         <div className="mt-5">
           <MyListBox />
-          <button className="text-white text-[12px] ml-4 ">+ Lägg till resenär</button>
+          <button onClick={() => AddTraveller()}
+            className="text-white text-[12px] ml-4">
+            + Lägg till resenär
+          </button>
+        </div>
+        <div className='ml-36 mt-16'>
+          <Link href="/">
+            <a className='text-white px-4 py-0.5 rounded-md mt-10 bg-gray-400'>Sök resa</a>
+          </Link>
         </div>
       </div>
     </div>
+
   )
 }
+
+
 
 function MyListBox() {
   const [selected, setSelected] = useState(typeOfTicket[0])
