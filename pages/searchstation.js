@@ -8,8 +8,8 @@ export default function SearchStation({ routes }) {
   const routeOne = "Stockholm C - Göteborg C";
   const routeTwo = "Göteborg C - Hyllie";
   const routeThree = "Helsingborg C - Trelleborg";
-
-    let allStations = [];   
+  
+  let allStations = [];
 
    for(let route of routes) {
     if (route.routeName == routeOne) {
@@ -25,16 +25,27 @@ export default function SearchStation({ routes }) {
      if (route.routeName == routeThree) {
       for(let station of route.stations) {        
         allStations.push(station.station)
+       
       }
     }
   }
+  
+
+   function removeDuplicateStations(allStations) {
+    return allStations.filter((item, index) => allStations.indexOf(item) === index);
+  } 
+  
+  
+
+
   console.log("This is allStations: " + allStations);
   console.log("How many in allStations: " + allStations.length); 
   
   
+  
 
   return (
-    <div> {allStations.map((station) => (
+    <div> {removeDuplicateStations(allStations).map((station) => (
       <ul>
         <li>{station}</li>
       </ul>
