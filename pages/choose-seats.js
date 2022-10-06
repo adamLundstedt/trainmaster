@@ -1,8 +1,13 @@
 import { connectToDatabase } from "../lib/mongodb";
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 
 export default function ChooseSeats({trains, tickets, coaches}) {
+
+  
+
 
   const chosenTrainId = '632ac4233b9bdbfc822b4d13';
 
@@ -12,7 +17,7 @@ export default function ChooseSeats({trains, tickets, coaches}) {
   const cssSelected = "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded";
   
   let className;
-
+  
   let firstClassCoachModel = [];
   let secondClassCoachModel = [];
   let bistroCoachModel = [];
@@ -97,7 +102,12 @@ export default function ChooseSeats({trains, tickets, coaches}) {
     }
   }  
   
+  const [firstClassCoach, setFirstClassCoach] = useState(firstClassCoachModel);
+  const [secondClassCoach, setSecondClassCoach] = useState(secondClassCoachModel);
+  const [bistroCoach, setBistroCoach] = useState(bistroCoachModel);
+  const [trailerCoach, setTrailerCoach] = useState(trailerCoachModel);
   
+  const [chosenCoachIndex, setChosenCoachIndex] = useState(0); 
 
   for(let ticket of ticketsForGivenTrain) {
     for(let coach of chosenTrainCoaches) {
@@ -106,7 +116,7 @@ export default function ChooseSeats({trains, tickets, coaches}) {
           for (let coachSeats of firstClassCoachModel) {
             if(coachSeats.seatNumber == ticket.seatNumber) {
               coachSeats.isBooked = true;
-              coachSeats.className = cssBooked;
+              coachSeats.className = cssBooked;                            
             }
           }
         }
@@ -114,8 +124,8 @@ export default function ChooseSeats({trains, tickets, coaches}) {
           for (let coachSeats of secondClassCoachModel) {
             if(coachSeats.seatNumber == ticket.seatNumber) {
               coachSeats.isBooked = true;
-              coachSeats.className = cssBooked;
-            }
+              coachSeats.className = cssBooked;              
+            }            
           }
         }
         else if(coach.category == "BISTRO") {          
@@ -130,30 +140,19 @@ export default function ChooseSeats({trains, tickets, coaches}) {
           for (let coachSeats of trailerCoachModel) {
             if(coachSeats.seatNumber == ticket.seatNumber) {
               coachSeats.isBooked = true;
-              coachSeats.className = cssBooked;
+              coachSeats.className = cssBooked;              
             }
           }
         }
       }
-    }
+    }    
   }
-
   
-
- 
-  
-  const [firstClassCoach, setFirstClassCoach] = useState(firstClassCoachModel);
-  const [secondClassCoach, setSecondClassCoach] = useState(secondClassCoachModel);
-  const [bistroCoach, setBistroCoach] = useState(bistroCoachModel);
-  const [trailerCoach, setTrailerCoach] = useState(trailerCoachModel);
-  
-  const [chosenCoachIndex, setChosenCoachIndex] = useState(0);
 
   let coachToDisplay = chosenTrainCoaches[chosenCoachIndex];
-  let coachModel = secondClassCoachModel;
-  
+  let coachModel = coachToDisplay.category;  
 
-  console.log("trains: ",trains);
+  console.log("trains: ", trains);
   console.log("tickets: ", tickets);
   console.log("coaches: ", coaches);    
   console.log("chosen train: ", chosenTrain);
@@ -161,28 +160,49 @@ export default function ChooseSeats({trains, tickets, coaches}) {
   console.log("tickets for given train: ", ticketsForGivenTrain); 
   console.log("firstClassCoachModel: ", firstClassCoachModel);  
   console.log("firstClassCoach: ", firstClassCoach);
+  console.log("chosen coach index",chosenCoachIndex);  
+
   
-  
+
   function handleClickFirstClass(seatNumber) {
-    let trainArray = firstClassCoach;
+    let trainArray = JSON.parse(JSON.stringify(firstClassCoach));
     if (trainArray[seatNumber - 1].isSelected) {
       trainArray[seatNumber - 1].isSelected = false;
-      trainArray[seatNumber - 1].className = cssFree;
-      setFirstClassCoach(trainArray);                            
+      let seat = firstClassCoachModel[seatNumber - 1].seatNumber;
+      if(seat === 46 || seat === 49 || seat === 52) {
+        trainArray[seatNumber - 1].className = cssSpecialNeeds;
+      }
+      else trainArray[seatNumber - 1].className = cssFree;
+      setFirstClassCoach(trainArray);                                  
     }
 
     else if (!trainArray[seatNumber - 1].isSelected) {
     trainArray[seatNumber - 1].isSelected = true;
     trainArray[seatNumber - 1].className = cssSelected;
-    setFirstClassCoach(trainArray);            
+    setFirstClassCoach(trainArray);
     }    
   }
 
+  useEffect(() => {
+    const data = window.localStorage.getItem('firstClassCoach');
+    if ( data !== null ) setFirstClassCoach(JSON.parse(data));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('firstClassCoach', JSON.stringify(firstClassCoach));
+  }, [firstClassCoach]);
+
+ 
+
   function handleClickSecondClass(seatNumber) {
-    let trainArray = secondClassCoach;
+    let trainArray = JSON.parse(JSON.stringify(secondClassCoach));
     if (trainArray[seatNumber - 1].isSelected) {
       trainArray[seatNumber - 1].isSelected = false;
-      trainArray[seatNumber - 1].className = cssFree;
+      let seat = firstClassCoachModel[seatNumber - 1].seatNumber;
+      if(seat === 3 || seat === 4 || seat === 71 || seat === 72) {
+        trainArray[seatNumber - 1].className = cssSpecialNeeds;
+      }
+      else trainArray[seatNumber - 1].className = cssFree;
       setSecondClassCoach(trainArray);                
     }
 
@@ -193,11 +213,26 @@ export default function ChooseSeats({trains, tickets, coaches}) {
     }    
   }
 
+  useEffect(() => {
+    const data = window.localStorage.getItem('secondClassCoach');
+    if ( data !== null ) setSecondClassCoach(JSON.parse(data));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('secondClassCoach', JSON.stringify(secondClassCoach));
+  }, [secondClassCoach]);
+
+  
   function handleClickBistro(seatNumber) {
-    let trainArray = bistroCoach;
+    let trainArray = JSON.parse(JSON.stringify(bistroCoach));   
+    
     if (trainArray[seatNumber - 1].isSelected) {
       trainArray[seatNumber - 1].isSelected = false;
-      trainArray[seatNumber - 1].className = cssFree;
+      let seat = firstClassCoachModel[seatNumber - 1].seatNumber;
+      if(seat === 3 || seat === 4) {
+        trainArray[seatNumber - 1].className = cssSpecialNeeds;
+      }
+      else trainArray[seatNumber - 1].className = cssFree;
       setBistroCoach(trainArray);                
     }
 
@@ -208,69 +243,154 @@ export default function ChooseSeats({trains, tickets, coaches}) {
     }    
   }
 
+  useEffect(() => {
+    const data = window.localStorage.getItem('bistroCoach');
+    if ( data !== null ) setBistroCoach(JSON.parse(data));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('bistroCoach', JSON.stringify(bistroCoach));
+  }, [bistroCoach]);
+
+ 
   function handleClickTrailer(seatNumber) {
-    let trainArray = trailerCoach;
+    let trainArray = JSON.parse(JSON.stringify(trailerCoach));
     if (trainArray[seatNumber - 1].isSelected) {
       trainArray[seatNumber - 1].isSelected = false;
-      trainArray[seatNumber - 1].className = cssFree;
+      let seat = firstClassCoachModel[seatNumber - 1].seatNumber;
+      if(seat === 79 || seat === 80) {
+        trainArray[seatNumber - 1].className = cssSpecialNeeds;
+      }
+      else trainArray[seatNumber - 1].className = cssFree;
       setTrailerCoach(trainArray);                
     }
 
     else if (!trainArray[seatNumber - 1].isSelected) {
     trainArray[seatNumber - 1].isSelected = true;
     trainArray[seatNumber - 1].className = cssSelected;
-    setTrailerCoach(trainArray);        
+    setTrailerCoach(trainArray);
     }        
   }
 
-  if(coachModel == firstClassCoachModel) {
-    return (
-      <div className="grid grid-cols-4 ml-8 mt-10">         
+  useEffect(() => {
+    const data = window.localStorage.getItem('trailerCoach');
+    if ( data !== null ) setTrailerCoach(JSON.parse(data));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('trailerCoach', JSON.stringify(trailerCoach));
+  }, [trailerCoach]);
+
+  
+  
+
+  function handleClickLeftArrow() {
+    let indexValue = chosenCoachIndex;
+    if (indexValue > 0) {
+      indexValue--;
+      setChosenCoachIndex(indexValue);                 
+    }    
+  }
+
+  useEffect(() => {
+    const data = window.localStorage.getItem('chosenCoachIndex');
+    if ( data !== null ) setChosenCoachIndex(JSON.parse(data));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem('chosenCoachIndex', JSON.stringify(chosenCoachIndex));
+  }, [chosenCoachIndex]);
+
+ 
+
+  function handleClickRightArrow() {
+    let indexValue = chosenCoachIndex;
+    if (indexValue < chosenTrainCoaches.length - 1) {
+      indexValue++;
+      setChosenCoachIndex(indexValue);            
+    }   
+  }
+
+  useEffect(() => {
+    const data = window.localStorage.getItem('chosenCoachIndex');
+    if ( data !== null ) setChosenCoachIndex(JSON.parse(data));
+  }, []);
+  
+  useEffect(() => {
+    window.localStorage.setItem('chosenCoachIndex', JSON.stringify(chosenCoachIndex));
+  }, [chosenCoachIndex]);
+
+  if(coachModel == "1CLASS") {
+    return (       
+      <div>
+      <div>
+      <button onClick={() => handleClickLeftArrow()} className= "m-2"><Image src='/arrow-left.png' height='100px' width='100px'></Image></button>
+      <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>     
+      </div>            
+      <div className="grid grid-cols-4 ml-8 mt-10">                
         {firstClassCoach.map((seat) => (          
             <div className= "m-2" key={seat.id}>
-              <button onClick={() => handleClickFirstClass(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
-            </div>
+              <button disabled={seat.isBooked ? true : false} onClick={() => handleClickFirstClass(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
+            </div>            
           ))}                
+      </div>
       </div>
     );
   }
 
-  else if(coachModel == secondClassCoachModel) {
+  else if(coachModel == "2CLASS") {
     return (
-      <div className="grid grid-cols-4 ml-8 mt-10">         
+      <div>
+      <div>
+      <button onClick={() => handleClickLeftArrow()} className= "m-2"><Image src='/arrow-left.png' height='100px' width='100px'></Image></button>
+      <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>
+      </div>      
+      <div className="grid grid-cols-4 ml-8 mt-10">                
         {secondClassCoach.map((seat) => (          
             <div className= "m-2" key={seat.id}>
-              <button onClick={() => handleClickSecondClass(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
+              <button disabled={seat.isBooked ? true : false} onClick={() => handleClickSecondClass(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
             </div>
           ))}                
+      </div>
       </div>
     );
   }
 
-  else if(coachModel == bistroCoachModel) {
+  else if(coachModel == "BISTRO") {
     return (
-      <div className="grid grid-cols-4 ml-8 mt-10">         
+      <div>
+      <div>
+      <button onClick={() => handleClickLeftArrow()} className= "m-2"><Image src='/arrow-left.png' height='100px' width='100px'></Image></button>
+      <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>
+      </div>      
+      <div className="grid grid-cols-4 ml-8 mt-10">                
         {bistroCoach.map((seat) => (          
             <div className= "m-2" key={seat.id}>
-              <button onClick={() => handleClickBistro(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
+              <button disabled={seat.isBooked ? true : false} onClick={() => handleClickBistro(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
             </div>
           ))}                
+      </div>
       </div>
     );
   }
 
-  else if(coachModel == trailerCoachModel) {
+  else if(coachModel == "TRAILER") {
     return (
-      <div className="grid grid-cols-4 ml-8 mt-10">         
+      <div>
+      <div>
+      <button  onClick={() => handleClickLeftArrow()} className= "m-2"><Image src='/arrow-left.png' height='100px' width='100px'></Image></button>
+      <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>
+      </div>      
+      <div className="grid grid-cols-4 ml-8 mt-10">                
         {trailerCoach.map((seat) => (          
             <div className= "m-2" key={seat.id}>
-              <button onClick={() => handleClickTrailer(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
+              <button disabled={seat.isBooked ? true : false} onClick={() => handleClickTrailer(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
             </div>
           ))}                
       </div>
+      </div>
     );
-  } 
-    
+  }    
 }
 
 export async function getServerSideProps() {    
