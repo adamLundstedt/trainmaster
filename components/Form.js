@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-const ProfileForm = ({ formId, userForm }) => {
+const Form = ({ formId, userForm }) => {
   const router = useRouter();
   const contentType = "application/json";
   const [errors, setErrors] = useState({});
@@ -15,6 +15,7 @@ const ProfileForm = ({ formId, userForm }) => {
   });
 
   const postData = async (form) => {
+    console.log(form);
     try {
       const res = await fetch("/api/userIndex", {
         method: "POST",
@@ -121,4 +122,4 @@ const ProfileForm = ({ formId, userForm }) => {
     </div>
   );
 };
-export default ProfileForm;
+export default Form;

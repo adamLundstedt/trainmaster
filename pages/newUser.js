@@ -1,4 +1,4 @@
-import ProfileForm from "../components/profileForm";
+import Form from "../components/Form";
 
 const NewUser = () => {
   const userForm = {
@@ -7,6 +7,6 @@ const NewUser = () => {
     email: "",
     phoneNumber: "",
   };
-  return <ProfileForm formId="add-user-form" userForm={userForm} />;
+  return <Form formId="add-user-form" userForm={userForm} />;
 };
 export default NewUser;

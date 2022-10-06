@@ -28,7 +28,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: function (v) {
-        return /\d{3}-\d{3}-\d{4}/.test(v);
+        return /[\d\s-]{7}/.test(v); // kinder
       },
       message: (props) => `${props.value} is not a valid phone number!`,
     },
@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
     maxlength: [60, "phone number cannot be more than 60 characters long"],
   },
   bookings: {
-    type: Array
+    type: Array,
   },
 });
 export default mongoose.models.User || mongoose.model("User", UserSchema);
