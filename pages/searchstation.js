@@ -10,42 +10,45 @@ export default function SearchStation({ routes }) {
   const routeThree = "Helsingborg C - Trelleborg";
   
   let allStations = [];
+  
+  
 
-   for(let route of routes) {
+  for (let route of routes) {
     if (route.routeName == routeOne) {
-      for(let station of route.stations) {
+      for (let station of route.stations) {
         allStations.push(station.station)
       }
-     }
-     if (route.routeName == routeTwo) {
-      for(let station of route.stations) {
+    }
+    if (route.routeName == routeTwo) {
+      for (let station of route.stations) {
         allStations.push(station.station)
       }
-     }
-     if (route.routeName == routeThree) {
-      for(let station of route.stations) {        
+    }
+    if (route.routeName == routeThree) {
+      for (let station of route.stations) {
         allStations.push(station.station)
        
       }
     }
   }
   
-
-   function removeDuplicateStations(allStations) {
+  function removeDuplicateStations(allStations) {
     return allStations.filter((item, index) => allStations.indexOf(item) === index);
-  } 
-  
+  }
+  let filteredStations = [...removeDuplicateStations(allStations)];
   
 
-
-  console.log("This is allStations: " + allStations);
+  /* console.log("This is allStations: " + allStations);
   console.log("How many in allStations: " + allStations.length); 
+  console.log(removeDuplicateStations(allStations)); */
+  console.log("This is filteredStations: " + filteredStations);
+  console.log(filteredStations)
   
   
   
 
   return (
-    <div> {removeDuplicateStations(allStations).map((station) => (
+    <div> {filteredStations.map((station) => (
       <ul>
         <li>{station}</li>
       </ul>
