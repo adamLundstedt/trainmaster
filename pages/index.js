@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div className="h-full ">
@@ -5,9 +7,11 @@ export default function Home() {
         <a className="text-white font-bold text-[25px] m-20 md:text-[80px] ">
           Vart vill du resa?
         </a>
-        <div className="w-[200px] ml-20 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-          Sök resa
-        </div>
+        <Link href="/search-trip">
+          <div className="w-[200px] ml-20 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
+            Sök resa
+          </div>
+        </Link>
       </div>
     </div>
   );
