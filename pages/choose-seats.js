@@ -198,7 +198,7 @@ export default function ChooseSeats({trains, tickets, coaches}) {
     let trainArray = JSON.parse(JSON.stringify(secondClassCoach));
     if (trainArray[seatNumber - 1].isSelected) {
       trainArray[seatNumber - 1].isSelected = false;
-      let seat = firstClassCoachModel[seatNumber - 1].seatNumber;
+      let seat = secondClassCoachModel[seatNumber - 1].seatNumber;
       if(seat === 3 || seat === 4 || seat === 71 || seat === 72) {
         trainArray[seatNumber - 1].className = cssSpecialNeeds;
       }
@@ -228,7 +228,7 @@ export default function ChooseSeats({trains, tickets, coaches}) {
     
     if (trainArray[seatNumber - 1].isSelected) {
       trainArray[seatNumber - 1].isSelected = false;
-      let seat = firstClassCoachModel[seatNumber - 1].seatNumber;
+      let seat = bistroCoachModel[seatNumber - 1].seatNumber;
       if(seat === 3 || seat === 4) {
         trainArray[seatNumber - 1].className = cssSpecialNeeds;
       }
@@ -257,7 +257,7 @@ export default function ChooseSeats({trains, tickets, coaches}) {
     let trainArray = JSON.parse(JSON.stringify(trailerCoach));
     if (trainArray[seatNumber - 1].isSelected) {
       trainArray[seatNumber - 1].isSelected = false;
-      let seat = firstClassCoachModel[seatNumber - 1].seatNumber;
+      let seat = trailerCoachModel[seatNumber - 1].seatNumber;
       if(seat === 79 || seat === 80) {
         trainArray[seatNumber - 1].className = cssSpecialNeeds;
       }
@@ -325,9 +325,11 @@ export default function ChooseSeats({trains, tickets, coaches}) {
       <div>
       <div>
       <button onClick={() => handleClickLeftArrow()} className= "m-2"><Image src='/arrow-left.png' height='100px' width='100px'></Image></button>
-      <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>     
+      <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>
+      <p>VAGNNUMMER: {chosenCoachIndex + 1}</p>
+      <p>FÖRSTA KLASS</p>     
       </div>            
-      <div className="grid grid-cols-4 ml-8 mt-10">                
+      <div className="inline-grid grid-cols-12 ml-8 mt-10">                
         {firstClassCoach.map((seat) => (          
             <div className= "m-2" key={seat.id}>
               <button disabled={seat.isBooked ? true : false} onClick={() => handleClickFirstClass(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
@@ -344,8 +346,10 @@ export default function ChooseSeats({trains, tickets, coaches}) {
       <div>
       <button onClick={() => handleClickLeftArrow()} className= "m-2"><Image src='/arrow-left.png' height='100px' width='100px'></Image></button>
       <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>
+      <p>VAGNNUMMER: {chosenCoachIndex + 1}</p>
+      <p>ANDRA KLASS</p>  
       </div>      
-      <div className="grid grid-cols-4 ml-8 mt-10">                
+      <div className="inline-grid grid-cols-12 ml-8 mt-10">                
         {secondClassCoach.map((seat) => (          
             <div className= "m-2" key={seat.id}>
               <button disabled={seat.isBooked ? true : false} onClick={() => handleClickSecondClass(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
@@ -362,8 +366,10 @@ export default function ChooseSeats({trains, tickets, coaches}) {
       <div>
       <button onClick={() => handleClickLeftArrow()} className= "m-2"><Image src='/arrow-left.png' height='100px' width='100px'></Image></button>
       <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>
+      <p>VAGNNUMMER: {chosenCoachIndex + 1}</p>
+      <p>BISTRO</p>  
       </div>      
-      <div className="grid grid-cols-4 ml-8 mt-10">                
+      <div className="inline-grid grid-cols-12 ml-8 mt-10">                
         {bistroCoach.map((seat) => (          
             <div className= "m-2" key={seat.id}>
               <button disabled={seat.isBooked ? true : false} onClick={() => handleClickBistro(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
@@ -380,8 +386,10 @@ export default function ChooseSeats({trains, tickets, coaches}) {
       <div>
       <button  onClick={() => handleClickLeftArrow()} className= "m-2"><Image src='/arrow-left.png' height='100px' width='100px'></Image></button>
       <button onClick={() => handleClickRightArrow()} className= "m-2"><Image src='/arrow-right.png' height='100px' width='100px'></Image></button>
+      <p>VAGNNUMMER: {chosenCoachIndex + 1}</p>
+      <p>MANÖVERVAGN</p>
       </div>      
-      <div className="grid grid-cols-4 ml-8 mt-10">                
+      <div className="inline-grid grid-cols-12 ml-8 mt-10">                
         {trailerCoach.map((seat) => (          
             <div className= "m-2" key={seat.id}>
               <button disabled={seat.isBooked ? true : false} onClick={() => handleClickTrailer(seat.seatNumber)} className= {seat.className}>{seat.seatNumber}</button>                       
