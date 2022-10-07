@@ -1,9 +1,11 @@
 import { mongo } from "mongoose";
 import { connectToDatabase } from "../lib/mongodb";
+const ObjectId = require("mongodb").ObjectId;
 
-export default function Top({ coaches, users }) {
+export default function Top({ coaches, users, userOne }) {
   return (
     <div>
+      <h1>{JSON.stringify(userOne)}</h1>
       <ul>
         {coaches.map((coach) => (
           <li key={coach._id}>
@@ -36,12 +38,17 @@ export async function getStaticProps() {
 
   mongo.s;
 
+  const userOne = await db
+    .collection("users")
+    .find({ _id: ObjectId("632ad444b8c68bfa9e46f7ac") })
+    .toArray();
   const coaches = await db.collection("coaches").find({}).limit(1000).toArray();
   const users = await db.collection("users").find({}).limit(1000).toArray();
   return {
     props: {
       coaches: JSON.parse(JSON.stringify(coaches)),
       users: JSON.parse(JSON.stringify(users)),
+      userOne: JSON.parse(JSON.stringify(userOne)),
     },
   };
 }
