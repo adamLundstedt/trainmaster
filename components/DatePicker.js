@@ -4,7 +4,7 @@ export default function DatePicker({ dateSetter }) {
   // Fix for if someone using this component
   // is stupid enough to not provide a function
   // we call when the date changes
-  dateSetter = typeof dateSetter === "function" ? dateSetter : () => {};
+  dateSetter = typeof dateSetter === "function" ? dateSetter : () => { };
 
   let months = [
     "januari",
@@ -81,12 +81,13 @@ export default function DatePicker({ dateSetter }) {
     let x = new Date(today.getTime());
     x.setMonth(x.getMonth() + 1);
     setToday(x);
+
   };
 
   // return different css class if markedDate
   const getClass = (date) => {
     if (markedDate.toDateString() === date.toDateString()) {
-      return "bg-gray-400";
+      return "bg-gray-800";
     }
     return "";
   };
@@ -99,17 +100,17 @@ export default function DatePicker({ dateSetter }) {
   };
 
   return (
-    <div className="bg-white rounded w-[190px] m-2">
-      <h1>
-        <span className="m-4" onClick={back}>
+    <div className="bg-gray-400 text-white rounded w-[170px] pb-2 pt-2 m-1">
+      <h1 className="text-center text-[14px]">
+        <span className="m-2" onClick={back}>
           &lt;
         </span>
         {month}
-        <span className="m-4" onClick={forward}>
+        <span className="m-2" onClick={forward}>
           &gt;
         </span>
       </h1>
-      <table>
+      <table className="text-center text-[13px] ml-3">
         <tr>
           {weekdays.map((x, i) => (
             <td key={i}>{x.slice(0, 3)}</td>
