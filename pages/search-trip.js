@@ -6,7 +6,7 @@ import Link from "next/link";
 import NewDatePicker from "../components/DatePicker";
 
 const typeOfTicket = [
-  { id: 1, name: "1 vuxen" }, //ska vi lägga till priset här också?
+  { id: 1, name: "1 vuxen" },
   { id: 2, name: "1 barn" },
   { id: 3, name: "1 student" },
   { id: 5, name: "1 senior" },
@@ -17,6 +17,7 @@ export default function SearchTrip() {
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
   const [startDateText, setStartDateText] = useState("Datum avresa");
   const [endDateText, setEndDateText] = useState("Datum hemresa");
+  const [addTravellerShown, setAddTravellerShown] = useState(false);
 
 
   function getStartDateAndPutInMyTextField(date) {
@@ -35,6 +36,14 @@ export default function SearchTrip() {
 
   function toggleEndDatePicker() {
     setEndDatePickerShown(!endDatePickerShown);
+  }
+
+  function toggleAddTraveller() {
+    setAddTravellerShown(!addTravellerShown);
+    addTraveller();
+  }
+  function addTraveller() {
+    console.log("HELLO add traveller")
   }
 
   return (
@@ -80,9 +89,14 @@ export default function SearchTrip() {
       </div>
 
       <div className="mt-5 text-[15px]">
-        <MyListBox />
+        <div className="mb-5">
+          <MyListBox />
+        </div>
+        <div className={addTravellerShown ? "" : "hidden"}>
+          <MyListBox />
+        </div>
         <button
-          onClick={() => AddTraveller()}
+          onClick={() => toggleAddTraveller()}
           className="text-white text-[12px] ml-4"
         >
           + Lägg till resenär
@@ -96,7 +110,7 @@ export default function SearchTrip() {
         </Link>
       </div>
     </div>
-    //</div>
+
   );
 }
 
@@ -122,7 +136,7 @@ function MyListBox() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full rounded-md bg-gray-400 py-1 shadow-lg ">
+            <Listbox.Options className=" mt-1 max-h-60 w-full rounded-md bg-gray-400 py-1 shadow-lg ">
               {typeOfTicket.map((type, typeIdx) => (
                 <Listbox.Option
                   key={typeIdx}
@@ -156,3 +170,4 @@ function MyListBox() {
     </div >
   );
 }
+
