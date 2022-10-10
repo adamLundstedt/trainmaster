@@ -43,10 +43,10 @@ export default function SearchTrip() {
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
         <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-          Till
+          Från
         </div>
         <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-          Från
+          Till
         </div>
         <div
           className="w-[150px]  mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"

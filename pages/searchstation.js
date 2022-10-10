@@ -38,9 +38,6 @@ export default function SearchStation({ routes }) {
   let filteredStations = [...removeDuplicateStations(allStations)];
   
 
-  /* console.log("This is allStations: " + allStations);
-  console.log("How many in allStations: " + allStations.length); 
-  console.log(removeDuplicateStations(allStations)); */
   console.log("This is filteredStations: " + filteredStations);
   console.log(filteredStations)
   
@@ -58,7 +55,7 @@ export default function SearchStation({ routes }) {
   );
 }
  
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   
   const { db } = await connectToDatabase();
   mongo.s;
@@ -83,43 +80,4 @@ export async function getServerSideProps(context) {
 
   
 }
-
-
-/* export async function getStaticProps() {
-  const { db } = await connectToDatabase();
-
-  mongo.s;
-
-  const coaches = await db.collection("coaches").find({}).limit(1000).toArray();
-  const users = await db.collection("users").find({}).limit(1000).toArray();
-  return {
-    props: {
-      coaches: JSON.parse(JSON.stringify(coaches)),
-      users: JSON.parse(JSON.stringify(users)),
-    },
-  };
-} 
-
-export async function getServerSideProps(context) {    
-   
-  const { db } = await connectToDatabase();    
-  
-  const trainsData = await db.collection("trains").find({}).toArray();
-  const ticketsData = await db.collection("tickets").find({}).toArray();
-  const coachesData = await db.collection("coaches").find({}).toArray();
-    
-    
-  const trains = JSON.parse(JSON.stringify(trainsData));
-  const tickets = JSON.parse(JSON.stringify(ticketsData));
-  const coaches = JSON.parse(JSON.stringify(coachesData));
-   
-
-  return {
-    props: {        
-      trains : trains,
-      tickets : tickets,
-      coaches : coaches,        
-    },
-  };
-}*/
 
