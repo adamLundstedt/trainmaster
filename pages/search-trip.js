@@ -9,7 +9,7 @@ const typeOfTicket = [
   { id: 1, name: "1 vuxen" },
   { id: 2, name: "1 barn" },
   { id: 3, name: "1 student" },
-  { id: 5, name: "1 senior" },
+  { id: 4, name: "1 senior" },
 ];
 
 export default function SearchTrip() {
@@ -17,7 +17,7 @@ export default function SearchTrip() {
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
   const [startDateText, setStartDateText] = useState("Datum avresa");
   const [endDateText, setEndDateText] = useState("Datum hemresa");
-  const [addTravellerShown, setAddTravellerShown] = useState(false);
+  const [count, setCount] = useState(1);
 
 
   function getStartDateAndPutInMyTextField(date) {
@@ -38,13 +38,11 @@ export default function SearchTrip() {
     setEndDatePickerShown(!endDatePickerShown);
   }
 
-  function toggleAddTraveller() {
-    setAddTravellerShown(!addTravellerShown);
-    addTraveller();
-  }
-  function addTraveller() {
-    console.log("HELLO add traveller")
-  }
+  const removeItems = (i) => {
+    const arr = Array.filter((item) => item.i !== i);
+    setItems(arr);
+  };
+
 
   return (
     <div className="h-screen w-full pt-[50px] ">
@@ -90,17 +88,10 @@ export default function SearchTrip() {
 
       <div className="mt-5 text-[15px]">
         <div className="mb-5">
-          <MyListBox />
+          {[...Array(count)].map((_, i) => <div className="mb-2"><MyListBox key={i} /> <button className="text-white text-[14px] pl-2 pr-2 rounded-md  ml-4" onClick={() => setCount(count - 1)}>- Ta bort resenär</button></div>)}
         </div>
-        <div className={addTravellerShown ? "" : "hidden"}>
-          <MyListBox />
-        </div>
-        <button
-          onClick={() => toggleAddTraveller()}
-          className="text-white text-[12px] ml-4"
-        >
-          + Lägg till resenär
-        </button>
+        <button className="text-white text-[14px] pl-2 pr-2 bg-gray-400 rounded-md  ml-4" onClick={() => setCount(count + 1)}>+ Lägg till resenär</button>
+
       </div>
       <div className="ml-36 mt-16">
         <Link href="/">
@@ -108,11 +99,13 @@ export default function SearchTrip() {
             Sök resa
           </a>
         </Link>
+
       </div>
     </div>
 
   );
 }
+
 
 function MyListBox() {
   const [selected, setSelected] = useState(typeOfTicket[0]);
@@ -130,6 +123,7 @@ function MyListBox() {
               />
             </span>
           </Listbox.Button>
+
 
           <Transition
             leave="transition ease-in duration-100"
@@ -167,6 +161,7 @@ function MyListBox() {
           </Transition>
         </div>
       </Listbox >
+
     </div >
   );
 }
