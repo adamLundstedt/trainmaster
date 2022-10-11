@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const MemberSchema = new mongoose.Schema({
   userID: {
-    type: ObjectId,
+    type: mongoose.ObjectId,
   },
   password: {
     type: String,
