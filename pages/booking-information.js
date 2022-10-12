@@ -3,7 +3,14 @@ import Link from "next/link";
 import ExitButton from "../components/ExitButton";
 
 
+
+
 export default function BookingInformation() {
+
+  function handleToggle() {
+
+    console.log("hello")
+  }
   return (
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
@@ -41,22 +48,33 @@ export default function BookingInformation() {
             <a className="font-semibold">Hur vill du ha biljetten?</a>
           </div>
           <div className="rounded bg-white  ml-2 mr-2">
-            <div className="grid grid-cols-3">
-              <div className="text-black">
-                <input
-                  type="checkbox"
-                  className="mt-2 "
-                />Email </div>
-              <div className="text-black">
-                <input
-                  type="checkbox"
-                  className="mt-2 "
-                />Sms </div>
+            <div className="grid grid-cols-3 place-items-center">
               <div className="text-black items-center ">
                 <input
-                  type="checkbox"
-                  className="mt-2 "
-                />Hämta ut </div>
+                  type="radio"
+                  value="Email"
+                  checked
+                  className="mt-[5px] place-items-center "
+                  onClick={() => handleToggle()}
+                />
+                <a className="pl-1 text-[12px] text-center ">Email</a>
+              </div>
+              <div className="text-black items-center ">
+                <input
+                  type="radio"
+                  value="Sms"
+                  className="mt-[5px] place-items-center "
+                />
+                <a className="pl-1 text-[12px] text-center ">Sms</a>
+              </div>
+              <div className="text-black items-center ">
+                <input
+                  type="radio"
+                  value="GetFromStore"
+                  className="mt-[5px] place-items-center "
+                />
+                <a className="pl-1 text-[12px] text-center ">Hämta ut</a>
+              </div>
             </div>
 
           </div>
@@ -83,4 +101,4 @@ export default function BookingInformation() {
         </Link></div>
     </div >
   )
-}
+};
