@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+import { ObjectId } from "mongodb";
 
 const MemberSchema = new mongoose.Schema({
   userID: {
-    type: mongoose.ObjectId,
+    type: ObjectId,
+    ref: "User",
   },
   password: {
     type: String,

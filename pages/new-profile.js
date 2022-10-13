@@ -7,16 +7,17 @@ export default function NewProfile() {
       firstName: "",
       lastName: "",
       email: "",
+      password: "",
       phoneNumber: "",
     };
   };
   return (
-    <div>
+    <div className="place-content-center place-items-center">
       <div className="pt-[50px]">
         <ExitButton />
       </div>
       <h1 className="ml-10 text-white">Hej nya profilen</h1>
-      <Form formId="add-user-form" userForm={userForm} />;
+      <Form formId="add-user-form" userForm={Form} />;
     </div>
   );
 }
