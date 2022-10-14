@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const RouteSchema = new mongoose.Schema({
 
   routeId: {
-    type: ObjectId,
+    type: mongoose.Schema.ObjectId,
   },
   routeName: {
     type: String,
