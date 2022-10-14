@@ -61,12 +61,12 @@ const Form = ({ formId, userForm }) => {
   };
 
   return (
-    <div className="">
+    <div className=" ">
       <h1 className="text-white">Registrera medlem</h1>
       <form
         id={formId}
         onSubmit={handleSubmit}
-        className="grid grid-rows-1 gap-2 max-w-xs  "
+        className="grid grid-cols-1 gap-2 max-w-xs  "
       >
         <input
           type="text"
@@ -76,7 +76,8 @@ const Form = ({ formId, userForm }) => {
           required
           placeholder="Förnamn"
           onChange={handleChange}
-          className="text-center"
+          className="h-4 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
         <input
@@ -87,6 +88,8 @@ const Form = ({ formId, userForm }) => {
           required
           placeholder="Efternamn"
           onChange={handleChange}
+          className="h-4 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
         <input
@@ -97,6 +100,8 @@ const Form = ({ formId, userForm }) => {
           name="email"
           placeholder="Mailadress"
           onChange={handleChange}
+          className="h-4 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
         <input
@@ -107,6 +112,8 @@ const Form = ({ formId, userForm }) => {
           name="phoneNumber"
           placeholder="Telefonnummer"
           onChange={handleChange}
+          className="h-4 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
         <input
@@ -118,6 +125,8 @@ const Form = ({ formId, userForm }) => {
           name="password"
           placeholder="Välj lösenord"
           onChange={handleChange}
+          className="h-4 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
         <input
@@ -129,6 +138,8 @@ const Form = ({ formId, userForm }) => {
           name="repeatPassword"
           placeholder="Upprepa ditt lösenord"
           onChange={handleChange}
+          className="h-4 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
         <input type="submit" value="Registrera" className="text-white" />

@@ -12,12 +12,12 @@ export default function NewProfile() {
     };
   };
   return (
-    <div className="place-content-center place-items-center">
-      <div className="pt-[50px]">
-        <ExitButton />
+    <div className="h-screen w-full pt-[50px] ">
+      <ExitButton />
+      <h1 className="text-white text-lg ml-32 mb-6">Registrera ny profil</h1>
+      <div className="bg-gray-600 bg-opacity-70 h-[320px] ml-5 mr-5">
+        <Form formId="add-user-form" userForm={Form} />;
       </div>
-      <h1 className="ml-10 text-white">Hej nya profilen</h1>
-      <Form formId="add-user-form" userForm={Form} />;
     </div>
   );
 }
