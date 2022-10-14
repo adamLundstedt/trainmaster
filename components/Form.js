@@ -66,7 +66,7 @@ const Form = ({ formId, userForm }) => {
       <form
         id={formId}
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 gap-2 max-w-xs  "
+        className="grid grid-cols-1    "
       >
         <input
           type="text"
@@ -142,7 +142,13 @@ const Form = ({ formId, userForm }) => {
         drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
-        <input type="submit" value="Registrera" className="text-white" />
+        <div className="ml-24">
+          <input
+            type="submit"
+            value="Registrera"
+            className="text-white ml-5 px-4 py-0.5 rounded-md mt-10 bg-gray-400"
+          />
+        </div>
       </form>
       <p>{message}</p>
     </div>
