@@ -61,12 +61,11 @@ const Form = ({ formId, userForm }) => {
   };
 
   return (
-    <div className=" ">
-      <h1 className="text-white">Registrera medlem</h1>
+    <div className="bg-gray-600 bg-opacity-70 h-[320px] ml-5 mr-5">
       <form
         id={formId}
         onSubmit={handleSubmit}
-        className="grid grid-cols-1    "
+        className="grid grid-cols-1 justify-items-center  "
       >
         <input
           type="text"
@@ -76,7 +75,7 @@ const Form = ({ formId, userForm }) => {
           required
           placeholder="Förnamn"
           onChange={handleChange}
-          className="h-4 mt-4 border mx-2  bg-white text-center 
+          className="h-5 w-56 mt-4 border mx-2  bg-white text-center 
         drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
@@ -88,8 +87,8 @@ const Form = ({ formId, userForm }) => {
           required
           placeholder="Efternamn"
           onChange={handleChange}
-          className="h-4 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
         />
 
         <input
@@ -100,8 +99,8 @@ const Form = ({ formId, userForm }) => {
           name="email"
           placeholder="Mailadress"
           onChange={handleChange}
-          className="h-4 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
+          className="h-5 mt-5 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
         />
 
         <input
@@ -112,8 +111,8 @@ const Form = ({ formId, userForm }) => {
           name="phoneNumber"
           placeholder="Telefonnummer"
           onChange={handleChange}
-          className="h-4 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
         />
 
         <input
@@ -125,8 +124,8 @@ const Form = ({ formId, userForm }) => {
           name="password"
           placeholder="Välj lösenord"
           onChange={handleChange}
-          className="h-4 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
         />
 
         <input
@@ -138,19 +137,16 @@ const Form = ({ formId, userForm }) => {
           name="repeatPassword"
           placeholder="Upprepa ditt lösenord"
           onChange={handleChange}
-          className="h-4 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
         />
-
-        <div className="ml-24">
-          <input
-            type="submit"
-            value="Registrera"
-            className="text-white ml-5 px-4 py-0.5 rounded-md mt-10 bg-gray-400"
-          />
-        </div>
+        <p className="text-white text-center">{message}</p>
+        <input
+          type="submit"
+          value="Registrera"
+          className="text-white  px-4 py-0.5 rounded-md mt-10 bg-gray-400"
+        />
       </form>
-      <p>{message}</p>
     </div>
   );
 };

@@ -15,7 +15,7 @@ export default function NewProfile() {
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
       <h1 className="text-white text-lg ml-32 mb-6">Registrera ny profil</h1>
-      <div className="bg-gray-600 bg-opacity-70 h-[320px] ml-5 mr-5">
+      <div>
         <Form formId="add-user-form" userForm={Form} />;
       </div>
     </div>
