@@ -2,14 +2,9 @@ import BackButton from "../components/BackButton";
 import Link from "next/link";
 import ExitButton from "../components/ExitButton";
 
-
-
-
 export default function BookingInformation() {
-
   function handleToggle() {
-
-    console.log("hello")
+    console.log("hello");
   }
   return (
     <div className="h-screen w-full pt-[50px] ">
@@ -21,28 +16,32 @@ export default function BookingInformation() {
           <div>{"Stockholm C ----> Malmö C"}</div>
           <div>{"2022-09-29 ----> 2022-09-29"}</div>
           <div className=" grid grid-cols-2">
-            <input className=" h-4 mt-4 border mx-2  bg-white text-center 
+            <input
+              className=" h-4 mt-4 border mx-2  bg-white text-center 
         drop-shadow-md shadow-black text-black rounded text-sm"
               placeholder="Förnamn"
-              type="text">
-            </input>
-            <input className=" h-4 mt-4 border mx-2 bg-white text-center 
+              type="text"
+            ></input>
+            <input
+              className=" h-4 mt-4 border mx-2 bg-white text-center 
           drop-shadow-md shadow-black text-black rounded text-sm"
               placeholder="Efternamn"
-              type="text">
-            </input>
+              type="text"
+            ></input>
           </div>
           <div className=" grid grid-cols-2">
-            <input className=" h-4 mt-4 border mx-2  bg-white text-center 
+            <input
+              className=" h-4 mt-4 border mx-2  bg-white text-center 
         drop-shadow-md shadow-black text-black rounded text-sm"
               placeholder="Förnamn"
-              type="text">
-            </input>
-            <input className=" h-4 mt-4 border mx-2 bg-white text-center 
+              type="text"
+            ></input>
+            <input
+              className=" h-4 mt-4 border mx-2 bg-white text-center 
           drop-shadow-md shadow-black text-black rounded text-sm"
               placeholder="Efternamn"
-              type="text">
-            </input>
+              type="text"
+            ></input>
           </div>
           <div className="text-white text-lg mt-4 mb-6">
             <a className="font-semibold">Hur vill du ha biljetten?</a>
@@ -76,18 +75,20 @@ export default function BookingInformation() {
                 <a className="pl-1 text-[12px] text-center ">Hämta ut</a>
               </div>
             </div>
-
           </div>
           <div className="grid grid-cols-1">
-            <input className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
+            <input
+              className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
           drop-shadow-md shadow-black text-black rounded text-sm"
               placeholder="Ange din mailadress"
-              type="text">
-            </input>
-            <input className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
+              type="text"
+            ></input>
+            <input
+              className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
           drop-shadow-md shadow-black text-black rounded text-sm"
               placeholder="Ange ditt mobilnummer"
-              type="text"></input>
+              type="text"
+            ></input>
           </div>
           <div className="text-lg mt-3">Summa totalt: 300 SEK</div>
         </div>
@@ -98,7 +99,8 @@ export default function BookingInformation() {
           <a className="text-white ml-5 px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Nästa
           </a>
-        </Link></div>
-    </div >
-  )
-};
+        </Link>
+      </div>
+    </div>
+  );
+}
