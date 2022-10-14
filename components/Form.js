@@ -1,10 +1,8 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 const Form = ({ formId, userForm }) => {
-  const router = useRouter();
   const contentType = "application/json";
-  const [errors, setErrors] = useState({});
+
   const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
@@ -25,15 +23,6 @@ const Form = ({ formId, userForm }) => {
     });
   };
 
-  /*const formValidate = () => {
-    let err = {};
-    if (!form.firstName) err.name = "Name is required";
-    if (!form.lastName) err.lastName = "last is required";
-    if (!form.email) err.email = "email is required";
-    if (!form.phoneNumber) err.phoneNumber = "phonenumber is required";
-    return err;
-  };*/
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (form.password !== form.repeatPassword) {
@@ -42,12 +31,7 @@ const Form = ({ formId, userForm }) => {
     } else {
       setMessage("");
     }
-    /*const errs = formValidate();
-    if (Object.keys(errs).length === 0) {
-      postData(form);
-    } else {
-      setErrors({ errs });
-    }*/
+
     postData();
   };
 
@@ -150,12 +134,6 @@ const Form = ({ formId, userForm }) => {
         <input type="submit" value="Registrera" className="text-white" />
       </form>
       <p>{message}</p>
-
-      <div>
-        {Object.keys(errors).map((err, index) => (
-          <li key={index}>{err}</li>
-        ))}
-      </div>
     </div>
   );
 };
