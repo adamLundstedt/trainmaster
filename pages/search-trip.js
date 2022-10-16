@@ -17,7 +17,6 @@ export default function SearchTrip() {
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
   const [startDateText, setStartDateText] = useState("Datum avresa");
   const [endDateText, setEndDateText] = useState("Datum hemresa");
-  // const [count, setCount] = useState(1);
   const [travelers, setTravelers] = useState([{ id: 1, type: "1 vuxen" }]);
 
   function getStartDateAndPutInMyTextField(date) {
@@ -89,7 +88,7 @@ export default function SearchTrip() {
 
       <div className="mt-5 text-[15px]">
         <div className="mb-5">
-          {/*{[...Array(count)].map((_, i) => <div className="mb-2"><MyListBox key={i} /> <button className="text-white text-[14px] pl-2 pr-2 rounded-md  ml-4" onClick={() => setCount(count - 1)}>- Ta bort resenär</button></div>)}*/}
+
           {travelers.map((x, i) => (
             <div className="mb-2" key={i}>
               <MyListBox {...{ travelers, setTravelers, traveler: x }} />
@@ -163,8 +162,7 @@ function MyListBox(props) {
                 <Listbox.Option
                   key={id}
                   className={({ active }) =>
-                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${
-                      active ? "bg-gray-600 text-white" : " text-white"
+                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${active ? "bg-gray-600 text-white" : " text-white"
                     }`
                   }
                   value={name}
@@ -172,9 +170,8 @@ function MyListBox(props) {
                   {({ selected }) => (
                     <>
                       <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : " font-normal"
-                        }`}
+                        className={`block truncate ${selected ? "font-medium" : " font-normal"
+                          }`}
                       >
                         {name}
                       </span>
