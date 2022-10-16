@@ -372,15 +372,11 @@ export async function getServerSideProps() {
   
   const { db } = await connectToDatabase();
   mongo.s;
-
-  const station = { _id: 0, name: 1 };
-  const cursor = db.collection("routes").find("stations").project(station);
-  
-
+ 
   const routeData = await db.collection("routes").find({}).toArray();
 
   const routes = JSON.parse(JSON.stringify(routeData));
-  console.log('test log: ', cursor)
+  
 
 
   
