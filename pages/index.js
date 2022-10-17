@@ -11,7 +11,8 @@ export default function Home() {
       <Link href="/search-trip">
         <div className="w-[200px] ml-20 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
           Sök resa
-        </div></Link>
+        </div>
+      </Link>
     </div>
   );
 }
