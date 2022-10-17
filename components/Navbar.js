@@ -10,8 +10,8 @@ export default function MobileNavbar() {
         <div className=" ml-2 drop-shadow-md shadow-black text-3xl font-bold text-slate-500">
           TM
         </div>
-        <input className="w-full h-6 mt-2 border bg-gray-400 text-center 
-        drop-shadow-md shadow-black text-white rounded text-sm"
+        <input className="w-full h-6 mt-2 border text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
           placeholder="Sök bokning"
           type="text">
         </input>
