@@ -4,7 +4,12 @@ import { useAppContext } from "../my_app/context/AppContext";
 export default function ToStation({ routes }) {
   const [appState, setAppState] = useAppContext();
 
-  const [chosenDepartureStation, setDepartureStation] = useState(appState);
+  
+
+  console.log("app state from toStation: ", appState);
+
+  let chosenDepartureStation = appState;
+  
 
   console.log("chosen departure station from To: ", chosenDepartureStation);
   console.log("routes: ", routes);
@@ -44,65 +49,51 @@ export default function ToStation({ routes }) {
 
   console.log("valid routes: ", validRoutes);
 
-  let fromStations = [];
-  let stationNameInArray = false;
+  
 
-  for (let route of routes) {
-    for (let station of route.stations) {
-      stationNameInArray = false;
-      for (let fromStation of fromStations) {
-        if (station.station == fromStation) {
-          stationNameInArray = true;
-        }
-      }
-      if (!stationNameInArray) {
-        fromStations.push(station.station);
-      }
-    }
-  }
-
-  const [text2, setText2] = useState("");
+  const [text, setText] = useState("");
   const [destinationStations, setDestinationStations] = useState(validDestinationStations);
-  const [suggestions2, setSuggestions2] = useState([]);
-  let chosenDestinationStation = text2;
+  const [suggestions, setSuggestions] = useState([]);
+  let chosenDestinationStation = text;
+  console.log("chosen destination station: ", chosenDestinationStation)
 
-  let bookingInfo = {chosenDepartureStation, chosenDestinationStation, validRoutes};  
+  
+  const OnSuggestHandler = (text) => {
+    setText(text);
+    setSuggestions([]);
+  };
 
-  const OnSuggestHandler = (text2) => {
-    setText2(text2);
-    setSuggestions2([]);    
+  const onChangeHandler = (text) => {
+    let matches = [];
+    if (text.length > 0) {
+      matches = destinationStations.filter((station) => {
+        const regex = new RegExp(`${text}`, "gi");
+        return station.match(regex);
+      });
+    }
+    console.log("matches: ", matches);
+    setSuggestions(matches);
     
-  }
-
-  const onChangeHandler = (text2) => {
-    let matches2 = [];
-    if(text2.length > 0) {
-        matches2 = destinationStations.filter(station2 => {
-            const regex = new RegExp(`${text2}`, "gi");
-            return station2.match(regex);
-        })
-    }    
-    setSuggestions2(matches2);
-    setText2(text2);
-  } 
+    setText(text);
+  };
 
   return (
     <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
       <form>
-        <label for="from">TILL</label>
+        <label for="to">TILL</label>
         <input
           className="bg-gray-400"
           type="text"
           name="to"
           id="to"
-          onChange={(e2) => onChangeHandler(e2.target.value)}
-          value={text2}
+          onChange={(e) => onChangeHandler(e.target.value)}
+          value={text}
         />
-        {suggestions2 &&
-          suggestions2.map((suggestion2, i) => (
-            <div key={i} onClick={() => OnSuggestHandler(suggestion2)}>
+        {suggestions &&
+          suggestions.map((suggestion, i) => (
+            <div key={i} onClick={() => OnSuggestHandler(suggestion)}>
               {" "}
-              {suggestion2}
+              {suggestion}
             </div>
           ))}
       </form>

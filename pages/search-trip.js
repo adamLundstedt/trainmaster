@@ -46,6 +46,10 @@ export default function SearchTrip({ routes }) {
     setItems(arr);
   };
 
+  console.log("start date text: ", startDateText);
+  console.log("end date text: ", endDateText);
+  console.log("travelers: ", travelers)
+
   return (
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
