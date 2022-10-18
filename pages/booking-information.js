@@ -1,11 +1,23 @@
-import BackButton from "../components/BackButton";
 import Link from "next/link";
 import ExitButton from "../components/ExitButton";
+import { useState } from "react";
 
 export default function BookingInformation() {
-  function handleToggle() {
-    console.log("hello");
-  }
+  const [checked, setChecked] = useState({
+    Email: false,
+    Sms: false,
+    GetFromStore: true,
+  });
+  const changeRadio = (e) => {
+    setChecked(() => {
+      return {
+        Email: false,
+        Sms: false,
+        GetFromStore: false,
+        [e.target.value]: true,
+      };
+    });
+  };
   return (
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
@@ -52,9 +64,10 @@ export default function BookingInformation() {
                 <input
                   type="radio"
                   value="Email"
-                  checked
+                  checked={checked.Email}
+                  name="choice"
                   className="mt-[5px] place-items-center "
-                  onClick={() => handleToggle()}
+                  onChange={changeRadio}
                 />
                 <a className="pl-1 text-[12px] text-center ">Email</a>
               </div>
@@ -62,15 +75,21 @@ export default function BookingInformation() {
                 <input
                   type="radio"
                   value="Sms"
+                  checked={checked.Sms}
+                  name="choice"
                   className="mt-[5px] place-items-center "
+                  onChange={changeRadio}
                 />
                 <a className="pl-1 text-[12px] text-center ">Sms</a>
               </div>
               <div className="text-black items-center ">
                 <input
                   type="radio"
+                  checked={checked.GetFromStore}
                   value="GetFromStore"
+                  name="choice"
                   className="mt-[5px] place-items-center "
+                  onChange={changeRadio}
                 />
                 <a className="pl-1 text-[12px] text-center ">Hämta ut</a>
               </div>
@@ -94,8 +113,7 @@ export default function BookingInformation() {
         </div>
       </div>
       <div className="ml-24 m-5 ">
-        <BackButton />
-        <Link href="/booking-overview">
+        <Link href="/">
           <a className="text-white ml-5 px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Nästa
           </a>
