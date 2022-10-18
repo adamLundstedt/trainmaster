@@ -4,7 +4,7 @@ import { useAppContext } from "../my_app/context/AppContext";
 export default function ToStation({ routes }) {
   const [appState, setAppState] = useAppContext();
 
-  const chosenDepartureStation = appState;
+  const [chosenDepartureStation, setDepartureStation] = useState(appState);
 
   console.log("chosen departure station from To: ", chosenDepartureStation);
   console.log("routes: ", routes);
