@@ -95,7 +95,7 @@ export default function BookingInformation() {
       </div>
       <div className="ml-24 m-5 ">
         <BackButton />
-        <Link href="/">
+        <Link href="/booking-overview">
           <a className="text-white ml-5 px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Nästa
           </a>

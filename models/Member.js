@@ -1,13 +1,16 @@
 import mongoose from "mongoose";
+import { ObjectId } from "mongodb";
 
 const MemberSchema = new mongoose.Schema({
   userID: {
     type: ObjectId,
+    ref: "User",
   },
-  userPassword: {
+  password: {
     type: String,
-    required: [true, "Please provide a password for this member!"],
-    maxlength: [30, "Password cannot be more than 20 characters!"],
+    required: [true, "Var god välj ett lösenord!"],
+    maxlength: [30, "Lösenordet kan inte vara längre än 30 tecken långt!"],
+    minLength: [6, "Lösenordet måste vara minst 6 tecken långt"],
   },
 });
 export default mongoose.models.Member || mongoose.model("Member", MemberSchema);

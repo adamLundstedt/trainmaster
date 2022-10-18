@@ -1,18 +1,17 @@
-import Layout from "../layout/Layout";
-import "../styles/globals.css";
-import { useEffect, createContext, useState } from "react";
-import AppContext from "../components/AppContext";
+import Layout from '../layout/Layout'
+import '../styles/globals.css'
+import { AppWrapper } from "../my_app/context/AppContext";
 
 function MyApp({ Component, pageProps }) {
   const [nameContext, setNameContext] = useState("default");
 
   return (
-    <AppContext.Provider value={{ nameContext, setNameContext }}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </AppContext.Provider>
-  );
+    <AppWrapper>
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+    </AppWrapper>
+    )
 }
 
 export default MyApp;
