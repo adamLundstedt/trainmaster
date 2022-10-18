@@ -1,10 +1,8 @@
-import { useRouter } from "next/router";
 import { useState } from "react";
 
 const Form = ({ formId, userForm }) => {
-  const router = useRouter();
   const contentType = "application/json";
-  const [errors, setErrors] = useState({});
+
   const [message, setMessage] = useState("");
 
   const [form, setForm] = useState({
@@ -14,24 +12,6 @@ const Form = ({ formId, userForm }) => {
     phoneNumber: userForm.phoneNumber,
   });
 
-  const postData = async (form) => {
-    console.log(form);
-    try {
-      const res = await fetch("/api/userIndex", {
-        method: "POST",
-        headers: {
-          "Content-Type": contentType,
-        },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) {
-        throw new Error(res.status);
-      }
-      router.push("/");
-    } catch (error) {
-      setMessage("failed to add user");
-    }
-  };
   const handleChange = (e) => {
     const target = e.target;
     const value = target.value;
@@ -42,83 +22,131 @@ const Form = ({ formId, userForm }) => {
       [name]: value,
     });
   };
-  const formValidate = () => {
-    let err = {};
-    if (!form.firstName) err.name = "Name is required";
-    if (!form.lastName) err.lastName = "last is required";
-    if (!form.email) err.email = "email is required";
-    if (!form.phoneNumber) err.phoneNumber = "phonenumber is required";
-    return err;
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const errs = formValidate();
-    if (Object.keys(errs).length === 0) {
-      postData(form);
+    if (form.password !== form.repeatPassword) {
+      setMessage("Lösenorden matchar inte varandra!");
+      return;
     } else {
-      setErrors({ errs });
+      setMessage("");
     }
+
+    postData();
   };
+
+  const postToApi = async (url, data) =>
+    await (
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": contentType,
+        },
+        body: JSON.stringify(data),
+      })
+    ).json();
+
+  const postData = async () => {
+    // ? error handling - if already in db?
+    let member = { password: form.password };
+    let user = Object.assign({}, form);
+    delete user.password;
+    delete user.repeatPassword;
+    // create the user
+    const result = await postToApi("/api/userIndex", user);
+    // set the users id as userId in the member
+    member.userID = result.data._id;
+    // create the member
+    await postToApi("/api/memberIndex", member);
+  };
+
   return (
-    <div>
-      <h1 className="text-blue-400">Registrera medlem</h1>
-      <form id={formId} onSubmit={handleSubmit}>
-        <label htmlFor="firstName" className="text-blue-400">
-          Förnamn
-        </label>
+    <div className="bg-gray-600 bg-opacity-70 h-[320px] ml-5 mr-5">
+      <form
+        id={formId}
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 justify-items-center  "
+      >
         <input
           type="text"
           maxLength="20"
           name="firstName"
           value={form.firstName}
           required
-          placeholder="Skriv in ditt förnamn"
+          placeholder="Förnamn"
           onChange={handleChange}
+          className="h-5 w-56 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
         />
 
-        <label htmlFor="lastName">Efternamn</label>
         <input
           type="text"
           maxLength="20"
           name="lastName"
           value={form.lastName}
           required
-          placeholder="Skriv in ditt efternamn"
+          placeholder="Efternamn"
           onChange={handleChange}
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
         />
 
-        <label htmlFor="email">Email</label>
         <input
           type="email"
           maxLength="30"
           value={form.email}
           required
           name="email"
-          placeholder="Skriv in din email"
+          placeholder="Mailadress"
           onChange={handleChange}
+          className="h-5 mt-5 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
         />
 
-        <label htmlFor="phoneNumber">Telefonnummer</label>
         <input
           type="text"
           maxLength="20"
           value={form.phoneNumber}
           required
           name="phoneNumber"
-          placeholder="Skriv in ditt telefonnummer"
+          placeholder="Telefonnummer"
           onChange={handleChange}
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
         />
 
-        <input type="submit" value="Registrera" />
-      </form>
-      <p>{message}</p>
+        <input
+          type="password"
+          maxLength="20"
+          value={form.password}
+          required
+          minLength="6"
+          name="password"
+          placeholder="Välj lösenord"
+          onChange={handleChange}
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
+        />
 
-      <div>
-        {Object.keys(errors).map((err, index) => (
-          <li key={index}>{err}</li>
-        ))}
-      </div>
+        <input
+          type="password"
+          maxLength="20"
+          value={form.repeatPassword}
+          required
+          minLength="6"
+          name="repeatPassword"
+          placeholder="Upprepa ditt lösenord"
+          onChange={handleChange}
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
+        />
+        <p className="text-white text-center">{message}</p>
+        <input
+          type="submit"
+          value="Registrera"
+          className="text-white  px-4 py-0.5 rounded-md mt-10 bg-gray-400"
+        />
+      </form>
     </div>
   );
 };

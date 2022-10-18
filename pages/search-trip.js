@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { connectToDatabase } from "../lib/mongodb";
 import { Listbox, Transition } from "@headlessui/react";
 import ExitButton from "../components/ExitButton";
 import Link from "next/link";
-import NewDatePicker from "../components/DatePicker";
+import DatePicker from "../components/DatePicker";
+import FromStation from "../components/FromStation";
+import ToStation from "../components/ToStation";
+
 
 const typeOfTicket = [
   { id: 1, name: "1 vuxen" },
@@ -12,7 +16,7 @@ const typeOfTicket = [
   { id: 4, name: "1 senior" },
 ];
 
-export default function SearchTrip() {
+export default function SearchTrip({ routes }) {
   const [startDatePickerShown, setStartDatePickerShown] = useState(false);
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
   const [startDateText, setStartDateText] = useState("Datum avresa");
@@ -42,17 +46,24 @@ export default function SearchTrip() {
     setItems(arr);
   };
 
+  console.log("start date text: ", startDateText);
+  console.log("end date text: ", endDateText);
+  console.log("travelers: ", travelers)
+
   return (
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
-        <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-          Till
+        <div>
+          <FromStation routes={routes} />
         </div>
-        <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-          Från
+        <div>
+          <ToStation routes={routes} />
         </div>
+
+
+
         <div
           className="w-[150px]  mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
           onClick={toggleStartDatePicker}
@@ -76,12 +87,12 @@ export default function SearchTrip() {
         </div>
         <div>
           <div className={startDatePickerShown ? "" : "hidden"}>
-            <NewDatePicker dateSetter={getStartDateAndPutInMyTextField} />
+            <DatePicker dateSetter={getStartDateAndPutInMyTextField} />
           </div>
         </div>
         <div>
           <div className={endDatePickerShown ? "" : "hidden"}>
-            <NewDatePicker dateSetter={getEndDateAndPutInAnotherTextField} />
+            <DatePicker dateSetter={getEndDateAndPutInAnotherTextField} />
           </div>
         </div>
       </div>
@@ -189,4 +200,17 @@ function MyListBox(props) {
       </Listbox>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const { db } = await connectToDatabase();
+
+  const routesData = await db.collection("routes").find({}).toArray();
+  const routes = JSON.parse(JSON.stringify(routesData));
+
+  return {
+    props: {
+      routes: routes,
+    },
+  };
 }
