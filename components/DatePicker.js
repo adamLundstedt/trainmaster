@@ -100,7 +100,7 @@ export default function DatePicker({ dateSetter }) {
   };
 
   return (
-    <div className="bg-gray-400 text-white rounded w-[170px] pb-2 pt-2 m-1">
+    <div className="bg-gray-400 absolute z-10 text-white rounded w-[170px] pb-2 pt-2 m-1">
       <h1 className="text-center text-[14px]">
         <span className="m-2" onClick={back}>
           &lt;

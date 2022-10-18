@@ -8,7 +8,6 @@ import DatePicker from "../components/DatePicker";
 import FromStation from "../components/FromStation";
 import ToStation from "../components/ToStation";
 
-
 const typeOfTicket = [
   { id: 1, name: "1 vuxen" },
   { id: 2, name: "1 barn" },
@@ -55,14 +54,12 @@ export default function SearchTrip({ routes }) {
       <ExitButton />
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
-      <div>
+        <div className="mb-4">
           <FromStation routes={routes} />
         </div>
-      <div>
+        <div className="mb-4">
           <ToStation routes={routes} />
         </div>
-        
-        
 
         <div
           className="w-[150px]  mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
@@ -78,7 +75,6 @@ export default function SearchTrip({ routes }) {
           className="w-[150px] mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
           onClick={toggleEndDatePicker}
         >
-          {" "}
           <ChevronUpDownIcon
             className="h-5 w-5 absolute text-white"
             aria-hidden="true"
@@ -98,9 +94,9 @@ export default function SearchTrip({ routes }) {
       </div>
 
       <div className="mt-5 text-[15px]">
-        <div className="mb-5">
+        <div className="mb-4">
           {travelers.map((x, i) => (
-            <div className="mb-2" key={i}>
+            <div key={i}>
               <MyListBox {...{ travelers, setTravelers, traveler: x }} />
               {i === 0 ? null : (
                 <button
@@ -128,7 +124,7 @@ export default function SearchTrip({ routes }) {
         </button>
       </div>
       <div className="ml-36 mt-16">
-        <Link href="/">
+        <Link href="choose-train">
           <a className="text-white px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Sök resa
           </a>
@@ -172,8 +168,7 @@ function MyListBox(props) {
                 <Listbox.Option
                   key={id}
                   className={({ active }) =>
-                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${
-                      active ? "bg-gray-600 text-white" : " text-white"
+                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${active ? "bg-gray-600 text-white" : " text-white"
                     }`
                   }
                   value={name}
@@ -181,9 +176,8 @@ function MyListBox(props) {
                   {({ selected }) => (
                     <>
                       <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : " font-normal"
-                        }`}
+                        className={`block truncate ${selected ? "font-medium" : " font-normal"
+                          }`}
                       >
                         {name}
                       </span>
