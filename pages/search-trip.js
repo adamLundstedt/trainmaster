@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { connectToDatabase } from "../lib/mongodb";
 import { Listbox, Transition } from "@headlessui/react";
 import ExitButton from "../components/ExitButton";
 import Link from "next/link";
-import NewDatePicker from "../components/DatePicker";
+import DatePicker from "../components/DatePicker";
+import FromStation from "../components/FromStation";
+import ToStation from "../components/ToStation";
+
 
 const typeOfTicket = [
   { id: 1, name: "1 vuxen" },
@@ -12,7 +16,7 @@ const typeOfTicket = [
   { id: 4, name: "1 senior" },
 ];
 
-export default function SearchTrip() {
+export default function SearchTrip({ routes }) {
   const [startDatePickerShown, setStartDatePickerShown] = useState(false);
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
   const [startDateText, setStartDateText] = useState("Datum avresa");
@@ -47,12 +51,15 @@ export default function SearchTrip() {
       <ExitButton />
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
-        <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-          Till
+      <div>
+          <FromStation routes={routes} />
         </div>
-        <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-          Från
+      <div>
+          <ToStation routes={routes} />
         </div>
+        
+        
+
         <div
           className="w-[150px]  mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
           onClick={toggleStartDatePicker}
@@ -76,19 +83,18 @@ export default function SearchTrip() {
         </div>
         <div>
           <div className={startDatePickerShown ? "" : "hidden"}>
-            <NewDatePicker dateSetter={getStartDateAndPutInMyTextField} />
+            <DatePicker dateSetter={getStartDateAndPutInMyTextField} />
           </div>
         </div>
         <div>
           <div className={endDatePickerShown ? "" : "hidden"}>
-            <NewDatePicker dateSetter={getEndDateAndPutInAnotherTextField} />
+            <DatePicker dateSetter={getEndDateAndPutInAnotherTextField} />
           </div>
         </div>
       </div>
 
       <div className="mt-5 text-[15px]">
         <div className="mb-5">
-
           {travelers.map((x, i) => (
             <div className="mb-2" key={i}>
               <MyListBox {...{ travelers, setTravelers, traveler: x }} />
@@ -162,7 +168,8 @@ function MyListBox(props) {
                 <Listbox.Option
                   key={id}
                   className={({ active }) =>
-                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${active ? "bg-gray-600 text-white" : " text-white"
+                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${
+                      active ? "bg-gray-600 text-white" : " text-white"
                     }`
                   }
                   value={name}
@@ -170,8 +177,9 @@ function MyListBox(props) {
                   {({ selected }) => (
                     <>
                       <span
-                        className={`block truncate ${selected ? "font-medium" : " font-normal"
-                          }`}
+                        className={`block truncate ${
+                          selected ? "font-medium" : " font-normal"
+                        }`}
                       >
                         {name}
                       </span>
@@ -190,4 +198,17 @@ function MyListBox(props) {
       </Listbox>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const { db } = await connectToDatabase();
+
+  const routesData = await db.collection("routes").find({}).toArray();
+  const routes = JSON.parse(JSON.stringify(routesData));
+
+  return {
+    props: {
+      routes: routes,
+    },
+  };
 }
