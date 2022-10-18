@@ -10,13 +10,13 @@ export default function ChooseSeats({ trains, tickets, coaches }) {
   //const chosenTrainId = "632acde93b9bdbfc822b4d1f";
 
   const cssFree =
-    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
+    "bg-gray-400 hover:bg-gray-800 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssBooked =
-    "bg-red-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded";
+    "bg-red-500 hover:bg-red-500 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSpecialNeeds =
-    "bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded";
+    "bg-yellow-500 hover:bg-yellow-700 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSelected =
-    "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded";
+    "bg-green-500 hover:bg-green-700 text-white font-bold text-[11px] w-8 h-8 rounded";
 
   let className;
 
@@ -236,7 +236,7 @@ export default function ChooseSeats({ trains, tickets, coaches }) {
     }
   }
 
-  
+
   for (let ticket of ticketsForGivenTrain) {
     if (modelOne) {
       for (let coach of trainSetModelOne) {
@@ -272,18 +272,18 @@ export default function ChooseSeats({ trains, tickets, coaches }) {
         }
       }
     }
-  } 
+  }
 
   if (modelOne) {
-    return <TrainSetOne trainSetModelOne={trainSetModelOne} chosenTrainCoaches = {chosenTrainCoaches}></TrainSetOne>;
+    return <TrainSetOne trainSetModelOne={trainSetModelOne} chosenTrainCoaches={chosenTrainCoaches}></TrainSetOne>;
   }
 
   else if (modelTwo) {
-    return <TrainSetTwo trainSetModelTwo={trainSetModelTwo} chosenTrainCoaches = {chosenTrainCoaches}></TrainSetTwo>;
+    return <TrainSetTwo trainSetModelTwo={trainSetModelTwo} chosenTrainCoaches={chosenTrainCoaches}></TrainSetTwo>;
   }
 
   else if (modelThree) {
-    return <TrainSetThree trainSetModelThree={trainSetModelThree} chosenTrainCoaches = {chosenTrainCoaches}></TrainSetThree>;
+    return <TrainSetThree trainSetModelThree={trainSetModelThree} chosenTrainCoaches={chosenTrainCoaches}></TrainSetThree>;
   }
 }
 

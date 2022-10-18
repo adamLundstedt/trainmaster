@@ -7,12 +7,11 @@ import TrailerCoach from "./TrailerCoach";
 
 export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
   const cssFree =
-    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
-
+    "bg-gray-400 hover:bg-gray-800 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSpecialNeeds =
-    "bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded";
+    "bg-yellow-500 hover:bg-yellow-700 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSelected =
-    "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded";
+    "bg-green-500 hover:bg-green-700 text-white font-bold text-[11px] w-8 h-8 rounded";
 
   const [trainSetTwo, setTrainSetTwo] = useState(trainSetModelTwo);
 
@@ -174,5 +173,5 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
         </div>
       </div>
     );
-  } 
+  }
 }

@@ -1,7 +1,7 @@
 export default function BistroCoach({ coachToRender, handleClickSeat }) {
   return (
     <div>
-      <div className="bg-[url('/bistrolayout.jpg')] bg-contain bg-scroll bg-no-repeat ml-10 mr-10 mt-10">
+      <div className=" bg-contain bg-scroll bg-no-repeat ml-10 mr-10 mt-10">
         <div className="ml-10 mr-10 inline-grid grid-cols-1 pt-1 pb-12">
           <div className="inline-grid grid-cols-8">
             <div>

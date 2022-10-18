@@ -1,7 +1,7 @@
 export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
   return (
     <div>
-      <div className="bg-[url('/secondclasslayout.jpg')] bg-contain bg-scroll bg-no-repeat ml-10 mr-10 mt-10">
+      <div className=" bg-contain bg-scroll bg-no-repeat ml-10 mr-10 mt-10">
         <div className="ml-10 mr-10 inline-grid grid-cols-2 pt-1 pb-12">
           <div className="inline-grid grid-cols-12">
             <div>
@@ -572,19 +572,19 @@ export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
           </div>
 
           <div>
-          <div className="m-2" key={coachToRender.coachSeats[44].id}>
-                <button
-                  disabled={
-                    coachToRender.coachSeats[44].isBooked ? true : false
-                  }
-                  onClick={() =>
-                    handleClickSeat(coachToRender.coachSeats[44].id)
-                  }
-                  className={coachToRender.coachSeats[44].className}
-                >
-                  {coachToRender.coachSeats[44].seatNumber}
-                </button>
-              </div>
+            <div className="m-2" key={coachToRender.coachSeats[44].id}>
+              <button
+                disabled={
+                  coachToRender.coachSeats[44].isBooked ? true : false
+                }
+                onClick={() =>
+                  handleClickSeat(coachToRender.coachSeats[44].id)
+                }
+                className={coachToRender.coachSeats[44].className}
+              >
+                {coachToRender.coachSeats[44].seatNumber}
+              </button>
+            </div>
             <div className="m-2" key={coachToRender.coachSeats[45].id}>
               <button
                 disabled={coachToRender.coachSeats[45].isBooked ? true : false}
@@ -654,7 +654,7 @@ export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
           </div>
 
           <div>
-            
+
             <div className="m-2" key={coachToRender.coachSeats[52].id}>
               <button
                 disabled={coachToRender.coachSeats[52].isBooked ? true : false}
@@ -693,7 +693,7 @@ export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
             </div>
           </div>
           <div>
-            
+
             <div className="m-2" key={coachToRender.coachSeats[56].id}>
               <button
                 disabled={coachToRender.coachSeats[56].isBooked ? true : false}
@@ -732,7 +732,7 @@ export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
             </div>
           </div>
           <div>
-            
+
             <div className="m-2" key={coachToRender.coachSeats[60].id}>
               <button
                 disabled={coachToRender.coachSeats[60].isBooked ? true : false}
@@ -771,7 +771,7 @@ export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
             </div>
           </div>
           <div>
-            
+
             <div className="m-2" key={coachToRender.coachSeats[64].id}>
               <button
                 disabled={coachToRender.coachSeats[64].isBooked ? true : false}
@@ -810,7 +810,7 @@ export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
             </div>
           </div>
           <div>
-            
+
             <div className="m-2" key={coachToRender.coachSeats[68].id}>
               <button
                 disabled={coachToRender.coachSeats[68].isBooked ? true : false}
@@ -849,7 +849,7 @@ export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
             </div>
           </div>
           <div>
-            
+
             <div className="m-2" key={coachToRender.coachSeats[72].id}>
               <button
                 disabled={coachToRender.coachSeats[72].isBooked ? true : false}
@@ -867,7 +867,7 @@ export default function SecondClassCoach({ coachToRender, handleClickSeat }) {
               >
                 {coachToRender.coachSeats[73].seatNumber}
               </button>
-            </div>            
+            </div>
           </div>
         </div>
       </div>

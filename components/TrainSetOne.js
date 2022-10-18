@@ -7,12 +7,11 @@ import TrailerCoach from "./TrailerCoach";
 
 export default function TrainSetOne({ trainSetModelOne, chosenTrainCoaches }) {
   const cssFree =
-    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
-
+    "bg-gray-400 hover:bg-gray-800 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSpecialNeeds =
-    "bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded";
+    "bg-yellow-500 hover:bg-yellow-700 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSelected =
-    "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded";
+    "bg-green-500 hover:bg-green-700 text-white font-bold text-[11px] w-8 h-8 rounded";
 
   const [trainSetOne, setTrainSetOne] = useState(trainSetModelOne);
 
@@ -58,7 +57,11 @@ export default function TrainSetOne({ trainSetModelOne, chosenTrainCoaches }) {
     return (
       <div>
         <div>
-          <div>
+          <p className="text-white">Vagnnummer: {chosenCoachIndex + 1}</p>
+          <div><FirstClassCoach
+            coachToRender={trainSetOne[0]}
+            handleClickSeat={handleClickSeat}
+          ></FirstClassCoach>
             <button onClick={() => handleClickLeftArrow()} className="m-2">
               <Image src="/arrow-left.png" height="100px" width="100px"></Image>
             </button>
@@ -69,12 +72,7 @@ export default function TrainSetOne({ trainSetModelOne, chosenTrainCoaches }) {
                 width="100px"
               ></Image>
             </button>
-            <p className="text-white">VAGNNUMMER: {chosenCoachIndex + 1}</p>
           </div>
-          <FirstClassCoach
-            coachToRender={trainSetOne[0]}
-            handleClickSeat={handleClickSeat}
-          ></FirstClassCoach>
         </div>
       </div>
     );
