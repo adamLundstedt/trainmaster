@@ -87,10 +87,9 @@ export default function SearchTrip() {
       </div>
 
       <div className="mt-5 text-[15px]">
-        <div className="mb-5">
-
+        <div className="mb-4">
           {travelers.map((x, i) => (
-            <div className="mb-2" key={i}>
+            <div key={i}>
               <MyListBox {...{ travelers, setTravelers, traveler: x }} />
               {i === 0 ? null : (
                 <button
