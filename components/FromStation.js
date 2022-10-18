@@ -47,25 +47,23 @@ export default function FromStation({ routes }) {
   };
 
   return (
-    <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
-      <form>
-        <label for="from">FRÅN</label>
-        <input
-          className="bg-gray-400"
-          type="text"
-          name="from"
-          id="from"
-          onChange={(e) => onChangeHandler(e.target.value)}
-          value={text}
-        />
-        {suggestions &&
-          suggestions.map((suggestion, i) => (
-            <div key={i} onClick={() => OnSuggestHandler(suggestion)}>
-              {" "}
-              {suggestion}
-            </div>
-          ))}
-      </form>
+    <div className="w-[150px] ml-4 absolute z-10 mx-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
+      <input
+        className="placeholder-white text-center bg-gray-400 rounded"
+        type="text"
+        placeholder="Från"
+        id="from"
+        onChange={(e) => onChangeHandler(e.target.value)}
+        value={text}
+      ></input>{suggestions &&
+        suggestions.map((suggestion, i) => (
+          <div key={i} onClick={() => OnSuggestHandler(suggestion)}>
+
+            {suggestion}
+
+
+          </div>
+        ))}
     </div>
   );
 }

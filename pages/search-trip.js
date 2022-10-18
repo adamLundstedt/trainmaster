@@ -8,7 +8,6 @@ import DatePicker from "../components/DatePicker";
 import FromStation from "../components/FromStation";
 import ToStation from "../components/ToStation";
 
-
 const typeOfTicket = [
   { id: 1, name: "1 vuxen" },
   { id: 2, name: "1 barn" },
@@ -55,14 +54,12 @@ export default function SearchTrip({ routes }) {
       <ExitButton />
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
-        <div>
+        <div className="mb-4">
           <FromStation routes={routes} />
         </div>
-        <div>
+        <div className="mb-4">
           <ToStation routes={routes} />
         </div>
-
-
 
         <div
           className="w-[150px]  mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
@@ -78,7 +75,6 @@ export default function SearchTrip({ routes }) {
           className="w-[150px] mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
           onClick={toggleEndDatePicker}
         >
-          {" "}
           <ChevronUpDownIcon
             className="h-5 w-5 absolute text-white"
             aria-hidden="true"
@@ -128,7 +124,7 @@ export default function SearchTrip({ routes }) {
         </button>
       </div>
       <div className="ml-36 mt-16">
-        <Link href="/">
+        <Link href="choose-train">
           <a className="text-white px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Sök resa
           </a>
