@@ -3,7 +3,7 @@ import '../styles/globals.css'
 import { AppWrapper } from "../my_app/context/AppContext";
 
 function MyApp({ Component, pageProps }) {
-  const [nameContext, setNameContext] = useState("default");
+ 
 
   return (
     <AppWrapper>
