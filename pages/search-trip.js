@@ -94,7 +94,7 @@ export default function SearchTrip({ routes }) {
       </div>
 
       <div className="mt-5 text-[15px]">
-        <div className="mb-4">
+        <div className="mb-5">
           {travelers.map((x, i) => (
             <div key={i}>
               <MyListBox {...{ travelers, setTravelers, traveler: x }} />
@@ -145,7 +145,7 @@ function MyListBox(props) {
   }
 
   return (
-    <div className="ml-4 bg-gray-400 rounded text-white mr-5">
+    <div className="ml-4 mb-2 bg-gray-400 rounded text-white mr-5">
       <Listbox value={traveler.type} onChange={change}>
         <div className="relative">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-grey  pr-10 text-center shadow-md    ">
