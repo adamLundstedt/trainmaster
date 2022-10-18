@@ -1,30 +1,18 @@
-import Layout from '../layout/Layout'
-import '../styles/globals.css'
-import { useEffect } from 'react'
-import { useStates } from '../lib/states'
-
-
+import Layout from "../layout/Layout";
+import "../styles/globals.css";
+import { useEffect, createContext, useState } from "react";
+import AppContext from "../components/AppContext";
 
 function MyApp({ Component, pageProps }) {
-  let s =  useStates('main', { 
-    routes: [],
-    users: []
-  })
-  useEffect(() => {
-    (async () => {
-      s.routes = await (await fetch('/api/routeIndex')).json()
-      s.users = await (await fetch('/api/userIndex')).json()
-      console.log(s.routes)
-    })()
-  }, []) 
-  
- 
+  const [nameContext, setNameContext] = useState("default");
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>)
+    <AppContext.Provider value={{ nameContext, setNameContext }}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AppContext.Provider>
+  );
 }
 
-export default MyApp
-
+export default MyApp;

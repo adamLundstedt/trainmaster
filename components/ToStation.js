@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useAppContext } from "../my_app/context/AppContext";
 
 export default function ToStation({ routes }) {
-  const chosenDepartureStation = localStorage.getItem("chosenDepartureStation");
+  const [appState, setAppState] = useAppContext();
+
+  const chosenDepartureStation = appState;
 
   console.log("chosen departure station from To: ", chosenDepartureStation);
   console.log("routes: ", routes);
@@ -9,12 +12,35 @@ export default function ToStation({ routes }) {
   let validRoutes = [];
 
   for (let route of routes) {
-    for (let i = 0; i < route.stations.length; i++) {
-      if (route.stations[i].station == chosenDepartureStation) {
+    for (let station of route.stations) {
+      if (
+        chosenDepartureStation == station.station &&
+        route.stations[route.stations.length - 1].station !=
+          chosenDepartureStation
+      ) {
         validRoutes.push(route);
       }
     }
   }
+
+  let validDestinationStations = [];
+
+  let chosenStationFound = false;  
+
+  for (let validRoute of validRoutes) {
+    
+    for (let station of validRoute.stations) {
+      if(chosenStationFound && station.station != chosenDepartureStation && !validDestinationStations.includes(station.station)) {
+        validDestinationStations.push(station.station)
+      }
+      if(station.station == chosenDepartureStation) {
+        chosenStationFound = true;
+      }
+    }
+  }
+
+  
+  console.log("valid destination stations: ", validDestinationStations);
 
   console.log("valid routes: ", validRoutes);
 
@@ -35,28 +61,28 @@ export default function ToStation({ routes }) {
     }
   }
 
-  const [text, setText] = useState("");
-  const [departureStations, setDepartureStations] = useState(fromStations);
+  const [text2, setText2] = useState("");
+  const [destinationStations, setDestinationStations] = useState(validDestinationStations);
   const [suggestions, setSuggestions] = useState([]);
+  let chosenDestinationStation = text2;
 
-  const OnSuggestHandler = (text) => {
-    setText(text);
-    setSuggestions([]);
-    chosenDepartureStation = text;
-  };
+  const OnSuggestHandler = (text2) => {
+    setText2(text2);
+    setSuggestions([]);    
+    
+  }
 
-  const onChangeHandler = (text) => {
-    let matches = [];
-    if (text.length > 0) {
-      matches = departureStations.filter((station) => {
-        const regex = new RegExp(`${text}`, "gi");
-        return station.match(regex);
-      });
-    }
-
-    setSuggestions(matches);
-    setText(text);
-  };
+  const onChangeHandler = (text2) => {
+    let matches2 = [];
+    if(text2.length > 0) {
+        matches2 = destinationStations.filter(station => {
+            const regex = new RegExp(`${text2}`, "gi");
+            return station.match(regex);
+        })
+    }    
+    setSuggestions(matches2);
+    setText2(text2);
+  } 
 
   return (
     <div className="w-[150px] ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
@@ -65,10 +91,10 @@ export default function ToStation({ routes }) {
         <input
           className="bg-gray-400"
           type="text"
-          name="from"
-          id="from"
+          name="to"
+          id="to"
           onChange={(e) => onChangeHandler(e.target.value)}
-          value={text}
+          value={text2}
         />
         {suggestions &&
           suggestions.map((suggestion, i) => (

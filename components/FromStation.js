@@ -1,6 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useAppContext } from "../my_app/context/AppContext";
 
 export default function FromStation({ routes }) {
+  const [appState, setAppState] = useAppContext();
+
   let fromStations = [];
   let stationNameInArray = false;
 
@@ -23,17 +26,13 @@ export default function FromStation({ routes }) {
   const [suggestions, setSuggestions] = useState([]);
   let chosenDepartureStation = text;
 
+  setAppState(chosenDepartureStation);
+  console.log("appstate", appState);
+
   const OnSuggestHandler = (text) => {
     setText(text);
     setSuggestions([]);
   };
-
-  useEffect(() => {
-    window.localStorage.setItem(
-      "chosenDepartureStation",
-      JSON.stringify(chosenDepartureStation)
-    );
-  }, [chosenDepartureStation]);
 
   const onChangeHandler = (text) => {
     let matches = [];
