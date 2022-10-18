@@ -6,10 +6,10 @@ import Link from "next/link";
 import NewDatePicker from "../components/DatePicker";
 
 const typeOfTicket = [
-  { id: 1, name: "1 vuxen" }, //ska vi lägga till priset här också?
+  { id: 1, name: "1 vuxen" },
   { id: 2, name: "1 barn" },
   { id: 3, name: "1 student" },
-  { id: 5, name: "1 senior" },
+  { id: 4, name: "1 senior" },
 ];
 
 export default function SearchTrip() {
@@ -17,7 +17,7 @@ export default function SearchTrip() {
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
   const [startDateText, setStartDateText] = useState("Datum avresa");
   const [endDateText, setEndDateText] = useState("Datum hemresa");
-
+  const [travelers, setTravelers] = useState([{ id: 1, type: "1 vuxen" }]);
 
   function getStartDateAndPutInMyTextField(date) {
     setStartDateText(date.toISOString().split("T")[0]);
@@ -37,6 +37,11 @@ export default function SearchTrip() {
     setEndDatePickerShown(!endDatePickerShown);
   }
 
+  const removeItems = (i) => {
+    const arr = Array.filter((item) => item.i !== i);
+    setItems(arr);
+  };
+
   return (
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
@@ -51,7 +56,8 @@ export default function SearchTrip() {
         <div
           className="w-[150px]  mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
           onClick={toggleStartDatePicker}
-        ><ChevronUpDownIcon
+        >
+          <ChevronUpDownIcon
             className="h-5 w-5 absolute text-white"
             aria-hidden="true"
           />
@@ -60,12 +66,13 @@ export default function SearchTrip() {
         <div
           className="w-[150px] mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
           onClick={toggleEndDatePicker}
-        >  <ChevronUpDownIcon
+        >
+          {" "}
+          <ChevronUpDownIcon
             className="h-5 w-5 absolute text-white"
             aria-hidden="true"
           />
           {endDateText}
-
         </div>
         <div>
           <div className={startDatePickerShown ? "" : "hidden"}>
@@ -80,10 +87,32 @@ export default function SearchTrip() {
       </div>
 
       <div className="mt-5 text-[15px]">
-        <MyListBox />
+        <div className="mb-5">
+
+          {travelers.map((x, i) => (
+            <div className="mb-2" key={i}>
+              <MyListBox {...{ travelers, setTravelers, traveler: x }} />
+              {i === 0 ? null : (
+                <button
+                  className="text-white text-[14px] pl-2 pr-2 rounded-md  ml-4"
+                  onClick={() => {
+                    setTravelers(travelers.filter((y) => y !== x));
+                  }}
+                >
+                  - Ta bort resenär
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
         <button
-          onClick={() => AddTraveller()}
-          className="text-white text-[12px] ml-4"
+          className="text-white text-[14px] pl-2 pr-2 bg-gray-400 rounded-md  ml-4"
+          onClick={() =>
+            setTravelers([
+              ...travelers,
+              { id: travelers.length + 1, type: "1 vuxen" },
+            ])
+          }
         >
           + Lägg till resenär
         </button>
@@ -96,19 +125,25 @@ export default function SearchTrip() {
         </Link>
       </div>
     </div>
-    //</div>
   );
 }
 
-function MyListBox() {
-  const [selected, setSelected] = useState(typeOfTicket[0]);
+function MyListBox(props) {
+  let { travelers, setTravelers, traveler } = props;
+
+  function change(type) {
+    let index = travelers.findIndex(({ id }) => id === traveler.id);
+    let newTravelers = travelers.slice();
+    newTravelers[index] = { id: traveler.id, type };
+    setTravelers(newTravelers);
+  }
 
   return (
     <div className="ml-4 bg-gray-400 rounded text-white mr-5">
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={traveler.type} onChange={change}>
         <div className="relative">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-grey  pr-10 text-center shadow-md    ">
-            <span className="block truncate">{selected.name}</span>
+            <span className="block truncate">{traveler.type}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
                 className="h-5 w-5 text-white"
@@ -122,15 +157,15 @@ function MyListBox() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full rounded-md bg-gray-400 py-1 shadow-lg ">
-              {typeOfTicket.map((type, typeIdx) => (
+            <Listbox.Options className=" mt-1 max-h-60 w-full rounded-md bg-gray-400 py-1 shadow-lg ">
+              {typeOfTicket.map(({ name, id }) => (
                 <Listbox.Option
-                  key={typeIdx}
+                  key={id}
                   className={({ active }) =>
                     `relative cursor-default select-none text-[14px] pl-8 pr-4 ${active ? "bg-gray-600 text-white" : " text-white"
                     }`
                   }
-                  value={type}
+                  value={name}
                 >
                   {({ selected }) => (
                     <>
@@ -138,7 +173,7 @@ function MyListBox() {
                         className={`block truncate ${selected ? "font-medium" : " font-normal"
                           }`}
                       >
-                        {type.name}
+                        {name}
                       </span>
                       {selected ? (
                         <span className="absolute  inset-y-0 left-0 flex items-center pl-3 text-white">
@@ -152,7 +187,7 @@ function MyListBox() {
             </Listbox.Options>
           </Transition>
         </div>
-      </Listbox >
-    </div >
+      </Listbox>
+    </div>
   );
 }
