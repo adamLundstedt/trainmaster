@@ -4,7 +4,7 @@ export default function DatePicker({ dateSetter }) {
   // Fix for if someone using this component
   // is stupid enough to not provide a function
   // we call when the date changes
-  dateSetter = typeof dateSetter === "function" ? dateSetter : () => { };
+  dateSetter = typeof dateSetter === "function" ? dateSetter : () => {};
 
   let months = [
     "januari",
@@ -81,7 +81,6 @@ export default function DatePicker({ dateSetter }) {
     let x = new Date(today.getTime());
     x.setMonth(x.getMonth() + 1);
     setToday(x);
-
   };
 
   // return different css class if markedDate
@@ -111,24 +110,26 @@ export default function DatePicker({ dateSetter }) {
         </span>
       </h1>
       <table className="text-center text-[13px] ml-3">
-        <tr>
-          {weekdays.map((x, i) => (
-            <td key={i}>{x.slice(0, 3)}</td>
-          ))}
-        </tr>
-        {dates.map((week, i) => (
-          <tr key={i}>
-            {week.map((date) => (
-              <td
-                onClick={() => changeDate(date)}
-                className={getClass(date)}
-                key={date.getDate()}
-              >
-                {date.getDate()}
-              </td>
+        <tbody>
+          <tr>
+            {weekdays.map((x, i) => (
+              <td key={i}>{x.slice(0, 3)}</td>
             ))}
           </tr>
-        ))}
+          {dates.map((week, i) => (
+            <tr key={i}>
+              {week.map((date) => (
+                <td
+                  onClick={() => changeDate(date)}
+                  className={getClass(date)}
+                  key={date.getDate()}
+                >
+                  {date.getDate()}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
