@@ -1,11 +1,18 @@
+import BackButton from "../components/BackButton";
+import Link from "next/link";
+import ExitButton from "../components/ExitButton";
+
 export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
   return (
-    <div>
-      <div className="bg-[url('/firstclasslayout.jpg')] bg-contain bg-scroll bg-no-repeat ml-10 mr-10 mt-10">
-        <div className="ml-10 mr-10 inline-grid grid-cols-2 pt-1 pb-12">
-          <div className="inline-grid grid-cols-10">
-            <div>
-              <div className="m-2" key={coachToRender.coachSeats[0].id}>
+    <div className=" w-full pt-[50px] ">
+      <ExitButton />
+      <a className="text-white text-lg ml-36 mb-6">Välj sittplats </a>
+      <div className=" ml-5 mr-5">
+        <div className="text-center ml-16 text-white pt-[10px] text-[10px] ">
+          <div id='slider' className="w-[200px]  bg-white bg-opacity-60 overflow-y-scroll scroll whitespace-nowrap scroll-smooth pb-10 h-[250px]">
+            <div className="inline-grid grid-cols-4">
+
+              <div className="m-2 " key={coachToRender.coachSeats[0].id}>
                 <button
                   disabled={coachToRender.coachSeats[0].isBooked ? true : false}
                   onClick={() =>
@@ -16,7 +23,7 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[0].seatNumber}
                 </button>
               </div>
-              <div className="m-2" key={coachToRender.coachSeats[1].id}>
+              <div className="m-2  " key={coachToRender.coachSeats[1].id}>
                 <button
                   disabled={coachToRender.coachSeats[1].isBooked ? true : false}
                   onClick={() =>
@@ -27,7 +34,7 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[1].seatNumber}
                 </button>
               </div>
-              <div className="m-2" key={coachToRender.coachSeats[2].id}>
+              <div className="m-2 " key={coachToRender.coachSeats[2].id}>
                 <button
                   disabled={coachToRender.coachSeats[2].isBooked ? true : false}
                   onClick={() =>
@@ -38,9 +45,7 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[2].seatNumber}
                 </button>
               </div>
-            </div>
-            <div>
-              <div className="m-2" key={coachToRender.coachSeats[3].id}>
+              <div className="m-2 " key={coachToRender.coachSeats[3].id}>
                 <button
                   disabled={coachToRender.coachSeats[3].isBooked ? true : false}
                   onClick={() =>
@@ -62,7 +67,7 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[4].seatNumber}
                 </button>
               </div>
-              <div className="m-2" key={coachToRender.coachSeats[5].id}>
+              <div className="m-2 " key={coachToRender.coachSeats[5].id}>
                 <button
                   disabled={coachToRender.coachSeats[5].isBooked ? true : false}
                   onClick={() =>
@@ -73,9 +78,9 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[5].seatNumber}
                 </button>
               </div>
-            </div>
-            <div>
-              <div className="m-2" key={coachToRender.coachSeats[6].id}>
+
+
+              <div className="m-2 " key={coachToRender.coachSeats[6].id}>
                 <button
                   disabled={coachToRender.coachSeats[6].isBooked ? true : false}
                   onClick={() =>
@@ -86,7 +91,7 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[6].seatNumber}
                 </button>
               </div>
-              <div className="m-2" key={coachToRender.coachSeats[7].id}>
+              <div className="m-2 " key={coachToRender.coachSeats[7].id}>
                 <button
                   disabled={coachToRender.coachSeats[7].isBooked ? true : false}
                   onClick={() =>
@@ -108,9 +113,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[8].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[9].id}>
                 <button
                   disabled={coachToRender.coachSeats[9].isBooked ? true : false}
@@ -146,9 +150,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[11].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[12].id}>
                 <button
                   disabled={
@@ -188,9 +191,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[14].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[15].id}>
                 <button
                   disabled={
@@ -230,9 +232,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[17].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[18].id}>
                 <button
                   disabled={
@@ -272,9 +273,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[20].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[21].id}>
                 <button
                   disabled={
@@ -314,9 +314,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[23].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[24].id}>
                 <button
                   disabled={
@@ -356,9 +355,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[26].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[27].id}>
                 <button
                   disabled={
@@ -398,10 +396,10 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[29].seatNumber}
                 </button>
               </div>
-            </div>
-          </div>
-          <div className="inline-grid grid-cols-8 mt-9">
-            <div>
+
+
+
+
               <div className="m-2" key={coachToRender.coachSeats[30].id}>
                 <button
                   disabled={
@@ -441,9 +439,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[32].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[33].id}>
                 <button
                   disabled={
@@ -483,9 +480,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[35].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[36].id}>
                 <button
                   disabled={
@@ -525,9 +521,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[38].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[39].id}>
                 <button
                   disabled={
@@ -567,9 +562,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[41].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[42].id}>
                 <button
                   disabled={
@@ -609,9 +603,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[44].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[45].id}>
                 <button
                   disabled={
@@ -651,9 +644,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[47].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[48].id}>
                 <button
                   disabled={
@@ -693,9 +685,8 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[50].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[51].id}>
                 <button
                   disabled={
@@ -738,6 +729,35 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
             </div>
           </div>
         </div>
+      </div>
+
+
+      <div className="text-white ml-24 w-[150px]">
+        <a className="text-center">Typ av säten:</a>
+        <div className="grid grid-cols-2">
+          <div className=" bg-yellow-500 ml-14  hover:bg-yellow-700  w-4 h-4 rounded" />
+          Rullstolsanpassad</div>
+
+        <div className="grid grid-cols-2">
+          <div className="bg-green-500 ml-14  hover:bg-green-700  w-4 h-4 rounded" />
+          Vald stol</div>
+        <div className="grid grid-cols-2">
+
+          <div className="bg-gray-400 ml-14  hover:bg-gray-800 w-4 h-4 rounded" />
+          Ledig stol
+        </div>
+
+      </div>
+
+
+      <div className="ml-24 m-5 ">
+        <BackButton />
+        <Link href="/booking-information">
+          <a className="text-white ml-5 px-4 py-0.5 rounded-md mt-10
+           bg-gray-400">
+            Nästa
+          </a>
+        </Link>
       </div>
     </div>
   );

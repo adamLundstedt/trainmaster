@@ -7,12 +7,11 @@ import TrailerCoach from "./TrailerCoach";
 
 export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
   const cssFree =
-    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded";
-
+    "bg-gray-400 hover:bg-gray-800 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSpecialNeeds =
-    "bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded";
+    "bg-yellow-500 hover:bg-yellow-700 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSelected =
-    "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded";
+    "bg-green-500 hover:bg-green-700 text-white font-bold text-[11px] w-8 h-8 rounded";
 
   const [trainSetTwo, setTrainSetTwo] = useState(trainSetModelTwo);
 
@@ -58,18 +57,19 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
     return (
       <div>
         <div>
+          <p className="text-white text-center">Vagnnummer: {chosenCoachIndex + 1}</p>
+
           <div>
-            <button onClick={() => handleClickLeftArrow()} className="m-2">
-              <Image src="/arrow-left.png" height="100px" width="100px"></Image>
+            <button
+              className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickLeftArrow()} >
+              Föregående vagn
             </button>
-            <button onClick={() => handleClickRightArrow()} className="m-2">
-              <Image
-                src="/arrow-right.png"
-                height="100px"
-                width="100px"
-              ></Image>
+            <button
+              className="text-white px-3 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickRightArrow()} >
+              Nästa vagn
             </button>
-            <p className="text-white">VAGNNUMMER: {chosenCoachIndex + 1}</p>
           </div>
           <FirstClassCoach
             coachToRender={trainSetTwo[0]}
@@ -82,18 +82,19 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
     return (
       <div>
         <div>
+          <p className="text-white">Vagnnummer: {chosenCoachIndex + 1}</p>
+
           <div>
-            <button onClick={() => handleClickLeftArrow()} className="m-2">
-              <Image src="/arrow-left.png" height="100px" width="100px"></Image>
+            <button
+              className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickLeftArrow()} >
+              Föregående vagn
             </button>
-            <button onClick={() => handleClickRightArrow()} className="m-2">
-              <Image
-                src="/arrow-right.png"
-                height="100px"
-                width="100px"
-              ></Image>
+            <button
+              className="text-white px-3 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickRightArrow()} >
+              Nästa vagn
             </button>
-            <p className="text-white">VAGNNUMMER: {chosenCoachIndex + 1}</p>
           </div>
           <SecondClassCoach
             coachToRender={trainSetTwo[1]}
@@ -106,18 +107,19 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
     return (
       <div>
         <div>
+          <p className="text-white text-center">Vagnnummer: {chosenCoachIndex + 1}</p>
+
           <div>
-            <button onClick={() => handleClickLeftArrow()} className="m-2">
-              <Image src="/arrow-left.png" height="100px" width="100px"></Image>
+            <button
+              className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickLeftArrow()} >
+              Föregående vagn
             </button>
-            <button onClick={() => handleClickRightArrow()} className="m-2">
-              <Image
-                src="/arrow-right.png"
-                height="100px"
-                width="100px"
-              ></Image>
+            <button
+              className="text-white px-3 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickRightArrow()} >
+              Nästa vagn
             </button>
-            <p className="text-white">VAGNNUMMER: {chosenCoachIndex + 1}</p>
           </div>
           <BistroCoach
             coachToRender={trainSetTwo[2]}
@@ -129,19 +131,19 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
   } else if (chosenCoachIndex == 3) {
     return (
       <div>
-        <div>
+        <div>            <p className="text-white text-center">Vagnnummer: {chosenCoachIndex + 1}</p>
+
           <div>
-            <button onClick={() => handleClickLeftArrow()} className="m-2">
-              <Image src="/arrow-left.png" height="100px" width="100px"></Image>
+            <button
+              className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickLeftArrow()} >
+              Föregående vagn
             </button>
-            <button onClick={() => handleClickRightArrow()} className="m-2">
-              <Image
-                src="/arrow-right.png"
-                height="100px"
-                width="100px"
-              ></Image>
+            <button
+              className="text-white px-3 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickRightArrow()} >
+              Nästa vagn
             </button>
-            <p className="text-white">VAGNNUMMER: {chosenCoachIndex + 1}</p>
           </div>
           <SecondClassCoach
             coachToRender={trainSetTwo[3]}
@@ -154,18 +156,19 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
     return (
       <div>
         <div>
+          <p className="text-white text-center">Vagnnummer: {chosenCoachIndex + 1}</p>
+
           <div>
-            <button onClick={() => handleClickLeftArrow()} className="m-2">
-              <Image src="/arrow-left.png" height="100px" width="100px"></Image>
+            <button
+              className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickLeftArrow()} >
+              Föregående vagn
             </button>
-            <button onClick={() => handleClickRightArrow()} className="m-2">
-              <Image
-                src="/arrow-right.png"
-                height="100px"
-                width="100px"
-              ></Image>
+            <button
+              className="text-white px-3 rounded-md mt-2 bg-gray-400"
+              onClick={() => handleClickRightArrow()} >
+              Nästa vagn
             </button>
-            <p className="text-white">VAGNNUMMER: {chosenCoachIndex + 1}</p>
           </div>
           <TrailerCoach
             coachToRender={trainSetTwo[4]}
@@ -174,5 +177,5 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
         </div>
       </div>
     );
-  } 
+  }
 }

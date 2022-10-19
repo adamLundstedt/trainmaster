@@ -1,5 +1,7 @@
 import Link from "next/link";
 import ExitButton from "../components/ExitButton";
+import BackButton from "../components/BackButton";
+
 import { useState } from "react";
 
 export default function BookingInformation() {
@@ -113,7 +115,8 @@ export default function BookingInformation() {
         </div>
       </div>
       <div className="ml-24 m-5 ">
-        <Link href="/">
+        <BackButton />
+        <Link href="/payment">
           <a className="text-white ml-5 px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Nästa
           </a>
