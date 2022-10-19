@@ -22,6 +22,14 @@ export default function SearchTrip({ routes }) {
   const [endDateText, setEndDateText] = useState("Datum hemresa");
   const [travelers, setTravelers] = useState([{ id: 1, type: "1 vuxen" }]);
 
+  const [chosenDepartureStation, setChosenDepartureStation] = useState();
+  const [chosenDestinationStation, setChosenDestinationStation] = useState();
+  const [validRoutes, setvalidRoutes] = useState();
+
+  console.log("chosenDepartureStation: ", chosenDepartureStation);
+  console.log("chosen destination station: ", chosenDestinationStation);
+  console.log("valid routes: ", validRoutes);
+
   function getStartDateAndPutInMyTextField(date) {
     setStartDateText(date.toISOString().split("T")[0]);
     toggleStartDatePicker();
@@ -45,9 +53,20 @@ export default function SearchTrip({ routes }) {
     setItems(arr);
   };
 
+  function setStationDeparture(givenStation) {
+    setChosenDepartureStation(givenStation);
+  }
+  function setStationDestination(givenStation) {
+    setChosenDestinationStation(givenStation);
+  }
+
+  function setRoutes(givenRoutes) {
+    setvalidRoutes(givenRoutes);
+  }
+
   console.log("start date text: ", startDateText);
   console.log("end date text: ", endDateText);
-  console.log("travelers: ", travelers)
+  console.log("travelers: ", travelers);
 
   return (
     <div className="h-screen w-full pt-[50px] ">
@@ -55,10 +74,18 @@ export default function SearchTrip({ routes }) {
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
         <div className="mb-4">
-          <FromStation routes={routes} />
+          <FromStation
+            routes={routes}
+            setStationDeparture={setStationDeparture}
+          />
         </div>
         <div className="mb-4">
-          <ToStation routes={routes} />
+          <ToStation
+            routes={routes}
+            chosenDepartureStation={chosenDepartureStation}
+            setRoutes={setRoutes}
+            setStationDestination={setStationDestination}
+          />
         </div>
 
         <div
@@ -168,7 +195,8 @@ function MyListBox(props) {
                 <Listbox.Option
                   key={id}
                   className={({ active }) =>
-                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${active ? "bg-gray-600 text-white" : " text-white"
+                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${
+                      active ? "bg-gray-600 text-white" : " text-white"
                     }`
                   }
                   value={name}
@@ -176,8 +204,9 @@ function MyListBox(props) {
                   {({ selected }) => (
                     <>
                       <span
-                        className={`block truncate ${selected ? "font-medium" : " font-normal"
-                          }`}
+                        className={`block truncate ${
+                          selected ? "font-medium" : " font-normal"
+                        }`}
                       >
                         {name}
                       </span>
