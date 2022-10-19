@@ -95,11 +95,10 @@ export default function SearchTrip({ routes }) {
         <div className="mb-4">
           <ToStation
             routes={routes}
-            chosenDepartureStation={chosenDepartureStation}
-            chosenDestinationStation ={chosenDestinationStation}                                    
+            chosenDepartureStation={chosenDepartureStation}                                                
             setRoutes={setRoutes}
             setStationDestination={setStationDestination}
-            
+                                 
             setState = {setState}
           />
         </div>

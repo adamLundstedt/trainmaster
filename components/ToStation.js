@@ -5,7 +5,7 @@ export default function ToStation({
   routes,
   chosenDepartureStation,    
   setRoutes,
-  setStationDestination,
+  setStationDestination, 
   setState,
 }) {
 
@@ -59,8 +59,7 @@ export default function ToStation({
     setStationDestination(text);   
     setSuggestions([]);
     setDestinationStations(validDestinationStations); 
-    setRoutes(validRoutes);
-       
+    setRoutes(validRoutes);       
     setState();
   };
 
@@ -74,7 +73,7 @@ export default function ToStation({
     }
     setSuggestions(matches);
     setText(text);
-    setStationDestination(text);    
+    setStationDestination(matches.toString());    
     setRoutes(validRoutes);
     setDestinationStations(validDestinationStations);    
     setState();
