@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { connectToDatabase } from "../lib/mongodb";
 import { Listbox, Transition } from "@headlessui/react";
@@ -7,6 +7,7 @@ import Link from "next/link";
 import DatePicker from "../components/DatePicker";
 import FromStation from "../components/FromStation";
 import ToStation from "../components/ToStation";
+import { useAppContext } from "../my-app/context/AppContext";
 
 const typeOfTicket = [
   { id: 1, name: "1 vuxen" },
@@ -16,6 +17,7 @@ const typeOfTicket = [
 ];
 
 export default function SearchTrip({ routes }) {
+  const [appState, setAppState] = useAppContext();
   const [startDatePickerShown, setStartDatePickerShown] = useState(false);
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
   const [startDateText, setStartDateText] = useState("Datum avresa");
@@ -24,11 +26,15 @@ export default function SearchTrip({ routes }) {
 
   const [chosenDepartureStation, setChosenDepartureStation] = useState();
   const [chosenDestinationStation, setChosenDestinationStation] = useState();
+  
   const [validRoutes, setvalidRoutes] = useState();
+
+  
 
   console.log("chosenDepartureStation: ", chosenDepartureStation);
   console.log("chosen destination station: ", chosenDestinationStation);
-  console.log("valid routes: ", validRoutes);
+  console.log("valid routes from search-trip: ", validRoutes);
+  
 
   function getStartDateAndPutInMyTextField(date) {
     setStartDateText(date.toISOString().split("T")[0]);
@@ -62,6 +68,13 @@ export default function SearchTrip({ routes }) {
 
   function setRoutes(givenRoutes) {
     setvalidRoutes(givenRoutes);
+    
+  }
+
+  
+
+  function setState() {
+    setAppState({chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, endDateText, travelers})
   }
 
   console.log("start date text: ", startDateText);
@@ -83,8 +96,11 @@ export default function SearchTrip({ routes }) {
           <ToStation
             routes={routes}
             chosenDepartureStation={chosenDepartureStation}
+            chosenDestinationStation ={chosenDestinationStation}                                    
             setRoutes={setRoutes}
             setStationDestination={setStationDestination}
+            
+            setState = {setState}
           />
         </div>
 
@@ -151,7 +167,7 @@ export default function SearchTrip({ routes }) {
         </button>
       </div>
       <div className="ml-36 mt-16">
-        <Link href="choose-train">
+        <Link href="choose-train" data>
           <a className="text-white px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Sök resa
           </a>
@@ -226,6 +242,7 @@ function MyListBox(props) {
     </div>
   );
 }
+
 
 export async function getServerSideProps() {
   const { db } = await connectToDatabase();

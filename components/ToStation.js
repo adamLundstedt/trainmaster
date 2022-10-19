@@ -1,20 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
 
 export default function ToStation({
   routes,
-  chosenDepartureStation,
+  chosenDepartureStation,    
   setRoutes,
   setStationDestination,
+  setState,
 }) {
-  let validRoutes = [];
 
+  
+  let validRoutes = [];  
+
+  
   for (let route of routes) {
     for (let station of route.stations) {
       if (
         chosenDepartureStation == station.station &&
-        route.stations[route.stations.length - 1].station !=
-          chosenDepartureStation
-      ) {
+        route.stations[route.stations.length - 1].station != chosenDepartureStation
+               
+        ) {
         validRoutes.push(route);
       }
     }
@@ -51,10 +56,12 @@ export default function ToStation({
 
   const OnSuggestHandler = (text) => {
     setText(text);
-    setStationDestination(text);
+    setStationDestination(text);   
     setSuggestions([]);
+    setDestinationStations(validDestinationStations); 
     setRoutes(validRoutes);
-    setDestinationStations(validDestinationStations);
+       
+    setState();
   };
 
   const onChangeHandler = (text) => {
@@ -67,9 +74,10 @@ export default function ToStation({
     }
     setSuggestions(matches);
     setText(text);
-    setStationDestination(text);
+    setStationDestination(text);    
     setRoutes(validRoutes);
-    setDestinationStations(validDestinationStations);
+    setDestinationStations(validDestinationStations);    
+    setState();
   };
 
   return (
