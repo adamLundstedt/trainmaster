@@ -1,19 +1,11 @@
-import { useState } from "react";
-import { useAppContext } from "../my_app/context/AppContext";
+import { useEffect, useState } from "react";
 
-export default function ToStation({ routes }) {
-  const [appState, setAppState] = useAppContext();
-
-
-
-  console.log("app state from toStation: ", appState);
-
-  let chosenDepartureStation = appState;
-
-
-  console.log("chosen departure station from To: ", chosenDepartureStation);
-  console.log("routes: ", routes);
-
+export default function ToStation({
+  routes,
+  chosenDepartureStation,
+  setRoutes,
+  setStationDestination,
+}) {
   let validRoutes = [];
 
   for (let route of routes) {
@@ -21,7 +13,7 @@ export default function ToStation({ routes }) {
       if (
         chosenDepartureStation == station.station &&
         route.stations[route.stations.length - 1].station !=
-        chosenDepartureStation
+          chosenDepartureStation
       ) {
         validRoutes.push(route);
       }
@@ -33,10 +25,13 @@ export default function ToStation({ routes }) {
   let chosenStationFound = false;
 
   for (let validRoute of validRoutes) {
-
     for (let station of validRoute.stations) {
-      if (chosenStationFound && station.station != chosenDepartureStation && !validDestinationStations.includes(station.station)) {
-        validDestinationStations.push(station.station)
+      if (
+        chosenStationFound &&
+        station.station != chosenDepartureStation &&
+        !validDestinationStations.includes(station.station)
+      ) {
+        validDestinationStations.push(station.station);
       }
       if (station.station == chosenDepartureStation) {
         chosenStationFound = true;
@@ -44,23 +39,22 @@ export default function ToStation({ routes }) {
     }
   }
 
+  const [destinationStations, setDestinationStations] = useState(
+    validDestinationStations
+  );
 
   console.log("valid destination stations: ", validDestinationStations);
 
-  console.log("valid routes: ", validRoutes);
-
-
-
   const [text, setText] = useState("");
-  const [destinationStations, setDestinationStations] = useState(validDestinationStations);
-  const [suggestions, setSuggestions] = useState([]);
-  let chosenDestinationStation = text;
-  console.log("chosen destination station: ", chosenDestinationStation)
 
+  const [suggestions, setSuggestions] = useState([]);
 
   const OnSuggestHandler = (text) => {
     setText(text);
+    setStationDestination(text);
     setSuggestions([]);
+    setRoutes(validRoutes);
+    setDestinationStations(validDestinationStations);
   };
 
   const onChangeHandler = (text) => {
@@ -71,14 +65,15 @@ export default function ToStation({ routes }) {
         return station.match(regex);
       });
     }
-    console.log("matches: ", matches);
     setSuggestions(matches);
-
     setText(text);
+    setStationDestination(text);
+    setRoutes(validRoutes);
+    setDestinationStations(validDestinationStations);
   };
 
   return (
-    < div className="w-[150px] ml-4 absolute z-10 mx-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm" >
+    <div className="w-[150px] ml-4 absolute z-10 mx-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
       <input
         className="placeholder-white text-center bg-gray-400 rounded"
         type="text"
@@ -87,16 +82,13 @@ export default function ToStation({ routes }) {
         onChange={(e) => onChangeHandler(e.target.value)}
         value={text}
       ></input>
-      {
-        suggestions &&
+      {suggestions &&
         suggestions.map((suggestion, i) => (
           <div key={i} onClick={() => OnSuggestHandler(suggestion)}>
             {" "}
             {suggestion}
           </div>
-        ))
-      }
-
-    </div >
+        ))}
+    </div>
   );
 }
