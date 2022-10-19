@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { useAppContext } from "../my_app/context/AppContext";
 
-export default function FromStation({ routes }) {
-  const [appState, setAppState] = useAppContext();
-
+export default function FromStation({ routes, setStationDeparture }) {
   let fromStations = [];
   let stationNameInArray = false;
 
@@ -24,13 +21,10 @@ export default function FromStation({ routes }) {
   const [text, setText] = useState("");
   const [departureStations, setDepartureStations] = useState(fromStations);
   const [suggestions, setSuggestions] = useState([]);
-  let chosenDepartureStation = text;
-
-  setAppState(chosenDepartureStation);
-  console.log("appstate", appState);
 
   const OnSuggestHandler = (text) => {
     setText(text);
+    setStationDeparture(text);
     setSuggestions([]);
   };
 
@@ -44,6 +38,7 @@ export default function FromStation({ routes }) {
     }
     setSuggestions(matches);
     setText(text);
+    setStationDeparture(text);
   };
 
   return (
@@ -55,13 +50,11 @@ export default function FromStation({ routes }) {
         id="from"
         onChange={(e) => onChangeHandler(e.target.value)}
         value={text}
-      ></input>{suggestions &&
+      ></input>
+      {suggestions &&
         suggestions.map((suggestion, i) => (
           <div key={i} onClick={() => OnSuggestHandler(suggestion)}>
-
             {suggestion}
-
-
           </div>
         ))}
     </div>
