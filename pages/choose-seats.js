@@ -8,8 +8,8 @@ import TrainSetThree from "../components/TrainSetThree";
 export default function ChooseSeats({ trains, tickets, coaches }) {
   const [appState, setAppState] = useAppContext();
  
-  // const chosenTrainId = "632ac4233b9bdbfc822b4d13";
-  const chosenTrainId = "632acd9d3b9bdbfc822b4d1d";
+  const chosenTrainId = "632ac4233b9bdbfc822b4d13";
+  // const chosenTrainId = "632acd9d3b9bdbfc822b4d1d";
   //const chosenTrainId = "632acde93b9bdbfc822b4d1f";
 
   const cssFree =
