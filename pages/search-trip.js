@@ -71,10 +71,10 @@ export default function SearchTrip({ routes }) {
     
   }
 
-  
+  let chosenTrainId = "";
 
   function setState() {
-    setAppState({chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, endDateText, travelers})
+    setAppState({chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, endDateText, travelers, chosenTrainId})
   }
 
   console.log("start date text: ", startDateText);

@@ -6,8 +6,9 @@ import { useAppContext } from "../my-app/context/AppContext";
 import { connectToDatabase } from "../lib/mongodb";
 import Image from "next/image";
 
-export default function ChooseTrain({ timetables }) {
+export default function ChooseTrain({ timetables, trains }) {
   const [appState, setAppState] = useAppContext();
+  
 
   const [validRoutes, setValidRoutes] = useState(appState.validRoutes);
   const [chosenDepartureStation, setChosenDepartureStation] = useState(
@@ -16,6 +17,7 @@ export default function ChooseTrain({ timetables }) {
   const [chosenDestinationStation, setChosenDestinationStation] = useState(
     appState.chosenDestinationStation
   );
+  
 
   console.log("valid routes from choose-train: ", validRoutes);
 
@@ -217,7 +219,7 @@ export default function ChooseTrain({ timetables }) {
   useEffect(() => {
     setRoutesFiltered();
     setTrainsValid();
-    setArrivalsAndDepartures();
+    setArrivalsAndDepartures();    
   }, [setRoutesFiltered(), setTrainsValid(), setArrivalsAndDepartures()]);
 
   console.log("info to show: ", infoToShow);
@@ -237,31 +239,74 @@ export default function ChooseTrain({ timetables }) {
 
   console.log("timetables: ", timetables);
 
+  let appStateCopy = appState;
+
+  function getTrainId(index) {
+
+    
+    let listOfTrains = [];
+
+    for(let train of trains) {
+      for(let validTrain of validTrains) {
+        if (train.routeId == validTrain.routeId) {
+          listOfTrains.push(train)
+          
+        }
+        
+      }
+      
+    }
+    console.log("listOfTrains", listOfTrains)
+    
+    let trainId = listOfTrains[0]._id
+
+    
+    appStateCopy.trainId = trainId;
+    setAppState(appStateCopy);    
+    
+  }
+  
+
+  
+
+  
+
+
   return (
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
       <a className="text-white text-lg ml-32 mb-6"></a>
-      <div className="bg-gray-600 bg-opacity-70 h-[320px] ml-5 mr-5">
+      <div className="bg-gray-600 bg-opacity-70  ml-5 mr-5">
         <div className=" text-center text-white pt-[10px] text-[10px] ">
           <div>
-            {validTrains.map((validTrain, index) => (
+            {infoToShow.validTrains.map((validTrain, index) => (
               <div key={index}>
-                <div>
+                <div className="text-lg">
                   {validTrain.routeName}
-                  <div>
+                  <div className="text-lg">
                     Avgång: &nbsp;
                     {infoToShow.chosenDepartureStation}
+                    &nbsp;
+                    Tid: &nbsp;
+                    {infoToShow.departuresFromChosenStation[index].time}
                   </div>
-                  <div>
+                  <div className="text-lg">
                     Ankomst: &nbsp;
                     {infoToShow.chosenDestinationStation}
+                    &nbsp;
+                    Tid: &nbsp;
+                    {infoToShow.arrivalsToChosenStation[index].time}
                   </div>
-                  <div className="mx-4">
-                    <Image src="/train.png" width={250} height={50} />
+                  <Link  href="choose-seats">
+                  <div className="mx-4 opacity-25 hover:opacity-100 hover:cursor-pointer ">
+                    <Image onClick={getTrainId(index)} src="/train.png" width={250} height={50} />
+                    
                     <br/>
                     <br/>
                     <br/>
                   </div>
+                  </Link>
+                  
                 </div>
               </div>
             ))}
@@ -289,12 +334,17 @@ export default function ChooseTrain({ timetables }) {
 export async function getServerSideProps() {
   const { db } = await connectToDatabase();
 
+
+  const trainsData = await db.collection("trains").find({}).toArray();
+
   const timetablesData = await db.collection("timetables").find({}).toArray();
   const timetables = JSON.parse(JSON.stringify(timetablesData));
+  const trains = JSON.parse(JSON.stringify(trainsData));
 
   return {
     props: {
       timetables: timetables,
+      trains: trains,
     },
   };
 }
