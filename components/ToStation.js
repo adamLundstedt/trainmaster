@@ -1,15 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
-export default function ToStation({
-  routes,
-  chosenDepartureStation,    
-  setRoutes,
-  setStationDestination, 
-  setState,
-}) {
+export default function ToStation({routes,chosenDepartureStation,routesSet,setStationDestination}) {
 
+  const [destinationStations, setDestinationStations] = useState();
   
+
+  function calculateValidRoutes() {
   let validRoutes = [];  
 
   
@@ -24,10 +21,18 @@ export default function ToStation({
       }
     }
   }
+  
+  return validRoutes;
 
-  let validDestinationStations = [];
+  }
 
-  let chosenStationFound = false;
+  function calculateValidDestinationStations() {
+
+    let validRoutes = calculateValidRoutes();
+    
+    let validDestinationStations = [];
+
+    let chosenStationFound = false;
 
   for (let validRoute of validRoutes) {
     for (let station of validRoute.stations) {
@@ -43,13 +48,19 @@ export default function ToStation({
       }
     }
   }
+  return validDestinationStations;
 
-  const [destinationStations, setDestinationStations] = useState(
-    validDestinationStations
-  );
+  } 
+  
+  useEffect(() => {
+    
+    setDestinationStations(calculateValidDestinationStations());
+   
+  }, []);
 
-  console.log("valid destination stations: ", validDestinationStations);
+  
 
+  
   const [text, setText] = useState("");
 
   const [suggestions, setSuggestions] = useState([]);
@@ -57,10 +68,9 @@ export default function ToStation({
   const OnSuggestHandler = (text) => {
     setText(text);
     setStationDestination(text);   
-    setSuggestions([]);
-    setDestinationStations(validDestinationStations); 
-    setRoutes(validRoutes);       
-    setState();
+    setSuggestions([]);    
+    routesSet(calculateValidRoutes());       
+    
   };
 
   const onChangeHandler = (text) => {
@@ -74,10 +84,13 @@ export default function ToStation({
     setSuggestions(matches);
     setText(text);
     setStationDestination(matches.toString());    
-    setRoutes(validRoutes);
-    setDestinationStations(validDestinationStations);    
-    setState();
+    routesSet(calculateValidRoutes());
+    setDestinationStations(calculateValidDestinationStations());    
+    
   };
+  
+  
+  
 
   return (
     <div className="w-[150px] ml-4 absolute z-10 mx-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">

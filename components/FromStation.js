@@ -1,37 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function FromStation({ routes, setStationDeparture }) {
-  let fromStations = [];
-  let stationNameInArray = false;
 
-  for (let route of routes) {
-    for (let station of route.stations) {
-      stationNameInArray = false;
-      for (let fromStation of fromStations) {
-        if (station.station == fromStation) {
-          stationNameInArray = true;
+  const[fromStations, setFromStations] = useState();
+
+  function getFromStations(){
+    let stationNameInArray = false;
+
+    let stations = [];
+
+    for (let route of routes) {
+      for (let station of route.stations) {
+        stationNameInArray = false;
+        for (let fromStation of stations) {
+          if (station.station == fromStation) {
+            stationNameInArray = true;
+          }
+        }
+        if (!stationNameInArray) {
+          stations.push(station.station);
         }
       }
-      if (!stationNameInArray) {
-        fromStations.push(station.station);
-      }
     }
+    return stations;
   }
+  
+  useEffect(() => {
+    
+    setFromStations(getFromStations())
+   
+  }, []);
+ 
 
-  const [text, setText] = useState("");
-  const [departureStations, setDepartureStations] = useState(fromStations);
+  const [text, setText] = useState("");  
   const [suggestions, setSuggestions] = useState([]);
 
   const OnSuggestHandler = (text) => {
     setText(text);
-    setStationDeparture(text);
     setSuggestions([]);
+    setStationDeparture(text);    
   };
 
   const onChangeHandler = (text) => {
     let matches = [];
     if (text.length > 0) {
-      matches = departureStations.filter((station) => {
+      matches = fromStations.filter((station) => {
         const regex = new RegExp(`${text}`, "gi");
         return station.match(regex);
       });

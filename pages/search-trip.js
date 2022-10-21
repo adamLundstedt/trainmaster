@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-import { connectToDatabase } from "../lib/mongodb";
+import { useAppContext } from "../my-app/context/AppContext";
 import { Listbox, Transition } from "@headlessui/react";
 import ExitButton from "../components/ExitButton";
 import Link from "next/link";
 import DatePicker from "../components/DatePicker";
 import FromStation from "../components/FromStation";
 import ToStation from "../components/ToStation";
-import { useAppContext } from "../my-app/context/AppContext";
+
 
 const typeOfTicket = [
   { id: 1, name: "1 vuxen" },
@@ -16,24 +16,23 @@ const typeOfTicket = [
   { id: 4, name: "1 senior" },
 ];
 
-export default function SearchTrip({ routes }) {
+export default function SearchTrip() {
+
   const [appState, setAppState] = useAppContext();
+  const [data, setData] = useState(appState);
   const [startDatePickerShown, setStartDatePickerShown] = useState(false);
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
   const [startDateText, setStartDateText] = useState("Datum avresa");
   const [endDateText, setEndDateText] = useState("Datum hemresa");
   const [travelers, setTravelers] = useState([{ id: 1, type: "1 vuxen" }]);
 
-  const [chosenDepartureStation, setChosenDepartureStation] = useState();
-  const [chosenDestinationStation, setChosenDestinationStation] = useState();
   
+  const[routes, setRoutes] = useState(data.routesST)
+  const [chosenDepartureStation, setChosenDepartureStation] = useState(data.booking.chosenDepartureStation);
+  const [chosenDestinationStation, setChosenDestinationStation] = useState(data.booking.chosenDestinationStation);  
   const [validRoutes, setvalidRoutes] = useState();
-
   
 
-  console.log("chosenDepartureStation: ", chosenDepartureStation);
-  console.log("chosen destination station: ", chosenDestinationStation);
-  console.log("valid routes from search-trip: ", validRoutes);
   
 
   function getStartDateAndPutInMyTextField(date) {
@@ -66,20 +65,17 @@ export default function SearchTrip({ routes }) {
     setChosenDestinationStation(givenStation);
   }
 
-  function setRoutes(givenRoutes) {
+  function routesSet(givenRoutes) {
     setvalidRoutes(givenRoutes);
     
   }
 
-  let chosenTrainId = "";
+  console.log("Chosen departure station: ", chosenDepartureStation);
+  console.log("Chosen destination station: ", chosenDestinationStation);
+  console.log("Start date text: ", startDateText);
+  console.log("Travelers: ", travelers);
 
-  function setState() {
-    setAppState({chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, endDateText, travelers, chosenTrainId})
-  }
-
-  console.log("start date text: ", startDateText);
-  console.log("end date text: ", endDateText);
-  console.log("travelers: ", travelers);
+  
 
   return (
     <div className="h-screen w-full pt-[50px] ">
@@ -96,10 +92,9 @@ export default function SearchTrip({ routes }) {
           <ToStation
             routes={routes}
             chosenDepartureStation={chosenDepartureStation}                                                
-            setRoutes={setRoutes}
-            setStationDestination={setStationDestination}
-                                 
-            setState = {setState}
+            routesSet={routesSet}
+            setStationDestination={setStationDestination}         
+           
           />
         </div>
 
@@ -243,15 +238,4 @@ function MyListBox(props) {
 }
 
 
-export async function getServerSideProps() {
-  const { db } = await connectToDatabase();
 
-  const routesData = await db.collection("routes").find({}).toArray();
-  const routes = JSON.parse(JSON.stringify(routesData));
-
-  return {
-    props: {
-      routes: routes,
-    },
-  };
-}

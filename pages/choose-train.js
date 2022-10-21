@@ -3,10 +3,10 @@ import Link from "next/link";
 import ExitButton from "../components/ExitButton";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../my-app/context/AppContext";
-import { connectToDatabase } from "../lib/mongodb";
+
 import Image from "next/image";
 
-export default function ChooseTrain({ timetables, trains }) {
+export default function ChooseTrain() {
   const [appState, setAppState] = useAppContext();
   
 
@@ -331,20 +331,4 @@ export default function ChooseTrain({ timetables, trains }) {
   );
 }
 
-export async function getServerSideProps() {
-  const { db } = await connectToDatabase();
 
-
-  const trainsData = await db.collection("trains").find({}).toArray();
-
-  const timetablesData = await db.collection("timetables").find({}).toArray();
-  const timetables = JSON.parse(JSON.stringify(timetablesData));
-  const trains = JSON.parse(JSON.stringify(trainsData));
-
-  return {
-    props: {
-      timetables: timetables,
-      trains: trains,
-    },
-  };
-}
