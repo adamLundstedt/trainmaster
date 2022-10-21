@@ -3,23 +3,23 @@ import { useState } from "react";
 
 export default function ToStation({
   routes,
-  chosenDepartureStation,    
+  chosenDepartureStation,
   setRoutes,
-  setStationDestination, 
+  setStationDestination,
   setState,
 }) {
 
-  
-  let validRoutes = [];  
 
-  
+  let validRoutes = [];
+
+
   for (let route of routes) {
     for (let station of route.stations) {
       if (
         chosenDepartureStation == station.station &&
         route.stations[route.stations.length - 1].station != chosenDepartureStation
-               
-        ) {
+
+      ) {
         validRoutes.push(route);
       }
     }
@@ -56,10 +56,10 @@ export default function ToStation({
 
   const OnSuggestHandler = (text) => {
     setText(text);
-    setStationDestination(text);   
+    setStationDestination(text);
     setSuggestions([]);
-    setDestinationStations(validDestinationStations); 
-    setRoutes(validRoutes);       
+    setDestinationStations(validDestinationStations);
+    setRoutes(validRoutes);
     setState();
   };
 
@@ -73,15 +73,16 @@ export default function ToStation({
     }
     setSuggestions(matches);
     setText(text);
-    setStationDestination(matches.toString());    
+    setStationDestination(matches.toString());
     setRoutes(validRoutes);
-    setDestinationStations(validDestinationStations);    
+    setDestinationStations(validDestinationStations);
     setState();
   };
 
   return (
     <div className="w-[150px] ml-4 absolute z-10 mx-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
       <input
+        autoComplete="off"
         className="placeholder-white text-center bg-gray-400 rounded"
         type="text"
         placeholder="Till"
@@ -92,7 +93,7 @@ export default function ToStation({
       {suggestions &&
         suggestions.map((suggestion, i) => (
           <div key={i} onClick={() => OnSuggestHandler(suggestion)}>
-            {" "}
+
             {suggestion}
           </div>
         ))}

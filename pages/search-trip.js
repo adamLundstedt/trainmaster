@@ -26,15 +26,13 @@ export default function SearchTrip({ routes }) {
 
   const [chosenDepartureStation, setChosenDepartureStation] = useState();
   const [chosenDestinationStation, setChosenDestinationStation] = useState();
-  
-  const [validRoutes, setvalidRoutes] = useState();
 
-  
+  const [validRoutes, setvalidRoutes] = useState();
 
   console.log("chosenDepartureStation: ", chosenDepartureStation);
   console.log("chosen destination station: ", chosenDestinationStation);
   console.log("valid routes from search-trip: ", validRoutes);
-  
+
 
   function getStartDateAndPutInMyTextField(date) {
     setStartDateText(date.toISOString().split("T")[0]);
@@ -68,13 +66,10 @@ export default function SearchTrip({ routes }) {
 
   function setRoutes(givenRoutes) {
     setvalidRoutes(givenRoutes);
-    
+
   }
-
-  
-
   function setState() {
-    setAppState({chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, endDateText, travelers})
+    setAppState({ chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, endDateText, travelers })
   }
 
   console.log("start date text: ", startDateText);
@@ -86,7 +81,7 @@ export default function SearchTrip({ routes }) {
       <ExitButton />
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
-        <div className="mb-4">
+        <div className="mb-4 ">
           <FromStation
             routes={routes}
             setStationDeparture={setStationDeparture}
@@ -95,11 +90,11 @@ export default function SearchTrip({ routes }) {
         <div className="mb-4">
           <ToStation
             routes={routes}
-            chosenDepartureStation={chosenDepartureStation}                                                
+            chosenDepartureStation={chosenDepartureStation}
             setRoutes={setRoutes}
             setStationDestination={setStationDestination}
-                                 
-            setState = {setState}
+
+            setState={setState}
           />
         </div>
 
@@ -210,8 +205,7 @@ function MyListBox(props) {
                 <Listbox.Option
                   key={id}
                   className={({ active }) =>
-                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${
-                      active ? "bg-gray-600 text-white" : " text-white"
+                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${active ? "bg-gray-600 text-white" : " text-white"
                     }`
                   }
                   value={name}
@@ -219,9 +213,8 @@ function MyListBox(props) {
                   {({ selected }) => (
                     <>
                       <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : " font-normal"
-                        }`}
+                        className={`block truncate ${selected ? "font-medium" : " font-normal"
+                          }`}
                       >
                         {name}
                       </span>
@@ -241,7 +234,6 @@ function MyListBox(props) {
     </div>
   );
 }
-
 
 export async function getServerSideProps() {
   const { db } = await connectToDatabase();
