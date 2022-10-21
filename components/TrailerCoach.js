@@ -1,10 +1,42 @@
+import BackButton from "../components/BackButton";
+import Link from "next/link";
+import ExitButton from "../components/ExitButton";
+
 export default function TrailerCoach({ coachToRender, handleClickSeat }) {
   return (
-    <div>
-      <div className="bg-[url('/trailerlayout.jpg')] bg-contain bg-scroll bg-no-repeat ml-10 mr-10 mt-10">
-        <div className="ml-10 mr-10 inline-grid grid-cols-1 pt-1 pb-12">
-          <div className="inline-grid grid-cols-12">
-            <div>
+    <div className=" w-full pt-[50px] ">
+      <ExitButton />
+      <a className="text-white text-lg ml-36 mb-6">Välj sittplats </a>
+      <div className=" ml-5 mr-5">
+        <div className="text-center ml-16 text-white pt-[10px] text-[10px] ">
+          <div id='slider' className="w-[200px]  bg-white bg-opacity-60 overflow-y-scroll scroll whitespace-nowrap scroll-smooth pb-10 h-[250px]">
+            <div className="inline-grid grid-cols-4">
+              <div className="m-2" key={coachToRender.coachSeats[40].id}>
+                <button
+                  disabled={
+                    coachToRender.coachSeats[40].isBooked ? true : false
+                  }
+                  onClick={() =>
+                    handleClickSeat(coachToRender.coachSeats[40].id)
+                  }
+                  className={coachToRender.coachSeats[40].className}
+                >
+                  {coachToRender.coachSeats[40].seatNumber}
+                </button>
+              </div>
+              <div className="m-2" key={coachToRender.coachSeats[41].id}>
+                <button
+                  disabled={
+                    coachToRender.coachSeats[41].isBooked ? true : false
+                  }
+                  onClick={() =>
+                    handleClickSeat(coachToRender.coachSeats[41].id)
+                  }
+                  className={coachToRender.coachSeats[41].className}
+                >
+                  {coachToRender.coachSeats[41].seatNumber}
+                </button>
+              </div>
               <div className="m-2" key={coachToRender.coachSeats[0].id}>
                 <button
                   disabled={coachToRender.coachSeats[0].isBooked ? true : false}
@@ -49,8 +81,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[3].seatNumber}
                 </button>
               </div>
-            </div>
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[4].id}>
                 <button
                   disabled={coachToRender.coachSeats[4].isBooked ? true : false}
@@ -95,8 +126,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[7].seatNumber}
                 </button>
               </div>
-            </div>
-            <div>
+
               <div className="m-2" key={coachToRender.coachSeats[8].id}>
                 <button
                   disabled={coachToRender.coachSeats[8].isBooked ? true : false}
@@ -143,9 +173,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[11].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
               <div className="m-2" key={coachToRender.coachSeats[12].id}>
                 <button
                   disabled={
@@ -198,9 +226,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[15].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
               <div className="m-2" key={coachToRender.coachSeats[16].id}>
                 <button
                   disabled={
@@ -253,9 +279,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[19].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
               <div className="m-2" key={coachToRender.coachSeats[20].id}>
                 <button
                   disabled={
@@ -308,9 +332,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[23].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
               <div className="m-2" key={coachToRender.coachSeats[24].id}>
                 <button
                   disabled={
@@ -363,9 +385,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[27].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
               <div className="m-2" key={coachToRender.coachSeats[28].id}>
                 <button
                   disabled={
@@ -418,9 +438,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[31].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
               <div className="m-2" key={coachToRender.coachSeats[32].id}>
                 <button
                   disabled={
@@ -473,9 +491,7 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
                   {coachToRender.coachSeats[35].seatNumber}
                 </button>
               </div>
-            </div>
 
-            <div>
               <div className="m-2" key={coachToRender.coachSeats[36].id}>
                 <button
                   disabled={
@@ -530,35 +546,36 @@ export default function TrailerCoach({ coachToRender, handleClickSeat }) {
               </div>
             </div>
             <div>
-              <div className="m-2" key={coachToRender.coachSeats[40].id}>
-                <button
-                  disabled={
-                    coachToRender.coachSeats[40].isBooked ? true : false
-                  }
-                  onClick={() =>
-                    handleClickSeat(coachToRender.coachSeats[40].id)
-                  }
-                  className={coachToRender.coachSeats[40].className}
-                >
-                  {coachToRender.coachSeats[40].seatNumber}
-                </button>
-              </div>
-              <div className="m-2" key={coachToRender.coachSeats[41].id}>
-                <button
-                  disabled={
-                    coachToRender.coachSeats[41].isBooked ? true : false
-                  }
-                  onClick={() =>
-                    handleClickSeat(coachToRender.coachSeats[41].id)
-                  }
-                  className={coachToRender.coachSeats[41].className}
-                >
-                  {coachToRender.coachSeats[41].seatNumber}
-                </button>
-              </div>
+
             </div>
           </div>
         </div>
+      </div>
+      <div className="text-white ml-24 w-[150px]">
+        <a className="text-center">Typ av säten:</a>
+        <div className="grid grid-cols-2">
+          <div className=" bg-yellow-500 ml-14  hover:bg-yellow-700  w-4 h-4 rounded" />
+          Rullstolsanpassad</div>
+
+        <div className="grid grid-cols-2">
+          <div className="bg-green-500 ml-14  hover:bg-green-700  w-4 h-4 rounded" />
+          Vald stol</div>
+        <div className="grid grid-cols-2">
+
+          <div className="bg-gray-400 ml-14  hover:bg-gray-800 w-4 h-4 rounded" />
+          Ledig stol
+        </div>
+
+      </div>
+
+      <div className="ml-24 m-5 ">
+        <BackButton />
+        <Link href="/booking-information">
+          <a className="text-white ml-5 px-4 py-0.5 rounded-md mt-10
+           bg-gray-400">
+            Nästa
+          </a>
+        </Link>
       </div>
     </div>
   );
