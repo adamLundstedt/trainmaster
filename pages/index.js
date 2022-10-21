@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 
-export default function Home({coaches, routes, tickets, trains}) {
+export default function Home({coaches, routes, tickets, timetables, trains}) {
 
   const [appState, setAppState] = useAppContext();
 
@@ -13,6 +13,7 @@ export default function Home({coaches, routes, tickets, trains}) {
   const coachesST = JSON.parse(JSON.stringify(coaches));
   const routesST = JSON.parse(JSON.stringify(routes));
   const ticketsST = JSON.parse(JSON.stringify(tickets));
+  const timetablesST = JSON.parse(JSON.stringify(timetables));
   const trainsST = JSON.parse(JSON.stringify(trains));
 
   const chosenDepartureStation = "";
@@ -26,7 +27,7 @@ export default function Home({coaches, routes, tickets, trains}) {
 
   const booking = {chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, endDateText, travelers, chosenTrainId}
 
-  const data = {coachesST, routesST, ticketsST, trainsST, booking}
+  const data = {coachesST, routesST, ticketsST, timetablesST, trainsST, booking}
 
   console.log(appState)
 
@@ -65,6 +66,9 @@ export async function getServerSideProps() {
   const ticketsData = await db.collection("tickets").find({}).toArray();
   const tickets = JSON.parse(JSON.stringify(ticketsData));
 
+  const timetablesData = await db.collection("timetables").find({}).toArray();
+  const timetables = JSON.parse(JSON.stringify(timetablesData));
+
   const trainsData = await db.collection("trains").find({}).toArray();
   const trains = JSON.parse(JSON.stringify(trainsData)); 
   
@@ -74,6 +78,7 @@ export async function getServerSideProps() {
       coaches: coaches,
       routes: routes,
       tickets: tickets,
+      timetables: timetables,
       trains: trains,      
     },
   };

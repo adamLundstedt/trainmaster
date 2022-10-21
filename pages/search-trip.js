@@ -70,6 +70,23 @@ export default function SearchTrip() {
 
   }
 
+  function createInfoToAppState(){
+    let appStateCopy = JSON.parse(JSON.stringify(data));
+    appStateCopy.booking.chosenDepartureStation = chosenDepartureStation;
+    appStateCopy.booking.chosenDestinationStation = chosenDestinationStation;
+    appStateCopy.booking.startDateText = startDateText;
+    appStateCopy.booking.travelers = travelers;
+    appStateCopy.booking.validRoutes = validRoutes;
+
+    return appStateCopy;
+  }
+
+  function clickHandler(){
+
+    setAppState(createInfoToAppState());
+
+  }
+
   console.log("Chosen departure station: ", chosenDepartureStation);
   console.log("Chosen destination station: ", chosenDestinationStation);
   console.log("Start date text: ", startDateText);
@@ -159,9 +176,9 @@ export default function SearchTrip() {
       </div>
       <div className="ml-36 mt-16">
         <Link href="choose-train" data>
-          <a className="text-white px-4 py-0.5 rounded-md mt-10 bg-gray-400">
+          <button onClick={clickHandler} className="text-white px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Sök resa
-          </a>
+          </button>
         </Link>
       </div>
     </div>
