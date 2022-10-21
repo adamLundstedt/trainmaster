@@ -22,36 +22,36 @@ export default function SearchTrip() {
   const [data, setData] = useState(appState);
   const [startDatePickerShown, setStartDatePickerShown] = useState(false);
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
-  const [startDateText, setStartDateText] = useState("Datum avresa");
-  const [endDateText, setEndDateText] = useState("Datum hemresa");
+  const [startDateText, setStartDateText] = useState("Datum");
+  /*   const [endDateText, setEndDateText] = useState("Datum hemresa");*/
   const [travelers, setTravelers] = useState([{ id: 1, type: "1 vuxen" }]);
 
-  
-  const[routes, setRoutes] = useState(data.routesST)
-  const [chosenDepartureStation, setChosenDepartureStation] = useState(data.booking.chosenDepartureStation);
-  const [chosenDestinationStation, setChosenDestinationStation] = useState(data.booking.chosenDestinationStation);  
-  const [validRoutes, setvalidRoutes] = useState();
-  
 
-  
+  const [routes, setRoutes] = useState(data.routesST)
+  const [chosenDepartureStation, setChosenDepartureStation] = useState(data.booking.chosenDepartureStation);
+  const [chosenDestinationStation, setChosenDestinationStation] = useState(data.booking.chosenDestinationStation);
+  const [validRoutes, setvalidRoutes] = useState();
+
+
+
 
   function getStartDateAndPutInMyTextField(date) {
     setStartDateText(date.toISOString().split("T")[0]);
     toggleStartDatePicker();
   }
 
-  function getEndDateAndPutInAnotherTextField(date) {
-    setEndDateText(date.toISOString().split("T")[0]);
-    toggleEndDatePicker();
-  }
+  /*   function getEndDateAndPutInAnotherTextField(date) {
+      setEndDateText(date.toISOString().split("T")[0]);
+      toggleEndDatePicker();
+    } */
 
   function toggleStartDatePicker() {
     setStartDatePickerShown(!startDatePickerShown);
   }
 
-  function toggleEndDatePicker() {
-    setEndDatePickerShown(!endDatePickerShown);
-  }
+  /*   function toggleEndDatePicker() {
+      setEndDatePickerShown(!endDatePickerShown);
+    } */
 
   const removeItems = (i) => {
     const arr = Array.filter((item) => item.i !== i);
@@ -67,7 +67,7 @@ export default function SearchTrip() {
 
   function routesSet(givenRoutes) {
     setvalidRoutes(givenRoutes);
-    
+
   }
 
   console.log("Chosen departure station: ", chosenDepartureStation);
@@ -75,7 +75,6 @@ export default function SearchTrip() {
   console.log("Start date text: ", startDateText);
   console.log("Travelers: ", travelers);
 
-  
 
   return (
     <div className="h-screen w-full pt-[50px] ">
@@ -91,24 +90,27 @@ export default function SearchTrip() {
         <div className="mb-4">
           <ToStation
             routes={routes}
-            chosenDepartureStation={chosenDepartureStation}                                                
+            chosenDepartureStation={chosenDepartureStation}
             routesSet={routesSet}
-            setStationDestination={setStationDestination}         
-           
+            setStationDestination={setStationDestination}
           />
         </div>
+        <div>
+          <div
+            className="w-[150px]  mt-4 ml-4 grid grid-cols-1 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
+            onClick={toggleStartDatePicker}
+          >
+            <ChevronUpDownIcon
+              className="h-5 w-5 absolute text-white"
+              aria-hidden="true"
+            />
+            {startDateText}
+          </div>
+          <div className={startDatePickerShown ? "" : "hidden"}>
+            <DatePicker dateSetter={getStartDateAndPutInMyTextField} />
+          </div></div>
 
-        <div
-          className="w-[150px]  mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
-          onClick={toggleStartDatePicker}
-        >
-          <ChevronUpDownIcon
-            className="h-5 w-5 absolute text-white"
-            aria-hidden="true"
-          />
-          {startDateText}
-        </div>
-        <div
+        {/*    <div
           className="w-[150px] mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
           onClick={toggleEndDatePicker}
         >
@@ -117,17 +119,12 @@ export default function SearchTrip() {
             aria-hidden="true"
           />
           {endDateText}
-        </div>
-        <div>
-          <div className={startDatePickerShown ? "" : "hidden"}>
-            <DatePicker dateSetter={getStartDateAndPutInMyTextField} />
-          </div>
-        </div>
-        <div>
+        </div> */}
+        {/*  <div>
           <div className={endDatePickerShown ? "" : "hidden"}>
             <DatePicker dateSetter={getEndDateAndPutInAnotherTextField} />
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="mt-5 text-[15px]">
@@ -205,8 +202,7 @@ function MyListBox(props) {
                 <Listbox.Option
                   key={id}
                   className={({ active }) =>
-                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${
-                      active ? "bg-gray-600 text-white" : " text-white"
+                    `relative cursor-default select-none text-[14px] pl-8 pr-4 ${active ? "bg-gray-600 text-white" : " text-white"
                     }`
                   }
                   value={name}
@@ -214,9 +210,8 @@ function MyListBox(props) {
                   {({ selected }) => (
                     <>
                       <span
-                        className={`block truncate ${
-                          selected ? "font-medium" : " font-normal"
-                        }`}
+                        className={`block truncate ${selected ? "font-medium" : " font-normal"
+                          }`}
                       >
                         {name}
                       </span>
