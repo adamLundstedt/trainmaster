@@ -1,8 +1,9 @@
 import BackButton from "../components/BackButton";
-import Link from "next/link";
 import ExitButton from "../components/ExitButton";
 import { useState, useEffect } from "react";
 import { useAppContext } from "../my-app/context/AppContext";
+import { useRouter } from 'next/router'
+
 
 import Image from "next/image";
 
@@ -21,7 +22,7 @@ export default function ChooseTrain() {
   const[departuresFromChosenStation, setDeparturesFromChosenStation] = useState(setDepartures());
   const[arrivalsToChosenStation, setArrivalsToChosenStation] = useState(setArrivals());
   const[trains, setTrains] = useState(data.trainsST);
-  const[trainId, setTrainId] = useState();  
+ 
   
 
   useEffect(() => {
@@ -39,12 +40,6 @@ export default function ChooseTrain() {
   useEffect(() => {
     setArrivalsToChosenStation(setArrivals());
   }, [])
-
-  
-
-  
-  
-
   
  
 
@@ -237,20 +232,44 @@ export default function ChooseTrain() {
   }
 
   console.log("valid trains: ", validTrains);
+  console.log("trains: ", trains)
 
-  let trainList = []
+   
+  const router = useRouter()
 
-  for(let train of trains) {
+  function getTrainId(e, index) {
+
+    let matchingTrains = [];
+
     for(let validTrain of validTrains) {
-      if(train.routeId == validTrain.routeId && validTrain.departureTimeFromOrigin) {
-        trainList.push(train);
-      }
+     for(let train of trains) {
+      let trainAlreadyInArray = false;
+      if(train.routeId == validTrain.routeId) {
+        if(matchingTrains.includes(train)) {
+          trainAlreadyInArray = true;       
+        }
+        else if(!trainAlreadyInArray) {
+          matchingTrains.push(train);
+        }
+      }    
+     }    
     }
-  }
 
-  console.log("train list: ", trainList);
+    let chosenTrainId = matchingTrains[index]._id    
+
+    let appStateCopy = JSON.parse(JSON.stringify(data));
+
+    appStateCopy.booking.chosenTrainId = chosenTrainId;
+
+    setAppState(appStateCopy);
 
     
+
+    router.push("/choose-seats")
+
+        
+    
+  }    
  
 
   return (
@@ -259,9 +278,11 @@ export default function ChooseTrain() {
       <a className="text-white text-lg ml-32 mb-6"></a>
       <div className="bg-gray-600 bg-opacity-70  ml-5 mr-5">
         <div className=" text-center text-white pt-[10px] text-[10px] ">
-          <div>
+          <div>            
             {validTrains.map((validTrain, index) => (
-              <div key={index}>
+              <div>
+                <button onClick={(e) => getTrainId(e, index)}>             
+                <div key={index}>
                 <div className="text-lg">
                   {validTrain.routeName}
                   <div className="text-lg">
@@ -277,19 +298,18 @@ export default function ChooseTrain() {
                     &nbsp;
                     Tid: &nbsp;
                     {arrivalsToChosenStation[index].time}
-                  </div>
-                  <Link  href="choose-seats">
+                  </div>                  
                   <div className="mx-4 opacity-25 hover:opacity-100 hover:cursor-pointer ">
-                    <Image src="/train.png" width={250} height={50} />
+                    <Image src="/train.png" width={250} height={50} />                    
+                    <br/>
+                    <br/>
+                    <br/>
                     
-                    <br/>
-                    <br/>
-                    <br/>
-                  </div>
-                  </Link>
-                  
+                  </div>                 
                 </div>
               </div>
+              </button>                          
+              </div>              
             ))}
           </div>
 
@@ -298,15 +318,7 @@ export default function ChooseTrain() {
       </div>
 
       <div className="ml-28 m-5 ">
-        <BackButton />
-        <Link href="/choose-seats">
-          <a
-            className="text-white ml-5 px-4 py-0.5 rounded-md mt-10
-           bg-gray-400"
-          >
-            Nästa
-          </a>
-        </Link>
+        <BackButton />        
       </div>
     </div>
   );

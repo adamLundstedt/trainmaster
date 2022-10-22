@@ -1,16 +1,20 @@
-import { connectToDatabase } from "../lib/mongodb";
+
+import { useState, useEffect } from "react";
 import { useAppContext } from "../my-app/context/AppContext";
 
 import TrainSetOne from "../components/TrainSetOne";
 import TrainSetTwo from "../components/TrainSetTwo";
 import TrainSetThree from "../components/TrainSetThree";
 
-export default function ChooseSeats({ trains, tickets, coaches }) {
+export default function ChooseSeats() {
+  
   const [appState, setAppState] = useAppContext();
- 
-  const chosenTrainId = "632ac4233b9bdbfc822b4d13";
-  // const chosenTrainId = "632acd9d3b9bdbfc822b4d1d";
-  //const chosenTrainId = "632acde93b9bdbfc822b4d1f";
+  const [data, setData] = useState(appState);
+  const [trains, setTrains] = useState(data.trainsST);
+  const [tickets, setTickets] = useState(data.ticketsST);
+  const [coaches, setCoaches] = useState(data.coachesST);
+  const [chosenTrainId, setChosenTrainId] = useState(data.booking.chosenTrainId); 
+  
 
   const cssFree =
     "bg-gray-400 hover:bg-gray-800 text-white font-bold text-[11px] w-8 h-8 rounded";
@@ -290,22 +294,4 @@ export default function ChooseSeats({ trains, tickets, coaches }) {
   }
 }
 
-export async function getServerSideProps() {
-  const { db } = await connectToDatabase();
 
-  const trainsData = await db.collection("trains").find({}).toArray();
-  const ticketsData = await db.collection("tickets").find({}).toArray();
-  const coachesData = await db.collection("coaches").find({}).toArray();
-
-  const trains = JSON.parse(JSON.stringify(trainsData));
-  const tickets = JSON.parse(JSON.stringify(ticketsData));
-  const coaches = JSON.parse(JSON.stringify(coachesData));
-
-  return {
-    props: {
-      trains: trains,
-      tickets: tickets,
-      coaches: coaches,
-    },
-  };
-}
