@@ -57,6 +57,7 @@ export default function FromStation({ routes, setStationDeparture }) {
   return (
     <div className="w-[150px] ml-4 absolute z-10 mx-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
       <input
+        autoComplete="off"
         className="placeholder-white text-center bg-gray-400 rounded"
         type="text"
         placeholder="Från"
