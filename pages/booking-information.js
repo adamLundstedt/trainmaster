@@ -38,19 +38,29 @@ export default function BookingInformation() {
         placeholder="Efternamn:"
         type="text"
       ></input>
-    </div>)
-  
-  
+    </div>
+  );
 
   let travelers = appState.booking.travelers;
+  let showDeparture = appState.booking.chosenDepartureStation;
+  let showDestination = appState.booking.chosenDestinationStation;
+  let showDepartureDate = appState.booking.startDateText;
+  let showDepartureTime = appState.booking.departureTime;
+  let showArrivalTime = appState.booking.arrivalTime;
   let travelersToShow = [];
+  let travelersList = [];
 
   for (let traveler of travelers) {
-    travelersToShow.push(renderTraveler)
+    travelersToShow.push(renderTraveler);
   }
 
-  console.log("How many travlers: ", travelers)
-  console.log("render: ", travelersToShow)
+  console.log("How many travlers: ", travelers);
+  console.log("render: ", travelersToShow);
+  console.log("showDeparture: ", showDeparture);
+  console.log("showDestination: ", showDestination);
+  console.log("showDepartureDate: ", showDepartureDate);
+  console.log("showDepartureTime: ", showDepartureTime);
+  console.log("showAriivalTime: ", showArrivalTime);
 
   function createInfoToAppState() {
     let appStateCopy = JSON.parse(JSON.stringify(data));
@@ -65,11 +75,14 @@ export default function BookingInformation() {
       <div className="bg-gray-600 bg-opacity-70 h-[320px] ml-5 mr-5">
         <div className=" text-center text-white pt-[10px] text-[10px] ">
           {/* hämta informationen från biljetten */}
-          <div>{"Stockholm C ----> Malmö C"}</div>
-          <div>{"2022-09-29 ----> 2022-09-29"}</div>
-          <>
-            {travelersToShow}
-          </>
+          <div>
+            Avgång från <b>{showDeparture}</b> till <b>{showDestination}</b>
+          </div>
+          <div>
+            Avgångsdatum: <b>{showDepartureDate}</b> klockan{" "}
+            <b>{showDepartureTime}</b>
+          </div>
+          <>{travelersToShow}</>
           <div className="text-white text-lg mt-4 mb-6">
             <a className="font-semibold">Hur vill du ha biljetten?</a>
           </div>
