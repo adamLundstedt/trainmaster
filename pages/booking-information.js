@@ -1,10 +1,13 @@
+import { useState, useEffect } from "react";
+import { useAppContext } from "../my-app/context/AppContext";
+
 import Link from "next/link";
 import ExitButton from "../components/ExitButton";
 import BackButton from "../components/BackButton";
 
-import { useState } from "react";
-
 export default function BookingInformation() {
+  const [appState, setAppState] = useAppContext();
+  const [data, setData] = useState(appState);
   const [checked, setChecked] = useState({
     Email: false,
     Sms: false,
@@ -20,6 +23,41 @@ export default function BookingInformation() {
       };
     });
   };
+
+  const renderTraveler = (
+    <div className=" grid grid-cols-2">
+      <input
+        className=" h-4 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
+        placeholder="Förnamn:"
+        type="text"
+      ></input>
+      <input
+        className=" h-4 mt-4 border mx-2 bg-white text-center 
+          drop-shadow-md shadow-black text-black rounded text-sm"
+        placeholder="Efternamn:"
+        type="text"
+      ></input>
+    </div>)
+  
+  
+
+  let travelers = appState.booking.travelers;
+  let travelersToShow = [];
+
+  for (let traveler of travelers) {
+    travelersToShow.push(renderTraveler)
+  }
+
+  console.log("How many travlers: ", travelers)
+  console.log("render: ", travelersToShow)
+
+  function createInfoToAppState() {
+    let appStateCopy = JSON.parse(JSON.stringify(data));
+
+    return appStateCopy;
+  }
+
   return (
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
@@ -29,34 +67,9 @@ export default function BookingInformation() {
           {/* hämta informationen från biljetten */}
           <div>{"Stockholm C ----> Malmö C"}</div>
           <div>{"2022-09-29 ----> 2022-09-29"}</div>
-          <div className=" grid grid-cols-2">
-            <input
-              className=" h-4 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
-              placeholder="Förnamn"
-              type="text"
-            ></input>
-            <input
-              className=" h-4 mt-4 border mx-2 bg-white text-center 
-          drop-shadow-md shadow-black text-black rounded text-sm"
-              placeholder="Efternamn"
-              type="text"
-            ></input>
-          </div>
-          <div className=" grid grid-cols-2">
-            <input
-              className=" h-4 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
-              placeholder="Förnamn"
-              type="text"
-            ></input>
-            <input
-              className=" h-4 mt-4 border mx-2 bg-white text-center 
-          drop-shadow-md shadow-black text-black rounded text-sm"
-              placeholder="Efternamn"
-              type="text"
-            ></input>
-          </div>
+          <>
+            {travelersToShow}
+          </>
           <div className="text-white text-lg mt-4 mb-6">
             <a className="font-semibold">Hur vill du ha biljetten?</a>
           </div>
