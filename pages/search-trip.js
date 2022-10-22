@@ -7,6 +7,9 @@ import Link from "next/link";
 import DatePicker from "../components/DatePicker";
 import FromStation from "../components/FromStation";
 import ToStation from "../components/ToStation";
+import Modal from "../components/Modal";
+
+import Router, { useRouter } from 'next/router'
 
 
 const typeOfTicket = [
@@ -81,21 +84,40 @@ export default function SearchTrip() {
     return appStateCopy;
   }
 
+  let date = appState.booking.startDateText;
+  let depart = appState.booking.chosenDepartureStation;
+  let dest = appState.booking.chosenDestinationStation;
+  let isOpen = false;
+  
+
+
+  const router = useRouter();
+  
+  
+
   function clickHandler(){
 
-    setAppState(createInfoToAppState());
+    if(date == "Datum" || depart == "" || dest == "") {
+      isOpen = true;
+    }
+    else {
+      setAppState(createInfoToAppState());
+      router.push("/choose-train");     
+
+    }    
 
   }
+
+  
 
   console.log("Chosen departure station: ", chosenDepartureStation);
   console.log("Chosen destination station: ", chosenDestinationStation);
   console.log("Start date text: ", startDateText);
   console.log("Travelers: ", travelers);
 
-
-  return (
+  const render = (
     <div className="h-screen w-full pt-[50px] ">
-      <ExitButton />
+      <ExitButton />     
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
         <div className="mb-4 ">
@@ -125,23 +147,7 @@ export default function SearchTrip() {
           </div>
           <div className={startDatePickerShown ? "" : "hidden"}>
             <DatePicker dateSetter={getStartDateAndPutInMyTextField} />
-          </div></div>
-
-        {/*    <div
-          className="w-[150px] mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
-          onClick={toggleEndDatePicker}
-        >
-          <ChevronUpDownIcon
-            className="h-5 w-5 absolute text-white"
-            aria-hidden="true"
-          />
-          {endDateText}
-        </div> */}
-        {/*  <div>
-          <div className={endDatePickerShown ? "" : "hidden"}>
-            <DatePicker dateSetter={getEndDateAndPutInAnotherTextField} />
-          </div>
-        </div> */}
+          </div></div>       
       </div>
 
       <div className="mt-5 text-[15px]">
@@ -175,11 +181,88 @@ export default function SearchTrip() {
         </button>
       </div>
       <div className="ml-36 mt-16">
-        <Link href="choose-train" data>
+       
           <button onClick={clickHandler} className="text-white px-4 py-0.5 rounded-md mt-10 bg-gray-400">
             Sök resa
           </button>
-        </Link>
+       
+      </div>
+    </div>
+  )
+  
+
+  return (
+    <div className="h-screen w-full pt-[50px] ">
+      <ExitButton />
+      <Modal/>
+      <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
+      <div className="grid grid-cols-2 mt-4 items-center w-full">
+        <div className="mb-4 ">
+          <FromStation
+            routes={routes}
+            setStationDeparture={setStationDeparture}
+          />
+        </div>
+        <div className="mb-4">
+          <ToStation
+            routes={routes}
+            chosenDepartureStation={chosenDepartureStation}
+            routesSet={routesSet}
+            setStationDestination={setStationDestination}
+          />
+        </div>
+        <div>
+          <div
+            className="w-[150px]  mt-4 ml-4 grid grid-cols-1 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
+            onClick={toggleStartDatePicker}
+          >
+            <ChevronUpDownIcon
+              className="h-5 w-5 absolute text-white"
+              aria-hidden="true"
+            />
+            {startDateText}
+          </div>
+          <div className={startDatePickerShown ? "" : "hidden"}>
+            <DatePicker dateSetter={getStartDateAndPutInMyTextField} />
+          </div></div>       
+      </div>
+
+      <div className="mt-5 text-[15px]">
+        <div className="mb-5">
+          {travelers.map((x, i) => (
+            <div key={i}>
+              <MyListBox {...{ travelers, setTravelers, traveler: x }} />
+              {i === 0 ? null : (
+                <button
+                  className="text-white text-[14px] pl-2 pr-2 rounded-md  ml-4"
+                  onClick={() => {
+                    setTravelers(travelers.filter((y) => y !== x));
+                  }}
+                >
+                  - Ta bort resenär
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+        <button
+          className="text-white text-[14px] pl-2 pr-2 bg-gray-400 rounded-md  ml-4"
+          onClick={() =>
+            setTravelers([
+              ...travelers,
+              { id: travelers.length + 1, type: "1 vuxen" },
+            ])
+          }
+        >
+          + Lägg till resenär
+        </button>
+      </div>
+      <div className="ml-36 mt-16">
+       
+          <button onClick={clickHandler} className="text-white px-4 py-0.5 rounded-md mt-10 bg-gray-400">
+            Sök resa
+          </button>
+       
       </div>
     </div>
   );

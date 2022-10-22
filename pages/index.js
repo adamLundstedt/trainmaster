@@ -20,12 +20,14 @@ export default function Home({coaches, routes, tickets, timetables, trains}) {
   const chosenDestinationStation = "";
   const validRoutes = "";
   const startDateText = "";
-  const endDateText = "";
+  const departureTime = "";
+  const arrivalTime = "";
+ 
   const travelers = "";
   const chosenTrainId = "";
 
 
-  const booking = {chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, endDateText, travelers, chosenTrainId}
+  const booking = {chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, departureTime, arrivalTime, travelers, chosenTrainId}
 
   const data = {coachesST, routesST, ticketsST, timetablesST, trainsST, booking}
 

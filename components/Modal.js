@@ -4,7 +4,7 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 
 export default function Modal() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null)
 
   let messageToShow = "Vänligen kontrollera ifyllda fält!";

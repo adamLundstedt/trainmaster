@@ -235,7 +235,7 @@ export default function ChooseTrain() {
   console.log("trains: ", trains)
 
    
-  const router = useRouter()
+  const router = useRouter();
 
   function getTrainId(e, index) {
 
@@ -260,6 +260,8 @@ export default function ChooseTrain() {
     let appStateCopy = JSON.parse(JSON.stringify(data));
 
     appStateCopy.booking.chosenTrainId = chosenTrainId;
+    appStateCopy.booking.departureTime = departuresFromChosenStation[index].time;
+    appStateCopy.booking.arrivalTime = arrivalsToChosenStation[index].time;
 
     setAppState(appStateCopy);
 
