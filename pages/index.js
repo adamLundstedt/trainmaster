@@ -49,7 +49,8 @@ export default function Home({coaches, routes, tickets, timetables, trains}) {
           Sök resa
         </div>
       </Link>
-    </div>
+
+    </div >
   );
 }
 

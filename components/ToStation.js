@@ -10,13 +10,15 @@ export default function ToStation({routes,chosenDepartureStation,routesSet,setSt
   let validRoutes = [];  
 
   
+
+
   for (let route of routes) {
     for (let station of route.stations) {
       if (
         chosenDepartureStation == station.station &&
         route.stations[route.stations.length - 1].station != chosenDepartureStation
-               
-        ) {
+
+      ) {
         validRoutes.push(route);
       }
     }
@@ -95,6 +97,7 @@ export default function ToStation({routes,chosenDepartureStation,routesSet,setSt
   return (
     <div className="w-[150px] ml-4 absolute z-10 mx-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm">
       <input
+        autoComplete="off"
         className="placeholder-white text-center bg-gray-400 rounded"
         type="text"
         placeholder="Till"
@@ -105,7 +108,7 @@ export default function ToStation({routes,chosenDepartureStation,routesSet,setSt
       {suggestions &&
         suggestions.map((suggestion, i) => (
           <div key={i} onClick={() => OnSuggestHandler(suggestion)}>
-            {" "}
+
             {suggestion}
           </div>
         ))}

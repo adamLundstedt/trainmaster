@@ -98,7 +98,7 @@ export default function SearchTrip() {
       <ExitButton />
       <a className="text-white font-bold text-[25px] ml-36 ">Sök resa</a>
       <div className="grid grid-cols-2 mt-4 items-center w-full">
-        <div className="mb-4">
+        <div className="mb-4 ">
           <FromStation
             routes={routes}
             setStationDeparture={setStationDeparture}
