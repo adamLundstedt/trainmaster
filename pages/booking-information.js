@@ -13,6 +13,8 @@ export default function BookingInformation() {
     Sms: false,
     GetFromStore: true,
   });
+  const [travelersToShow, setTravelersToShow] = useState(data.booking.info);
+
   const changeRadio = (e) => {
     setChecked(() => {
       return {
@@ -25,93 +27,36 @@ export default function BookingInformation() {
   };
 
   
-  const [form, setForm] = useState({
+  const [form, setForm] = useState([{
     firstName: "",
-    lastName: "",
-    email: "",
-  });
+    lastName: "",    
+  }]);
 
-  
-
-
-  const handleChange = (e) => {
+  const handleChange = (e, index) => {
     const target = e.target;
     const value = target.value;
     const name = target.name;
     let appStateCopy = JSON.parse(JSON.stringify(data));
-    appStateCopy.booking.firstName = {
-      ...form,
+
+    console.log("index: ", index);
+
+    appStateCopy.booking.info[index].firstName = {
+      ...form[index],
       [name]: value,
     };
-    setData(appStateCopy);
-    console.log("handlechange ",data.booking.firstName);
     
+    console.log("handlechange ", appStateCopy.booking.info);
 
     setForm({
-      ...form,
+      ...form[index],
       [name]: value,
     });
   };
 
+  
+  
 
-  const renderTraveler = (
-    <div  className=" grid grid-cols-2">
-      <form
-        id={form}
-        className="grid grid-cols-1 justify-items-center  "
-      >
-        <input
-          type="text"
-          maxLength="20"
-          name="firstName"
-          value={form.firstName}
-          required
-          placeholder="Förnamn"
-          onChange={handleChange}
-          className="h-5 w-56 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
-        />
-
-        <input
-          type="text"
-          maxLength="20"
-          name="lastName"
-          value={form.lastName}
-          required
-          placeholder="Efternamn"
-          onChange={handleChange}
-          className="h-5 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm w-56"
-        />
-      </form>
-    </div>
-  );
-
-  let travelers = appState.booking.travelers;
-  let showDeparture = appState.booking.chosenDepartureStation;
-  let showDestination = appState.booking.chosenDestinationStation;
-  let showDepartureDate = appState.booking.startDateText;
-  let showDepartureTime = appState.booking.departureTime;
-  let showArrivalTime = appState.booking.arrivalTime;
-  let travelersToShow = [];
-  let travelersList = [];
-
-  for (let traveler of travelers) {
-    travelersToShow.push(renderTraveler);
-  }
-
-  console.log("How many travlers: ", travelers);
-  console.log("showDeparture: ", showDeparture);
-  console.log("showDestination: ", showDestination);
-  console.log("showDepartureDate: ", showDepartureDate);
-  console.log("showDepartureTime: ", showDepartureTime);
-  console.log("showAriivalTime: ", showArrivalTime);
-
-  function createInfoToAppState() {
-    let appStateCopy = JSON.parse(JSON.stringify(data));
-
-    return appStateCopy;
-  }
+ 
 
   return (
     <div className="h-screen w-full pt-[50px] ">
@@ -121,13 +66,52 @@ export default function BookingInformation() {
         <div className=" text-center text-white pt-[10px] text-[10px] ">
           {/* hämta informationen från biljetten */}
           <div>
-            Avgång från <b>{showDeparture}</b> till <b>{showDestination}</b>
+            Avgång från <b>{data.booking.chosenDepartureStation}</b> till <b>{data.booking.chosenDestinationStation}</b>
           </div>
           <div>
-            Avgångsdatum: <b>{showDepartureDate}</b> klockan{" "}
-            <b>{showDepartureTime}</b>
+            Avgångsdatum: <b>{data.booking.startDateText}</b> klockan{" "}
+            <b>{data.booking.departureTime}</b>
           </div>
-          <>{travelersToShow}</>
+          <div>
+            {travelersToShow.map((travelerToShow, index) => (
+              <div>
+                <div key={index}>
+                  <div className="text-lg">
+                    <div className=" grid grid-cols-2">
+                      <form
+                        id={form}
+                        className="grid grid-cols-1 justify-items-center  "
+                      >
+                        <input                       
+                          type="text"
+                          maxLength="20"
+                          name="firstName"
+                          value={form.firstName}
+                          required
+                          placeholder="Förnamn"
+                          onChange={(e) => handleChange(e, index)}
+                          className="h-5 w-56 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm"
+                        />
+
+                        <input                        
+                          type="text"
+                          maxLength="20"
+                          name="lastName"
+                          value={form.lastName}
+                          required
+                          placeholder="Efternamn"
+                          onChange={(e) => handleChange(e, index)}
+                          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
+                        />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
           <div className="text-white text-lg mt-4 mb-6">
             <a className="font-semibold">Hur vill du ha biljetten?</a>
           </div>

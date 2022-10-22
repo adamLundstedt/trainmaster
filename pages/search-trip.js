@@ -22,8 +22,7 @@ export default function SearchTrip() {
   const [data, setData] = useState(appState);
   const [startDatePickerShown, setStartDatePickerShown] = useState(false);
   const [endDatePickerShown, setEndDatePickerShown] = useState(false);
-  const [startDateText, setStartDateText] = useState("Datum");
-  /*   const [endDateText, setEndDateText] = useState("Datum hemresa");*/
+  const [startDateText, setStartDateText] = useState("Datum");  
   const [travelers, setTravelers] = useState([{ id: 1, type: "1 vuxen" }]);
 
 
@@ -40,18 +39,13 @@ export default function SearchTrip() {
     toggleStartDatePicker();
   }
 
-  /*   function getEndDateAndPutInAnotherTextField(date) {
-      setEndDateText(date.toISOString().split("T")[0]);
-      toggleEndDatePicker();
-    } */
+  
 
   function toggleStartDatePicker() {
     setStartDatePickerShown(!startDatePickerShown);
   }
 
-  /*   function toggleEndDatePicker() {
-      setEndDatePickerShown(!endDatePickerShown);
-    } */
+  
 
   const removeItems = (i) => {
     const arr = Array.filter((item) => item.i !== i);
@@ -78,6 +72,11 @@ export default function SearchTrip() {
     appStateCopy.booking.travelers = travelers;
     appStateCopy.booking.validRoutes = validRoutes;
 
+    for(let traveler of travelers) {
+      appStateCopy.booking.info.push({"firstName": "", "lastName": "", "typeOfTycket": traveler.type})
+
+    }
+    
     return appStateCopy;
   }
 
@@ -127,21 +126,7 @@ export default function SearchTrip() {
             <DatePicker dateSetter={getStartDateAndPutInMyTextField} />
           </div></div>
 
-        {/*    <div
-          className="w-[150px] mt-4 ml-4 bg-gray-400 cursor-pointer text-center drop-shadow-md shadow-black text-white rounded text-sm"
-          onClick={toggleEndDatePicker}
-        >
-          <ChevronUpDownIcon
-            className="h-5 w-5 absolute text-white"
-            aria-hidden="true"
-          />
-          {endDateText}
-        </div> */}
-        {/*  <div>
-          <div className={endDatePickerShown ? "" : "hidden"}>
-            <DatePicker dateSetter={getEndDateAndPutInAnotherTextField} />
-          </div>
-        </div> */}
+       
       </div>
 
       <div className="mt-5 text-[15px]">

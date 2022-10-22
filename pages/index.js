@@ -23,13 +23,14 @@ export default function Home({coaches, routes, tickets, timetables, trains}) {
   const departureTime = "";
   const arrivalTime = "";
   const travelers = "";
-  const chosenTrainId = "";
-  const firstName = "";
-  const lastName = "";
+  const chosenTrainId = "";  
   const email = "";
+  const info = [];
+  
+  
 
 
-  const booking = {chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, departureTime, arrivalTime, travelers, chosenTrainId, firstName, lastName, email}
+  const booking = {chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, departureTime, arrivalTime, travelers, chosenTrainId, info, email}
 
   const data = {coachesST, routesST, ticketsST, timetablesST, trainsST, booking}
 
