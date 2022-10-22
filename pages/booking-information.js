@@ -24,20 +24,66 @@ export default function BookingInformation() {
     });
   };
 
+  
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
+
+  
+
+
+  const handleChange = (e) => {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+    let appStateCopy = JSON.parse(JSON.stringify(data));
+    appStateCopy.booking.firstName = {
+      ...form,
+      [name]: value,
+    };
+    setData(appStateCopy);
+    console.log("handlechange ",data.booking.firstName);
+    
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+
   const renderTraveler = (
-    <div className=" grid grid-cols-2">
-      <input
-        className=" h-4 mt-4 border mx-2  bg-white text-center 
+    <div  className=" grid grid-cols-2">
+      <form
+        id={form}
+        className="grid grid-cols-1 justify-items-center  "
+      >
+        <input
+          type="text"
+          maxLength="20"
+          name="firstName"
+          value={form.firstName}
+          required
+          placeholder="Förnamn"
+          onChange={handleChange}
+          className="h-5 w-56 mt-4 border mx-2  bg-white text-center 
         drop-shadow-md shadow-black text-black rounded text-sm"
-        placeholder="Förnamn:"
-        type="text"
-      ></input>
-      <input
-        className=" h-4 mt-4 border mx-2 bg-white text-center 
-          drop-shadow-md shadow-black text-black rounded text-sm"
-        placeholder="Efternamn:"
-        type="text"
-      ></input>
+        />
+
+        <input
+          type="text"
+          maxLength="20"
+          name="lastName"
+          value={form.lastName}
+          required
+          placeholder="Efternamn"
+          onChange={handleChange}
+          className="h-5 mt-4 border mx-2  bg-white text-center 
+        drop-shadow-md shadow-black text-black rounded text-sm w-56"
+        />
+      </form>
     </div>
   );
 
@@ -55,7 +101,6 @@ export default function BookingInformation() {
   }
 
   console.log("How many travlers: ", travelers);
-  console.log("render: ", travelersToShow);
   console.log("showDeparture: ", showDeparture);
   console.log("showDestination: ", showDestination);
   console.log("showDepartureDate: ", showDepartureDate);
