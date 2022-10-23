@@ -69,11 +69,23 @@ export default function TrainSetThree({ trainSetModelThree, chosenTrainCoaches }
         cssSelected;
 
         let chosenSeatsCopy = JSON.parse(JSON.stringify(chosenSeats));
+
+        let classType = "";
+
+      if(chosenCoachIndex == 0) {
+        classType = "1class"
+      }
+
+      else if(chosenCoachIndex == 1 || chosenCoachIndex == 2) {
+        classType = "2class";
+      }
+
         chosenSeatsCopy.push({
           id: seatId,
           trainId: trainId,
           coach: chosenCoachIndex + 1,
-          seat: seatId,          
+          seat: seatId,
+          classType: classType,          
         });
         
         setChosenSeats(chosenSeatsCopy); 

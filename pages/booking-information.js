@@ -37,7 +37,7 @@ export default function BookingInformation() {
   };
 
 
-  const [formValues, setFormValues] = useState([{ firstName: "", lastName: "" }])
+  const [formValues, setFormValues] = useState([])
 
   let handleChange = (i, e) => {
     let newFormValues = [...formValues];
@@ -78,11 +78,129 @@ export default function BookingInformation() {
     let appStateCopy = JSON.parse(JSON.stringify(appState));
     appStateCopy.booking.email = mail;
     setAppState(appStateCopy);
-
+    
   }, [mail])
+
+  function calculatePrice(){
+    let departureTime = appState.booking.departureTime
+    let arrivalTime = appState.booking.arrivalTime
+    
+    let hoursDepartureString = departureTime.slice(0, 2);
+    let minutesDepartureString = departureTime.slice(3, 5);
+
+    let hoursArrivalString = arrivalTime.slice(0, 2);
+    let minutesArrivalString = arrivalTime.slice(3, 5);
+
+    let hoursDeparture = parseInt(hoursDepartureString)
+    let minutesDeparture = parseInt(minutesDepartureString)
+
+    let hoursArrival = parseInt(hoursArrivalString )
+    let minutesArrival = parseInt(minutesArrivalString)
+
+    let hoursTraveled = (hoursArrival - hoursDeparture);
+    let minutesTraveled = (minutesArrival - minutesDeparture);
+
+    let totalMinutesTraveled = (60 * hoursTraveled) + minutesTraveled;
+
+    console.log("total minutes traveled", totalMinutesTraveled)
+
+    let adultTickets = 0;
+    let childTickets = 0;
+    let studentTickets = 0;
+    let seniorTickets = 0;
+
+    for(let traveler of appState.booking.travelers) {
+      if(traveler.type == "1 vuxen") {
+        adultTickets++;
+      }
+      else if(traveler.type == "1 barn") {
+        childTickets++;
+      }
+      else if(traveler.type == "1 student") {
+        studentTickets++;
+      }
+      else if(traveler.type == "1 senior") {
+        seniorTickets++;
+      }     
+      
+    }
+
+    let firstClassTickets = 0;
+    let secondClassTickets = 0;
+
+    for(let chosenSeat of appState.booking.chosenSeats) {
+      if(chosenSeat.classType == "1class") {
+        firstClassTickets++
+      }
+    }
+
+    for(let chosenSeat of appState.booking.chosenSeats) {
+      if(chosenSeat.classType == "2class") {
+        secondClassTickets++
+      }
+    }
+
+    
+
+    let numberOfTickets = 0;
+
+    for (let ticket of appState.ticketsST) {
+      if(ticket.trainId == appState.booking.chosenTrainId){
+        numberOfTickets++
+      }
+    } 
+    
+    let howManyCoaches = 0;
+
+    for(let train of appState.trainsST){      
+      if(train._id == appState.booking.chosenTrainId) {
+        console.log("DET HÄNDER")
+        howManyCoaches = train.coaches.length
+      }
+    }
+
+    let seatAmount = 0;
+
+    if(howManyCoaches == 6) {
+      seatAmount = 346
+    }
+    else if(howManyCoaches == 5) {
+      seatAmount = 272
+    }
+    else if(howManyCoaches == 4) {
+      seatAmount = 244
+    }
+
+
+    console.log("adult", adultTickets)
+    console.log("child", childTickets)
+    console.log("student", studentTickets)
+    console.log("senior", seniorTickets)
+    console.log("first class ", firstClassTickets);
+    console.log("second class tickets ", secondClassTickets)
+    console.log("number of tickets ", numberOfTickets)
+    console.log("how many coaches", howManyCoaches)
+    console.log("seat amount ", seatAmount)
+
+    
+
+    
+    
+
+    
+
+    
+
+
+    
+  }
+
+  
 
 
   function clickHandler() {
+
+    calculatePrice();
 
     let allFirstNames = true;
     let allLastNames = true;
@@ -102,11 +220,7 @@ export default function BookingInformation() {
 
     if (appState.booking.email == "") {
       thereIsMail = false
-    }
-
-    console.log("all first names", allFirstNames)
-    console.log("all last names", allLastNames)
-    console.log("thereismail", thereIsMail)
+    }    
 
     if (allFirstNames && allLastNames && thereIsMail) {
       allFirstNames = false;
