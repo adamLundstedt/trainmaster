@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useAppContext } from "../my-app/context/AppContext";
-
 import Link from "next/link";
 import ExitButton from "../components/ExitButton";
 import BackButton from "../components/BackButton";
@@ -26,10 +25,9 @@ export default function BookingInformation() {
     });
   };
 
-  
   const [form, setForm] = useState([{
     firstName: "",
-    lastName: "",    
+    lastName: "",
   }]);
 
   const handleChange = (e, index) => {
@@ -44,7 +42,7 @@ export default function BookingInformation() {
       ...form[index],
       [name]: value,
     };
-    
+
     console.log("handlechange ", appStateCopy.booking.info);
 
     setForm({
@@ -53,65 +51,50 @@ export default function BookingInformation() {
     });
   };
 
-  
-  
-
- 
 
   return (
     <div className="h-screen w-full pt-[50px] ">
       <ExitButton />
       <a className="text-white text-lg ml-32 mb-6">Vilka ska resa?</a>
-      <div className="bg-gray-600 bg-opacity-70 h-[320px] ml-5 mr-5">
+      <div className="bg-gray-600 bg-opacity-70 h-auto ml-5 mr-5">
         <div className=" text-center text-white pt-[10px] text-[10px] ">
-          {/* hämta informationen från biljetten */}
-          <div>
-            Avgång från <b>{data.booking.chosenDepartureStation}</b> till <b>{data.booking.chosenDestinationStation}</b>
+          <div className="m-1">
+            Avgång från <b className="pl-2">{data.booking.chosenDepartureStation}</b> till <b>{data.booking.chosenDestinationStation}</b>
           </div>
-          <div>
-            Avgångsdatum: <b>{data.booking.startDateText}</b> klockan{" "}
-            <b>{data.booking.departureTime}</b>
+          <div className="m-1">
+            Avgångsdatum: <b className="pl-2">{data.booking.startDateText}</b> klockan
+            <b className="pl-1">{data.booking.departureTime}</b>
           </div>
-          <div>
-            {travelersToShow.map((travelerToShow, index) => (
-              <div>
-                <div key={index}>
-                  <div className="text-lg">
-                    <div className=" grid grid-cols-2">
-                      <form
-                        id={form}
-                        className="grid grid-cols-1 justify-items-center  "
-                      >
-                        <input                       
-                          type="text"
-                          maxLength="20"
-                          name="firstName"
-                          value={form.firstName}
-                          required
-                          placeholder="Förnamn"
-                          onChange={(e) => handleChange(e, index)}
-                          className="h-5 w-56 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
-                        />
 
-                        <input                        
-                          type="text"
-                          maxLength="20"
-                          name="lastName"
-                          value={form.lastName}
-                          required
-                          placeholder="Efternamn"
-                          onChange={(e) => handleChange(e, index)}
-                          className="h-5 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm w-56"
-                        />
-                      </form>
-                    </div>
-                  </div>
+          <div className="text-lg mx-10">
+            <form className="justify-items-center">
+              {travelersToShow.map((travelerToShow, index) => (
+                <div key={index}>
+                  <input
+                    type="text"
+                    maxLength="20"
+                    name="firstName"
+                    value={form.firstName}
+                    required
+                    placeholder="Förnamn"
+                    onChange={(e) => handleChange(e, index)}
+                    className="h-5 mr-2 mt-4 border bg-white text-center 
+                        drop-shadow-md shadow-black text-black rounded text-sm"/>
+                  <input
+                    type="text"
+                    maxLength="20"
+                    name="lastName"
+                    value={form.lastName}
+                    required
+                    placeholder="Efternamn"
+                    onChange={(e) => handleChange(e, index)}
+                    className="h-5 mr-2 mt-4 border bg-white text-center 
+                        drop-shadow-md shadow-black text-black rounded text-sm "/>
                 </div>
-              </div>
-            ))}
+              ))}
+            </form>
           </div>
+
           <div className="text-white text-lg mt-4 mb-6">
             <a className="font-semibold">Hur vill du ha biljetten?</a>
           </div>
