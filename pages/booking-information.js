@@ -30,8 +30,6 @@ export default function BookingInformation() {
   };
 
 
-
-
   const [formValues, setFormValues] = useState([{ firstName: "", lastName: "" }])
 
   let handleChange = (i, e) => {
@@ -65,7 +63,6 @@ export default function BookingInformation() {
 
   useEffect(() => {
     setMail(mail)
-
 
   }, [mail])
 
