@@ -73,8 +73,7 @@ export default function TrainSetThree({ trainSetModelThree, chosenTrainCoaches }
           id: seatId,
           trainId: trainId,
           coach: chosenCoachIndex + 1,
-          seat: seatId,
-          names: [],
+          seat: seatId,          
         });
         
         setChosenSeats(chosenSeatsCopy); 
