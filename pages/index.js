@@ -27,9 +27,11 @@ export default function Home({coaches, routes, tickets, timetables, trains}) {
   const email = "";
   const info = [];
   const chosenSeats = "";
+  const names = "";
+  
 
 
-  const booking = {chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, departureTime, arrivalTime, travelers, chosenTrainId, chosenSeats, info, email}
+  const booking = {chosenDepartureStation, chosenDestinationStation, validRoutes, startDateText, departureTime, arrivalTime, travelers, chosenTrainId, chosenSeats, names, info, email}
 
   const data = {coachesST, routesST, ticketsST, timetablesST, trainsST, booking}
 
