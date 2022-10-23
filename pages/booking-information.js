@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment, useRef } from "react";
 import { useAppContext } from "../my-app/context/AppContext";
-import { Dialog, Listbox, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import Router, { useRouter } from 'next/router'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
@@ -22,9 +22,6 @@ export default function BookingInformation() {
   const [travelersToShow, setTravelersToShow] = useState(data.booking.info);
 
   const [mail, setMail] = useState();
-  const [phone, setPhone] = useState();
-
-  const router = useRouter();
 
   const router = useRouter();
 
@@ -85,7 +82,6 @@ export default function BookingInformation() {
   }, [mail])
 
 
-
   function clickHandler() {
 
     let allFirstNames = true;
@@ -121,11 +117,7 @@ export default function BookingInformation() {
 
     }
     else setOpen(true)
-
-
   }
-
-
 
 
   return (
@@ -197,18 +189,17 @@ export default function BookingInformation() {
           <div className="m-1">
             Avgång från <b className="pl-2">{data.booking.chosenDepartureStation}</b> till <b>{data.booking.chosenDestinationStation}</b>
           </div>
-          <div className="m-1">
+          <div>
             Avgångsdatum: <b className="pl-2">{data.booking.startDateText}</b> klockan
-            <b className="pl-1">{data.booking.departureTime}</b>
+            <b className="pl-2">{data.booking.departureTime}</b>
           </div>
           <div>
-            Avgångsdatum: <b>{data.booking.startDateText}</b> klockan{" "}
-            <b>{data.booking.departureTime}</b>
+            Ankomst tid: <b className="pl-1">{data.booking.arrivalTime}</b>
           </div>
           <div>
             <form>
               {formValues.map((element, index) => (
-                <div className="form-inline text-black" key={index}>
+                <div className="form-inline grid grid-cols-2 text-black" key={index}>
 
                   <input className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
           drop-shadow-md shadow-black text-black rounded text-sm"
