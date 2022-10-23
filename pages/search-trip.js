@@ -24,15 +24,13 @@ export default function SearchTrip() {
 
   const [appState, setAppState] = useAppContext();
   const [data, setData] = useState(appState);
-  const [startDatePickerShown, setStartDatePickerShown] = useState(false);
-  const [endDatePickerShown, setEndDatePickerShown] = useState(false);
+  const [startDatePickerShown, setStartDatePickerShown] = useState(false);  
   const [startDateText, setStartDateText] = useState("Datum");  
   const [travelers, setTravelers] = useState([{ id: 1, type: "1 vuxen" }]);
 
-
   const [routes, setRoutes] = useState(data.routesST)
   const [chosenDepartureStation, setChosenDepartureStation] = useState(data.booking.chosenDepartureStation);
-  const [chosenDestinationStation, setChosenDestinationStation] = useState(data.booking.chosenDestinationStation);
+  const [chosenDestinationStation, setChosenDestinationStation] = useState(data.booking.chosenDestinationStation);  
   const [validRoutes, setvalidRoutes] = useState();
   const [open, setOpen] = useState(false);
   const cancelButtonRef = useRef(null)
@@ -73,12 +71,12 @@ export default function SearchTrip() {
   }
 
   function createInfoToAppState(){
-    let appStateCopy = JSON.parse(JSON.stringify(data));
+    let appStateCopy = JSON.parse(JSON.stringify(appState));
     appStateCopy.booking.chosenDepartureStation = chosenDepartureStation;
     appStateCopy.booking.chosenDestinationStation = chosenDestinationStation;
     appStateCopy.booking.startDateText = startDateText;
     appStateCopy.booking.travelers = travelers;
-    appStateCopy.booking.validRoutes = validRoutes;
+    appStateCopy.booking.validRoutes = validRoutes;    
 
     for(let traveler of travelers) {
       appStateCopy.booking.info.push({"firstName": "", "lastName": "", "typeOfTycket": traveler.type})
@@ -102,7 +100,7 @@ export default function SearchTrip() {
     let departure = true;
     let destination = true;
 
-    if(appState.booking.startDateText != "Datum") {
+    if(startDateText != "Datum") {
       datum = true;
     }
    
@@ -123,8 +121,8 @@ export default function SearchTrip() {
     
     if(datum && departure && destination) {
       datum = false;
-      departure = true;
-      destination = true;      
+      departure = false;
+      destination = false;      
       
       router.push("/choose-train");
       

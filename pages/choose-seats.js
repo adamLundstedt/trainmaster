@@ -13,7 +13,9 @@ export default function ChooseSeats() {
   const [trains, setTrains] = useState(data.trainsST);
   const [tickets, setTickets] = useState(data.ticketsST);
   const [coaches, setCoaches] = useState(data.coachesST);
-  const [chosenTrainId, setChosenTrainId] = useState(data.booking.chosenTrainId); 
+  const [chosenTrainId, setChosenTrainId] = useState(appState.booking.chosenTrainId);
+  
+  
   
 
   const cssFree =
@@ -245,7 +247,10 @@ export default function ChooseSeats() {
 
 
   for (let ticket of ticketsForGivenTrain) {
-    if (modelOne) {
+    console.log (appState.booking.startDateText)
+    console.log( ticket.date)
+
+    if (modelOne && appState.booking.startDateText == ticket.date) {
       for (let coach of trainSetModelOne) {
         if (ticket.coach == coach.coachId) {
           for (let seat of coach.coachSeats) {
@@ -256,7 +261,7 @@ export default function ChooseSeats() {
           }
         }
       }
-    } else if (modelTwo) {
+    } else if (modelTwo && appState.booking.startDateText == ticket.date) {
       for (let coach of trainSetModelTwo) {
         if (ticket.coach == coach.coachId) {
           for (let seat of coach.coachSeats) {
@@ -267,7 +272,7 @@ export default function ChooseSeats() {
           }
         }
       }
-    } else if (modelThree) {
+    } else if (modelThree && appState.booking.startDateText == ticket.date) {
       for (let coach of trainSetModelThree) {
         if (ticket.coach == coach.coachId) {
           for (let seat of coach.coachSeats) {

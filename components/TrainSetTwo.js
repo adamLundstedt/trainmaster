@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import { useAppContext } from "../my-app/context/AppContext";
 import FirstClassCoach from "./FirstClassCoach";
 import SecondClassCoach from "./SecondClassCoach";
 import BistroCoach from "./BistroCoach";
@@ -12,10 +12,16 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
     "bg-yellow-500 hover:bg-yellow-700 text-white font-bold text-[11px] w-8 h-8 rounded";
   const cssSelected =
     "bg-green-500 hover:bg-green-700 text-white font-bold text-[11px] w-8 h-8 rounded";
+  
+    const [appState, setAppState] = useAppContext();
 
   const [trainSetTwo, setTrainSetTwo] = useState(trainSetModelTwo);
 
   const [chosenCoachIndex, setChosenCoachIndex] = useState(0);
+  
+  const [trainId, setTrainId] = useState(appState.booking.chosenTrainId);
+
+  const [chosenSeats, setChosenSeats] = useState([]);
 
   function handleClickLeftArrow() {
     let indexValue = chosenCoachIndex;
@@ -34,14 +40,25 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
   }
 
   function handleClickSeat(seatId) {
+    function removeObjectWithId(arr, id) {
+      const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
+      arr.splice(objWithIdIndex, 1);
+
+      return arr;
+    }
     let trainArray = JSON.parse(JSON.stringify(trainSetTwo));
     if (trainArray[chosenCoachIndex].coachSeats[seatId - 1].isSelected) {
       trainArray[chosenCoachIndex].coachSeats[seatId - 1].isSelected = false;
       if (trainArray[chosenCoachIndex].coachSeats[seatId - 1].specialNeeds) {
         trainArray[chosenCoachIndex].coachSeats[seatId - 1].className =
           cssSpecialNeeds;
+        let chosenSeatsCopy = JSON.parse(JSON.stringify(chosenSeats));
+        setChosenSeats(removeObjectWithId(chosenSeatsCopy, seatId));
       } else
         trainArray[chosenCoachIndex].coachSeats[seatId - 1].className = cssFree;
+      let chosenSeatsCopy = JSON.parse(JSON.stringify(chosenSeats));
+      
+      setChosenSeats(removeObjectWithId(chosenSeatsCopy, seatId));
       setTrainSetTwo(trainArray);
     } else if (
       !trainArray[chosenCoachIndex].coachSeats[seatId - 1].isSelected
@@ -49,25 +66,48 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
       trainArray[chosenCoachIndex].coachSeats[seatId - 1].isSelected = true;
       trainArray[chosenCoachIndex].coachSeats[seatId - 1].className =
         cssSelected;
+      let chosenSeatsCopy = JSON.parse(JSON.stringify(chosenSeats));
+      chosenSeatsCopy.push({
+        id: seatId,
+        trainId: trainId,
+        coach: chosenCoachIndex + 1,
+        seat: seatId,
+      });
+      setChosenSeats(chosenSeatsCopy);
       setTrainSetTwo(trainArray);
     }
   }
+
+  useEffect(() => {
+    let appStateCopy = JSON.parse(JSON.stringify(appState));
+    appStateCopy.booking.chosenSeats = chosenSeats;
+    setAppState(appStateCopy);
+
+  },[chosenSeats])
+
+  console.log(chosenSeats);
+  console.log(appState);
+
 
   if (chosenCoachIndex == 0) {
     return (
       <div>
         <div>
-          <p className="text-white text-center">Vagnnummer: {chosenCoachIndex + 1}</p>
+          <p className="text-white text-center">
+            Vagnnummer: {chosenCoachIndex + 1}
+          </p>
 
           <div>
             <button
               className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickLeftArrow()} >
+              onClick={() => handleClickLeftArrow()}
+            >
               Föregående vagn
             </button>
             <button
               className="text-white px-3 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickRightArrow()} >
+              onClick={() => handleClickRightArrow()}
+            >
               Nästa vagn
             </button>
           </div>
@@ -87,12 +127,14 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
           <div>
             <button
               className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickLeftArrow()} >
+              onClick={() => handleClickLeftArrow()}
+            >
               Föregående vagn
             </button>
             <button
               className="text-white px-3 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickRightArrow()} >
+              onClick={() => handleClickRightArrow()}
+            >
               Nästa vagn
             </button>
           </div>
@@ -107,17 +149,21 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
     return (
       <div>
         <div>
-          <p className="text-white text-center">Vagnnummer: {chosenCoachIndex + 1}</p>
+          <p className="text-white text-center">
+            Vagnnummer: {chosenCoachIndex + 1}
+          </p>
 
           <div>
             <button
               className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickLeftArrow()} >
+              onClick={() => handleClickLeftArrow()}
+            >
               Föregående vagn
             </button>
             <button
               className="text-white px-3 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickRightArrow()} >
+              onClick={() => handleClickRightArrow()}
+            >
               Nästa vagn
             </button>
           </div>
@@ -131,17 +177,22 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
   } else if (chosenCoachIndex == 3) {
     return (
       <div>
-        <div>            <p className="text-white text-center">Vagnnummer: {chosenCoachIndex + 1}</p>
-
+        <div>
+          {" "}
+          <p className="text-white text-center">
+            Vagnnummer: {chosenCoachIndex + 1}
+          </p>
           <div>
             <button
               className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickLeftArrow()} >
+              onClick={() => handleClickLeftArrow()}
+            >
               Föregående vagn
             </button>
             <button
               className="text-white px-3 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickRightArrow()} >
+              onClick={() => handleClickRightArrow()}
+            >
               Nästa vagn
             </button>
           </div>
@@ -156,17 +207,21 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
     return (
       <div>
         <div>
-          <p className="text-white text-center">Vagnnummer: {chosenCoachIndex + 1}</p>
+          <p className="text-white text-center">
+            Vagnnummer: {chosenCoachIndex + 1}
+          </p>
 
           <div>
             <button
               className="text-white px-3 mx-5 ml-12 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickLeftArrow()} >
+              onClick={() => handleClickLeftArrow()}
+            >
               Föregående vagn
             </button>
             <button
               className="text-white px-3 rounded-md mt-2 bg-gray-400"
-              onClick={() => handleClickRightArrow()} >
+              onClick={() => handleClickRightArrow()}
+            >
               Nästa vagn
             </button>
           </div>

@@ -231,9 +231,7 @@ export default function ChooseTrain() {
 
   }
 
-  console.log("valid trains: ", validTrains);
-  console.log("trains: ", trains)
-
+  
    
   const router = useRouter();
 
@@ -264,6 +262,8 @@ export default function ChooseTrain() {
     appStateCopy.booking.arrivalTime = arrivalsToChosenStation[index].time;
 
     setAppState(appStateCopy);
+    console.log("TRAIN ID", appStateCopy.booking.chosenTrainId)
+    
 
     
 

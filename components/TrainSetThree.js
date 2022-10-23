@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
+import { useAppContext } from "../my-app/context/AppContext";
+
 import FirstClassCoach from "./FirstClassCoach";
 import SecondClassCoach from "./SecondClassCoach";
 import BistroCoach from "./BistroCoach";
@@ -13,10 +14,15 @@ export default function TrainSetThree({ trainSetModelThree, chosenTrainCoaches }
   const cssSelected =
     "bg-green-500 hover:bg-green-700 text-white font-bold text-[11px] w-8 h-8 rounded";
 
-
+  const [appState, setAppState] = useAppContext();
   const [trainSetThree, setTrainSetThree] = useState(trainSetModelThree);
 
   const [chosenCoachIndex, setChosenCoachIndex] = useState(0);
+
+  const [trainId, setTrainId] = useState(appState.booking.chosenTrainId);
+
+  const [chosenSeats, setChosenSeats] = useState([]);
+
 
   function handleClickLeftArrow() {
     let indexValue = chosenCoachIndex;
@@ -35,14 +41,25 @@ export default function TrainSetThree({ trainSetModelThree, chosenTrainCoaches }
   }
 
   function handleClickSeat(seatId) {
+    function removeObjectWithId(arr, id) {
+      const objWithIdIndex = arr.findIndex((obj) => obj.id === id);
+      arr.splice(objWithIdIndex, 1);
+
+      return arr;
+    }
     let trainArray = JSON.parse(JSON.stringify(trainSetThree));
     if (trainArray[chosenCoachIndex].coachSeats[seatId - 1].isSelected) {
       trainArray[chosenCoachIndex].coachSeats[seatId - 1].isSelected = false;
       if (trainArray[chosenCoachIndex].coachSeats[seatId - 1].specialNeeds) {
         trainArray[chosenCoachIndex].coachSeats[seatId - 1].className =
           cssSpecialNeeds;
+          let chosenSeatsCopy = JSON.parse(JSON.stringify(chosenSeats));
+        
+          setChosenSeats(removeObjectWithId(chosenSeatsCopy, seatId));
       } else
         trainArray[chosenCoachIndex].coachSeats[seatId - 1].className = cssFree;
+        let chosenSeatsCopy = JSON.parse(JSON.stringify(chosenSeats));
+        setChosenSeats(removeObjectWithId(chosenSeatsCopy, seatId));
       setTrainSetThree(trainArray);
     } else if (
       !trainArray[chosenCoachIndex].coachSeats[seatId - 1].isSelected
@@ -50,9 +67,30 @@ export default function TrainSetThree({ trainSetModelThree, chosenTrainCoaches }
       trainArray[chosenCoachIndex].coachSeats[seatId - 1].isSelected = true;
       trainArray[chosenCoachIndex].coachSeats[seatId - 1].className =
         cssSelected;
+
+        let chosenSeatsCopy = JSON.parse(JSON.stringify(chosenSeats));
+        chosenSeatsCopy.push({
+          id: seatId,
+          trainId: trainId,
+          coach: chosenCoachIndex + 1,
+          seat: seatId,
+        });
+        
+        setChosenSeats(chosenSeatsCopy); 
       setTrainSetThree(trainArray);
     }
   }
+
+  useEffect(() => {
+    let appStateCopy = JSON.parse(JSON.stringify(appState));
+    appStateCopy.booking.chosenSeats = chosenSeats;
+    setAppState(appStateCopy);
+
+  },[chosenSeats])
+
+  console.log(chosenSeats);
+  console.log(appState);
+
 
   if (chosenCoachIndex == 0) {
     return (
