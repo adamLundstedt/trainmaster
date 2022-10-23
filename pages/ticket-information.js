@@ -1,6 +1,4 @@
-import BackButton from "../components/BackButton";
 import Link from "next/link";
-import ExitButton from "../components/ExitButton";
 import QrCode from '../components/QrCode'; // <QrCode text={tickets} />
 
 export default function TicketInformation() {
@@ -9,7 +7,12 @@ export default function TicketInformation() {
       <a className="text-white text-lg ml-32 mb-6">Biljettinformation</a>
       <div className="bg-gray-600 bg-opacity-70 h-[320px] ml-5 mr-5">
         <div className=" text-center text-white pt-[10px] text-[10px] "></div>
+
+
+
       </div>
+
+
       <div className="ml-24 m-5 ">
         <Link href="/">
           <a
