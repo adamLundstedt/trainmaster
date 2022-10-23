@@ -276,13 +276,13 @@ export default function ChooseTrain() {
 
   return (
     <div className="h-screen w-full pt-[50px] ">
-      <ExitButton />
+      <ExitButton />      
       <a className="text-white text-lg ml-32 mb-6"></a>
       <div className="bg-gray-600 bg-opacity-70  ml-5 mr-5">
         <div className=" text-center text-white pt-[10px] text-[10px] ">
           <div>            
             {validTrains.map((validTrain, index) => (
-              <div>
+              <div key={index}>
                 <button onClick={(e) => getTrainId(e, index)}>             
                 <div key={index}>
                 <div className="text-lg">

@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { useAppContext } from "../my-app/context/AppContext";
 
 export default function FromStation({ routes, setStationDeparture }) {
 
   const[fromStations, setFromStations] = useState();
+  const [appState, setAppState] = useAppContext();
+  const [data, setData] = useState(appState);  
 
   function getFromStations(){
     let stationNameInArray = false;
@@ -28,7 +31,7 @@ export default function FromStation({ routes, setStationDeparture }) {
   useEffect(() => {
     
     setFromStations(getFromStations())
-   
+     
   }, []);
  
 

@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { useAppContext } from "../my-app/context/AppContext";
 
 
 export default function ToStation({routes,chosenDepartureStation,routesSet,setStationDestination}) {
 
   const [destinationStations, setDestinationStations] = useState();
+  const [appState, setAppState] = useAppContext();
+  const [data, setData] = useState(appState); 
   
 
   function calculateValidRoutes() {
@@ -57,6 +60,7 @@ export default function ToStation({routes,chosenDepartureStation,routesSet,setSt
   useEffect(() => {
     
     setDestinationStations(calculateValidDestinationStations());
+     
    
   }, []);
 
