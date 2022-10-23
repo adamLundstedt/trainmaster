@@ -1,6 +1,7 @@
 import BackButton from "../components/BackButton";
 import Link from "next/link";
 import ExitButton from "../components/ExitButton";
+import QrCode from '../components/QrCode'; // <QrCode text={tickets} />
 
 export default function BookingOverview() {
 
