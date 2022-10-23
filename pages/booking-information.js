@@ -26,6 +26,8 @@ export default function BookingInformation() {
 
   const router = useRouter();
 
+  const router = useRouter();
+
   const changeRadio = (e) => {
     setChecked(() => {
       return {
