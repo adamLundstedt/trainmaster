@@ -72,6 +72,7 @@ export default function TrainSetTwo({ trainSetModelTwo, chosenTrainCoaches }) {
         trainId: trainId,
         coach: chosenCoachIndex + 1,
         seat: seatId,
+        names: [],
       });
       setChosenSeats(chosenSeatsCopy);
       setTrainSetTwo(trainArray);

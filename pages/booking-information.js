@@ -5,6 +5,7 @@ import Link from "next/link";
 import ExitButton from "../components/ExitButton";
 import BackButton from "../components/BackButton";
 
+
 export default function BookingInformation() {
   const [appState, setAppState] = useAppContext();
   const [data, setData] = useState(appState);
@@ -14,6 +15,9 @@ export default function BookingInformation() {
     GetFromStore: true,
   });
   const [travelersToShow, setTravelersToShow] = useState(data.booking.info);
+
+  const[mail, setMail] = useState();
+  const[phone, setPhone] = useState();
 
   const changeRadio = (e) => {
     setChecked(() => {
@@ -27,33 +31,54 @@ export default function BookingInformation() {
   };
 
   
-  const [form, setForm] = useState([{
-    firstName: "",
-    lastName: "",    
-  }]);
+ 
 
-  const handleChange = (e, index) => {
-    const target = e.target;
-    const value = target.value;
-    const name = target.name;
-    let appStateCopy = JSON.parse(JSON.stringify(data));
+  const [formValues, setFormValues] = useState([{ firstName: "", lastName : ""}])
 
-    console.log("index: ", index);
-
-    appStateCopy.booking.info[index].firstName = {
-      ...form[index],
-      [name]: value,
-    };
+  let handleChange = (i, e) => {
+    let newFormValues = [...formValues];
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormValues(newFormValues); 
     
-    console.log("handlechange ", appStateCopy.booking.info);
+  }
 
-    setForm({
-      ...form[index],
-      [name]: value,
-    });
-  };
-
+  useEffect(() => {
+    for(let traveler of travelersToShow) {
+      setFormValues([...formValues, { firstName: "", lastName: "" }])
+    }
+  }, [travelersToShow])
   
+  useEffect(() => {
+    let appStateCopy =  JSON.parse(JSON.stringify(appState));
+    appStateCopy.booking.chosenSeats.names = formValues;
+    setAppState(appStateCopy);
+    console.log("app State", appState)
+  },[formValues])
+
+  function handleMail(e) {
+    let appStateCopy =  JSON.parse(JSON.stringify(appState));
+    appStateCopy.booking.email = e.target.value;
+    setAppState(appStateCopy);
+    console.log(appState)
+    
+    setMail(e.target.value)   
+  }
+
+  useEffect(() => {
+    setMail(mail)
+    
+
+  },[mail])
+
+  useEffect(() => {
+    let appStateCopy =  JSON.parse(JSON.stringify(appState));
+    appStateCopy.booking.email = mail;
+    setAppState(appStateCopy);
+    console.log(appState)
+  }, [mail])
+
+
+
   
 
  
@@ -73,44 +98,20 @@ export default function BookingInformation() {
             <b>{data.booking.departureTime}</b>
           </div>
           <div>
-            {travelersToShow.map((travelerToShow, index) => (
-              <div>
-                <div key={index}>
-                  <div className="text-lg">
-                    <div className=" grid grid-cols-2">
-                      <form
-                        id={form}
-                        className="grid grid-cols-1 justify-items-center  "
-                      >
-                        <input                       
-                          type="text"
-                          maxLength="20"
-                          name="firstName"
-                          value={form.firstName}
-                          required
-                          placeholder="Förnamn"
-                          onChange={(e) => handleChange(e, index)}
-                          className="h-5 w-56 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
-                        />
-
-                        <input                        
-                          type="text"
-                          maxLength="20"
-                          name="lastName"
-                          value={form.lastName}
-                          required
-                          placeholder="Efternamn"
-                          onChange={(e) => handleChange(e, index)}
-                          className="h-5 mt-4 border mx-2  bg-white text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm w-56"
-                        />
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <form>
+          {formValues.map((element, index) => (
+            <div className="form-inline text-black" key={index}>
+              
+              <input className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
+          drop-shadow-md shadow-black text-black rounded text-sm"
+              placeholder="Förnamn" autoComplete = "off" type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
+              
+              <input className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
+          drop-shadow-md shadow-black text-black rounded text-sm" placeholder="Efternamn" autoComplete = "off" type="text" name="email" value={element.email || ""} onChange={e => handleChange(index, e)} />              
+            </div>
+          ))}
+          
+      </form>
           </div>
           <div className="text-white text-lg mt-4 mb-6">
             <a className="font-semibold">Hur vill du ha biljetten?</a>
@@ -153,7 +154,7 @@ export default function BookingInformation() {
             </div>
           </div>
           <div className="grid grid-cols-1">
-            <input
+            <input onChange = {(e) => handleMail(e)}
               className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
           drop-shadow-md shadow-black text-black rounded text-sm"
               placeholder="Ange din mailadress"
