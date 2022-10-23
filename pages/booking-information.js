@@ -5,6 +5,7 @@ import Link from "next/link";
 import ExitButton from "../components/ExitButton";
 import BackButton from "../components/BackButton";
 
+
 export default function BookingInformation() {
   const [appState, setAppState] = useAppContext();
   const [data, setData] = useState(appState);
