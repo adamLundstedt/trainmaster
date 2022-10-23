@@ -78,12 +78,8 @@ export default function BookingInformation() {
 
 
 
-
-
-
-
   return (
-    <div className="h-screen w-full pt-[50px] ">
+    <div className="h-auto pt-[50px] ">
       <ExitButton />
       <a className="text-white text-lg ml-32 mb-6">Vilka ska resa?</a>
       <div className="bg-gray-600 bg-opacity-70 h-auto ml-5 mr-5">
@@ -98,14 +94,13 @@ export default function BookingInformation() {
           <div>
             <form>
               {formValues.map((element, index) => (
-                <div className="form-inline text-black" key={index}>
-
+                <div className="form-inline grid grid-cols-2 text-black" key={index}>
                   <input className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
-          drop-shadow-md shadow-black text-black rounded text-sm"
+                     drop-shadow-md shadow-black text-black rounded text-sm"
                     placeholder="Förnamn" autoComplete="off" type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
 
                   <input className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
-          drop-shadow-md shadow-black text-black rounded text-sm" placeholder="Efternamn" autoComplete="off" type="text" name="email" value={element.email || ""} onChange={e => handleChange(index, e)} />
+                   drop-shadow-md shadow-black text-black rounded text-sm" placeholder="Efternamn" autoComplete="off" type="text" name="email" value={element.email || ""} onChange={e => handleChange(index, e)} />
                 </div>
               ))}
 
@@ -116,7 +111,7 @@ export default function BookingInformation() {
             <a className="font-semibold">Hur vill du ha biljetten?</a>
           </div>
           <div className="rounded bg-white  ml-2 mr-2">
-            <div className="grid grid-cols-3 place-items-center">
+            <div className="grid grid-cols-2 place-items-center">
               <div className="text-black items-center ">
                 <input
                   type="radio"
@@ -128,17 +123,7 @@ export default function BookingInformation() {
                 />
                 <a className="pl-1 text-[12px] text-center ">Email</a>
               </div>
-              <div className="text-black items-center ">
-                <input
-                  type="radio"
-                  value="Sms"
-                  checked={checked.Sms}
-                  name="choice"
-                  className="mt-[5px] place-items-center "
-                  onChange={changeRadio}
-                />
-                <a className="pl-1 text-[12px] text-center ">Sms</a>
-              </div>
+
               <div className="text-black items-center ">
                 <input
                   type="radio"
@@ -159,12 +144,7 @@ export default function BookingInformation() {
               placeholder="Ange din mailadress"
               type="text"
             ></input>
-            <input
-              className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
-          drop-shadow-md shadow-black text-black rounded text-sm"
-              placeholder="Ange ditt mobilnummer"
-              type="text"
-            ></input>
+
           </div>
           <div className="text-lg mt-3">Summa totalt: 300 SEK</div>
         </div>

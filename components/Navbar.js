@@ -6,16 +6,11 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 export default function MobileNavbar() {
   return (
     <nav className="bg-white z-50 top-0 w-full h-10 ">
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-2">
         <div className=" ml-2 drop-shadow-md shadow-black text-3xl font-bold text-slate-500">
           TM
         </div>
-        <input className="w-full h-6 mt-2 border text-center 
-        drop-shadow-md shadow-black text-black rounded text-sm"
-          placeholder="Sök bokning"
-          type="text">
-        </input>
-        <div className="mt-3 ml-16" >
+        <div className="mt-3 ml-32" >
           <MyDropdown />
         </div>
       </div>

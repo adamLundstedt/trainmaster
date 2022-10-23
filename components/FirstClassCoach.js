@@ -745,7 +745,11 @@ export default function FirstClassCoach({ coachToRender, handleClickSeat }) {
 
           <div className="bg-gray-400 ml-14  hover:bg-gray-800 w-4 h-4 rounded" />
           Ledig stol
+          <div className="bg-red-500 ml-14  hover:bg-gray-800 w-4 h-4 rounded" />
+          Upptaget
         </div>
+
+
 
       </div>
 
