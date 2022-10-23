@@ -24,20 +24,13 @@ export default function Payment() {
               type="text"
             ></input>
           </div>
-          <div className="grid grid-cols-2">
-            <input
-              className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
+          <input
+            className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
           drop-shadow-md shadow-black text-black rounded text-sm"
-              placeholder="Giltigt till MM"
-              type="text"
-            ></input>
-            <input
-              className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
-          drop-shadow-md shadow-black text-black rounded text-sm"
-              placeholder="Giltigt till ÅÅ"
-              type="text"
-            ></input>
-          </div>
+            placeholder="Giltigt till ÅÅ/MM"
+            type="text"
+          ></input>
+
           <input
             className=" h-4 mt-4 border ml-2 mr-2 bg-white text-center 
           drop-shadow-md shadow-black text-black rounded text-sm"
